@@ -1,1 +1,2 @@
-# Digital House - Projeto Integrador do curso de Android - Grupo 02
+# Projeto Integrador - Grupo 02
+## Digital House - Curso de Android
