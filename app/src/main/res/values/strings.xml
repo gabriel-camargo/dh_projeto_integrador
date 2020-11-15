@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Projeto Integrador</string>
+    <string name="image_film_list">Image - Film list</string>
+    <string name="filmes">Filmes</string>
 </resources>
