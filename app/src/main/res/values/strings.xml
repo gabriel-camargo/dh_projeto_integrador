@@ -7,4 +7,5 @@
     <string name="tab_listas">Listas</string>
     <string name="tab_watchlist">Watchlist</string>
     <string name="criar_lista">Criar lista</string>
+    <string name="ten_stars_prefix">/ 10</string>
 </resources>

@@ -27,6 +27,18 @@ class MovieListRepository(private val context: Context) {
                     "Lista 5",
                     10
                 ),
+                MovieListModel(
+                    "Lista 5",
+                    10
+                ),
+                MovieListModel(
+                    "Lista 5",
+                    10
+                ),
+                MovieListModel(
+                    "Lista 5",
+                    10
+                ),
             )
         )
     }
