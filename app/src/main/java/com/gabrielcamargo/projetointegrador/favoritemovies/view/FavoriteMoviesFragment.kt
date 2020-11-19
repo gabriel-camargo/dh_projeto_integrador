@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager.widget.ViewPager
 import com.gabrielcamargo.projetointegrador.R
 import com.gabrielcamargo.projetointegrador.favoritemovies.movielist.view.MovieListFragment
+import com.gabrielcamargo.projetointegrador.favoritemovies.watchlist.view.WatchlistFragment
 import com.google.android.material.tabs.TabLayout
 
 class FavoriteMoviesFragment : Fragment() {

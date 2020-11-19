@@ -4,22 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".favoritemovies.view.WatchlistFragment">
+    tools:context=".favoritemovies.watchlist.view.WatchlistFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView_watchlistFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="WatchList"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fbtnCreatList_movieListFragment"
