@@ -16,12 +16,10 @@ class MovieDetailsRepository(private val context: Context) {
     val review1 = ReviewModel("Filme muito bom")
     val reviews = listOf(review1, review1, review1, review1)
     val mattDamon = CastModel("Matt Damon", "Mark Watney", R.drawable.img_cast)
-    val cast = listOf(mattDamon, mattDamon, mattDamon, mattDamon, mattDamon)
+    val cast = mutableListOf(mattDamon, mattDamon, mattDamon, mattDamon, mattDamon)
 
     fun getMovieDetails(callback: (movieDetails: MovieDetailsModel) -> Unit) {
         callback.invoke(
-
-
                 MovieDetailsModel(R.drawable.img_movie
                                 ,"Perdido em Marte"
                                 , 8.0
@@ -33,6 +31,10 @@ class MovieDetailsRepository(private val context: Context) {
                                 , reviews
                                 , cast)
         )
+    }
+
+    fun getCast(callback: (cast: MutableList<CastModel>) -> Unit) {
+        callback.invoke(cast)
     }
 
 }
