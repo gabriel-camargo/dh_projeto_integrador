@@ -7,5 +7,7 @@
     <string name="tab_watchlist">Watchlist</string>
     <string name="criar_lista">Criar lista</string>
     <string name="ten_stars_prefix">/ 10</string>
+    <string name="nome_lista_exemplo">Minha lista de filmes</string>
+    <string name="descricao_lista_exemplo">Exemplo de descrição da lista de filmes</string>
 
 </resources>
