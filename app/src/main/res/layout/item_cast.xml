@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:layout_width="wrap_content"
+    android:layout_width="100dp"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@color/gray_900"
         >
@@ -19,30 +20,37 @@
             android:id="@+id/imgCast"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:src="@drawable/img_cast"
-            />
+            tools:src="@drawable/img_cast" />
 
         <TextView
             android:id="@+id/txtCastActor"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
             android:fontFamily="@font/roboto_medium"
+            android:lines="2"
+            android:maxLines="2"
+            android:singleLine="false"
+            android:textColor="@color/white"
             android:textSize="20sp"
-            tools:text="Matt Damon"
-            />
+            tools:text="Matt Damon" />
 
         <TextView
             android:id="@+id/txtCastCharacter"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_light"
             android:textColor="@color/white"
+            android:layout_marginTop="10dp"
             tools:text="Mark Watney"
+            android:singleLine="false"
+            android:lines="2"
+            android:maxLines="2"
             android:textSize="20sp" />
 
 
     </LinearLayout>
+
+
 
 
 </androidx.cardview.widget.CardView>

@@ -1,4 +1,4 @@
-package com.gabrielcamargo.projetointegrador.moviedetails
+package com.gabrielcamargo.projetointegrador.moviedetails.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gabrielcamargo.projetointegrador.R
+import com.gabrielcamargo.projetointegrador.moviedetails.model.PhotoModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -47,17 +48,17 @@ class PhotosFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val viewManagerFotos = GridLayoutManager(activity, 2)
-        val recyclerViewFotos = view.findViewById<RecyclerView>(R.id.rcyVwPhotos)
+        val viewManagerPhotos = GridLayoutManager(activity, 2)
+        val recyclerViewPhotos = view.findViewById<RecyclerView>(R.id.rcyVwPhotos)
 
-        val foto1 = Photo(R.drawable.photo1)
-        val fotos = listOf(foto1, foto1, foto1)
+        val photo1 = PhotoModel(R.drawable.photo1)
+        val photos = listOf(photo1, photo1, photo1, photo1, photo1, photo1, photo1, photo1)
 
-        val viewAdapterFotos = PhotosAdapter(fotos)
+        val viewAdapterPhotos = PhotosAdapter(photos)
 
-        recyclerViewFotos.apply {
-            layoutManager = viewManagerFotos
-            adapter = viewAdapterFotos
+        recyclerViewPhotos.apply {
+            layoutManager = viewManagerPhotos
+            adapter = viewAdapterPhotos
         }
     }
 

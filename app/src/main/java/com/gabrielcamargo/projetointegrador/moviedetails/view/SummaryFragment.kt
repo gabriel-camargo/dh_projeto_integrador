@@ -1,4 +1,4 @@
-package com.gabrielcamargo.projetointegrador.moviedetails
+package com.gabrielcamargo.projetointegrador.moviedetails.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,12 +9,12 @@ import android.widget.TextView
 import com.gabrielcamargo.projetointegrador.R
 
 class SummaryFragment : Fragment() {
-    private var param1: String? = null
+    private var summary: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString("SUMMARY")
+            summary = it.getString("SUMMARY")
         }
     }
 
@@ -24,7 +24,7 @@ class SummaryFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_summary, container, false)
-        view.findViewById<TextView>(R.id.txtSummary).text = param1
+        view.findViewById<TextView>(R.id.txtSummary).text = summary
 
         return view
     }

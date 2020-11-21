@@ -1,4 +1,4 @@
-package com.gabrielcamargo.projetointegrador.moviedetails
+package com.gabrielcamargo.projetointegrador.moviedetails.view
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,22 +7,23 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.gabrielcamargo.projetointegrador.R
+import com.gabrielcamargo.projetointegrador.moviedetails.model.CastModel
 import com.squareup.picasso.Picasso
 
-class CastAdapter (private val dataset: List<Cast>): RecyclerView.Adapter<CastAdapter.CastViewHolder>() {
+class CastAdapter (private val dataset: List<CastModel>): RecyclerView.Adapter<CastAdapter.CastViewHolder>() {
 
     class CastViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        private val imagem: ImageView = view.findViewById(R.id.imgCast)
-        private val nomeAtor: TextView = view.findViewById(R.id.txtCastActor)
-        private val nomePersonagem: TextView = view.findViewById(R.id.txtCastCharacter)
+        private val image: ImageView = view.findViewById(R.id.imgCast)
+        private val ActorName: TextView = view.findViewById(R.id.txtCastActor)
+        private val CharacterName: TextView = view.findViewById(R.id.txtCastCharacter)
 
-        fun bind(elenco: Cast) {
-            nomeAtor.text = elenco.nomeAtor
-            nomePersonagem.text = elenco.nomePersonagem
+        fun bind(cast: CastModel) {
+            ActorName.text = cast.ActorName
+            CharacterName.text = cast.CharacterName
 
             Picasso.get()
-                .load(elenco.imagem)
-                .into(imagem)
+                .load(cast.image)
+                .into(image)
         }
 
     }

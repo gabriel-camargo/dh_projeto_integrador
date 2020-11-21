@@ -1,4 +1,4 @@
-package com.gabrielcamargo.projetointegrador.moviedetails
+package com.gabrielcamargo.projetointegrador.moviedetails.view
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

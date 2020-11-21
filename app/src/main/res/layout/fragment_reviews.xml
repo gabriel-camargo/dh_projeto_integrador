@@ -3,13 +3,13 @@
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-tools:context=".moviedetails.ReviewsFragment">
+tools:context=".moviedetails.view.ReviewsFragment">
 
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:textColor="@color/white"
-    tools:text="Filme Muito Bom"
-    />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcyVwReviews"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
 
 </FrameLayout>

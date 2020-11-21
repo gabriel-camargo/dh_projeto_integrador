@@ -1,4 +1,4 @@
-package com.gabrielcamargo.projetointegrador.moviedetails
+package com.gabrielcamargo.projetointegrador.moviedetails.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,14 +6,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.gabrielcamargo.projetointegrador.R
+import com.gabrielcamargo.projetointegrador.favoritemovies.watchlist.viewmodel.WatchlistViewModel
+import com.gabrielcamargo.projetointegrador.moviedetails.model.CastModel
+import com.gabrielcamargo.projetointegrador.moviedetails.viewModel.MovieDetailsViewModel
 import com.google.android.material.tabs.TabLayout
 
 class MovieDetailsActivity : AppCompatActivity() {
+    private lateinit var _viewModel: MovieDetailsViewModel
 
-
-    private lateinit var sinopseFragment: SummaryFragment
-    private lateinit var fotosFragment: PhotosFragment
-    private lateinit var reviewsFragment: ReviewsFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,14 +22,10 @@ class MovieDetailsActivity : AppCompatActivity() {
         val pager = findViewById<ViewPager>(R.id.viewPagerMovieDetails)
         val tab = findViewById<TabLayout>(R.id.tabMovieDetails)
 
-        sinopseFragment = SummaryFragment()
-        fotosFragment = PhotosFragment()
-        reviewsFragment = ReviewsFragment()
-
         val fragments =  listOf(
             SummaryFragment.newInstance("O astronauta Mark Watney (Matt Damon) é enviado a uma missão em Marte. Após uma severa tempestade ele é dado como morto, abandonado pelos colegas e acorda sozinho no misterioso planeta com escassos suprimentos, sem saber como reencontrar os companheiros ou retornar à Terra.")
-            , fotosFragment
-            , reviewsFragment
+            , PhotosFragment()
+            , ReviewsFragment()
         )
 
         val titulos = listOf(
@@ -43,10 +39,10 @@ class MovieDetailsActivity : AppCompatActivity() {
         val viewManagerElenco = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
         val recyclerViewElenco = findViewById<RecyclerView>(R.id.rcyVwCast)
 
-        val mattDamon = Cast("Matt Damon", "Mark Watney", R.drawable.img_cast)
-        val elencos = listOf(mattDamon, mattDamon, mattDamon)
+        val mattDamon = CastModel("Matt Damon", "Mark Watney", R.drawable.img_cast)
+        val cast = listOf(mattDamon, mattDamon, mattDamon, mattDamon, mattDamon)
 
-        val viewAdapterElenco = CastAdapter(elencos)
+        val viewAdapterElenco = CastAdapter(cast)
 
         recyclerViewElenco.apply {
             setHasFixedSize(true)

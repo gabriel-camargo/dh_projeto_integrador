@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:hardwareAccelerated="false"
         android:theme="@style/Theme.ProjetoIntegrador">
-        <activity android:name=".moviedetails.MovieDetailsActivity">
+        <activity android:name=".moviedetails.view.MovieDetailsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
