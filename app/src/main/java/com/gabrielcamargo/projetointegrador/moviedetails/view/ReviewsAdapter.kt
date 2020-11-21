@@ -15,11 +15,12 @@ class ReviewsAdapter(private val dataset: List<ReviewModel>): RecyclerView.Adapt
 
     class ReviewsViewHolder(view: View): RecyclerView.ViewHolder(view) {
         private val reviewTxt: TextView = view.findViewById(R.id.txtReview)
+        private val rateTxt: TextView = view.findViewById(R.id.txtRateReviews)
 
         fun bind(review: ReviewModel) {
             reviewTxt.text = review.review
+            rateTxt.text = review.rate.toString()
         }
-
     }
 
     override fun onCreateViewHolder(

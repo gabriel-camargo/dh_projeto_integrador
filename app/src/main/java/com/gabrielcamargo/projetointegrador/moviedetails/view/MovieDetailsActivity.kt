@@ -42,7 +42,7 @@ class MovieDetailsActivity : AppCompatActivity() {
         val tab = findViewById<TabLayout>(R.id.tabMovieDetails)
 
         val fragments =  listOf(
-            SummaryFragment.newInstance("O astronauta Mark Watney (Matt Damon) é enviado a uma missão em Marte. Após uma severa tempestade ele é dado como morto, abandonado pelos colegas e acorda sozinho no misterioso planeta com escassos suprimentos, sem saber como reencontrar os companheiros ou retornar à Terra.")
+            SummaryFragment()
             , PhotosFragment()
             , ReviewsFragment()
         )
