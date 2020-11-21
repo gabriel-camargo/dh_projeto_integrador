@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gabrielcamargo.projetointegrador.R
-import com.gabrielcamargo.projetointegrador.home.model.Movie
+import com.gabrielcamargo.projetointegrador.home.model.FilmeModel
 
-class HomeAdapter (private val movies: List<Movie>, private val listener: (Movie) -> Unit) :
+class HomeAdapter (private val filmesModel: List<FilmeModel>, private val listener: (FilmeModel) -> Unit) :
     RecyclerView.Adapter<ItemViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_card, parent, false)
@@ -14,10 +14,10 @@ class HomeAdapter (private val movies: List<Movie>, private val listener: (Movie
         return ItemViewHolder(view)
     }
 
-    override fun getItemCount() = movies.size
+    override fun getItemCount() = filmesModel.size
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        holder.bind(movies[position])
-        holder.itemView.setOnClickListener { listener(movies[position]) }
+        holder.bind(filmesModel[position])
+        holder.itemView.setOnClickListener { listener(filmesModel[position]) }
     }
 }

@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.gabrielcamargo.projetointegrador.R
-import com.gabrielcamargo.projetointegrador.home.model.Movie
+import com.gabrielcamargo.projetointegrador.home.model.FilmeModel
 
 class ItemViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
@@ -15,10 +15,10 @@ class ItemViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
 
 
-    fun bind(movie: Movie) {
-        tvName.text = movie.name
+    fun bind(filmeModel: FilmeModel) {
+        tvName.text = filmeModel.nome
 
-        val avatarDrawable = ContextCompat.getDrawable(view.context, movie.image);
+        val avatarDrawable = ContextCompat.getDrawable(view.context, filmeModel.imagem);
 
         ivImage.setImageDrawable(avatarDrawable)
 
