@@ -1,4 +1,4 @@
-<resources>
+ <resources>
     <string name="app_name">Projeto Integrador</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="image_film_list">Image - Film list</string>
@@ -9,5 +9,14 @@
     <string name="ten_stars_prefix">/ 10</string>
     <string name="nome_lista_exemplo">Minha lista de filmes</string>
     <string name="descricao_lista_exemplo">Exemplo de descrição da lista de filmes</string>
+  
+    <string name="sinopse">Sinopse</string>
+    <string name="fotos">Fotos</string>
+    <string name="reviews">Reviews</string>
+    <string name="perdido_em_marte">Perdido em Marte</string>
+    <string name="_8_0_10_0">8,0/10,0</string>
+    <string name="_2015">2015</string>
+    <string name="_2h_31min">2h 31min</string>
+    <string name="elenco">Elenco</string>
 
 </resources>
