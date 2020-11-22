@@ -9,14 +9,6 @@
     android:weightSum="1"
     android:padding="@dimen/dim_espacamento_40dp">
 
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@mipmap/ic_channel_foreground"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/dim_espacamento_70dp"
-            android:layout_marginLeft="@dimen/dim_espacamento_15dp"/>
 
         <TextView
             android:id="@+id/txt_logo"
@@ -32,13 +24,5 @@
             android:shadowDy="7"
             android:shadowColor="@color/gray_600"/>
 
-        <ProgressBar
-            android:id="@+id/progressSplashBar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_marginHorizontal="@dimen/dim_espacamento_40dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_weight="0.1" />
 
 </LinearLayout >
