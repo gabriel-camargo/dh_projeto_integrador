@@ -4,4 +4,14 @@
     <dimen name="dimen_md_padding">16dp</dimen>
     <dimen name="dimen_card_corner_radius">16dp</dimen>
     <dimen name="dimen_100_dp">100dp</dimen>
+
+    <dimen name="dim_espacamento_60dp">60dp</dimen>
+    <dimen name="dim_espacamento_50dp">50dp</dimen>
+    <dimen name="dim_espacamento_40dp">40dp</dimen>
+    <dimen name="dim_espacamento_30dp">30dp</dimen>
+    <dimen name="dim_espacamento_20dp">20dp</dimen>
+    <dimen name="dim_espacamento_10dp">10dp</dimen>
+    <dimen name="dim_espacamento_15dp">15dp</dimen>
+    <dimen name="dim_espacamento_70dp">70dp</dimen>
+
 </resources>
