@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gabrielcamargo.projetointegrador.R
 import com.gabrielcamargo.projetointegrador.home.model.FilmeModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 const val  SPAN_COUNT = 2
 
