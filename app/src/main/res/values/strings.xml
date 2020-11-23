@@ -36,5 +36,9 @@
     <string name="alterar_e_mail">Alterar e-mail</string>
     <string name="alterar_password">Alterar password</string>
     <string name="sair">Sair</string>
+    <string name="home">Home</string>
+    <string name="pesquisar">Pesquisar</string>
+    <string name="listas">Listas</string>
+    <string name="usu_rio">Usuário</string>
 
 </resources>
