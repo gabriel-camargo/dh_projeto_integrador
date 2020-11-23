@@ -101,10 +101,10 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/btn_singUp"
+        android:id="@+id/btn_signUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/sing_up"
+        android:text="@string/sign_up"
         android:layout_marginTop="@dimen/dim_espacamento_40dp"
         android:textAllCaps="true"
         android:textStyle="bold"

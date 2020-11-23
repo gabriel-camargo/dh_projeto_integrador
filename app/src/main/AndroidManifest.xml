@@ -18,13 +18,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".moviedetails.view.MovieDetailsActivity" />
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".SingUpActivity" />
+        <activity android:name=".moviedetails.view.MovieDetailsActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".SignUpActivity"
+            android:parentActivityName=".LoginActivity"
+            android:label="Sign Up"
+            android:theme="@style/Theme.SignUp"
+            />
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity">
-
         </activity>
     </application>
 

@@ -85,16 +85,16 @@
         android:textSize="14sp"
         android:textAlignment="viewEnd"/>
 
-    <TextView
-        android:id="@+id/txt_singUp"
+    <Button
+        android:id="@+id/btn_signUpLogin"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_marginTop="@dimen/dim_espacamento_50dp"
         android:textColor="@color/purple_400"
-        android:text="@string/sing_up"
-        android:textStyle="bold"
+        android:text="@string/sign_up"
         android:textSize="16sp"
         android:textAllCaps="true"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:textAlignment="center"/>
 
     <LinearLayout
