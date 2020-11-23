@@ -9,33 +9,47 @@ class MovieListDetailsRepository(private val context: Context) {
         callback.invoke(
             mutableListOf<MovieModel>(
                 MovieModel(
-                    "Filme 1 - Bla bla bla bla bla bla bla Bla bla bla bla bla bla bla",
-                    8.3,
-                    "Ficção científica",
-                    2020,
+                    "Interestelar",
+                    8.6,
+                    "Ficção científica, Aventura, Drama",
+                    2014,
                     R.drawable.interstellar
                 ),
                 MovieModel(
-                    "Filme 2",
-                    7.3,
-                    "Terror, Drama",
-                    2018,
+                    "Invocação do Mal",
+                    7.5,
+                    "Terror, Mistério",
+                    2013,
+                    R.drawable.invocacao
+                ),
+                MovieModel(
+                    "Vingadores - Endgame",
+                    8.4,
+                    "Ação, Aventura",
+                    2019,
+                    R.drawable.vingadores
+                ),
+                MovieModel(
+                    "Interestelar",
+                    8.6,
+                    "Ficção científica, Aventura, Drama",
+                    2014,
                     R.drawable.interstellar
                 ),
                 MovieModel(
-                    "Filme 3 - A volta",
-                    8.3,
-                    "Ficção científica, Drama, Fantasia",
-                    2020,
-                    R.drawable.interstellar
+                    "Invocação do Mal",
+                    7.5,
+                    "Terror, Mistério",
+                    2013,
+                    R.drawable.invocacao
                 ),
                 MovieModel(
-                    "Filme 4",
-                    7.3,
-                    "Drama",
-                    2018,
-                    R.drawable.interstellar
-                )
+                    "Vingadores - Endgame",
+                    8.4,
+                    "Ação, Aventura",
+                    2019,
+                    R.drawable.vingadores
+                ),
             )
         )
     }
