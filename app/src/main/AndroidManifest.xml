@@ -4,22 +4,27 @@
 
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:hardwareAccelerated="false"
         android:theme="@style/Theme.ProjetoIntegrador">
 
-        <activity android:name=".moviedetails.view.MovieDetailsActivity">
-
-        </activity>
-        <activity android:name=".home.MainActivity">
+        <activity android:name=".SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity android:name=".moviedetails.view.MovieDetailsActivity" />
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".SingUpActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".MainActivity">
+
         </activity>
     </application>
 
