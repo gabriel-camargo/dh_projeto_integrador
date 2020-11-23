@@ -1,5 +1,6 @@
 package com.gabrielcamargo.projetointegrador.movielistdetails.view
 
+import android.content.Intent
 import android.media.Image
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -19,6 +20,7 @@ import com.gabrielcamargo.projetointegrador.favoritemovies.movielist.repository.
 import com.gabrielcamargo.projetointegrador.favoritemovies.movielist.viewmodel.MovieListViewModel
 import com.gabrielcamargo.projetointegrador.favoritemovies.watchlist.model.MovieModel
 import com.gabrielcamargo.projetointegrador.favoritemovies.watchlist.view.WatchListAdapter
+import com.gabrielcamargo.projetointegrador.moviedetails.view.MovieDetailsActivity
 import com.gabrielcamargo.projetointegrador.movielistdetails.repository.MovieListDetailsRepository
 import com.gabrielcamargo.projetointegrador.movielistdetails.viewmodel.MovieListDetailsViewModel
 import com.squareup.picasso.Picasso
@@ -68,7 +70,11 @@ class MovieListDetailsFragment : Fragment() {
 
         _viewModel = ViewModelProvider(
             this,
-            MovieListDetailsViewModel.MovieListDetailsViewModelFactory(MovieListDetailsRepository(_myView.context))
+            MovieListDetailsViewModel.MovieListDetailsViewModelFactory(
+                MovieListDetailsRepository(
+                    _myView.context
+                )
+            )
         ).get(MovieListDetailsViewModel::class.java)
 
         _viewModel.movies.observe(viewLifecycleOwner, Observer {
@@ -93,16 +99,18 @@ class MovieListDetailsFragment : Fragment() {
                 .centerCrop()
                 .into(imgView)
         }
-
-
     }
 
     private fun createList(movies: List<MovieModel>) {
         val viewManager = LinearLayoutManager(_myView.context)
-        val recyclerView = _myView.findViewById<RecyclerView>(R.id.recyclerView_movieListDetailsFragment)
+        val recyclerView =
+            _myView.findViewById<RecyclerView>(R.id.recyclerView_movieListDetailsFragment)
 
         val viewAdapter = WatchListAdapter(movies) {
-            Toast.makeText(_myView.context, it.name, Toast.LENGTH_SHORT).show()
+
+            val intent = Intent(activity, MovieDetailsActivity::class.java)
+            startActivity(intent)
+
         }
 
         recyclerView.addItemDecoration(
