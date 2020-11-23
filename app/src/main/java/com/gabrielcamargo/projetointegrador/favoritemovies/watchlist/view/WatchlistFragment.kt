@@ -1,5 +1,6 @@
 package com.gabrielcamargo.projetointegrador.favoritemovies.watchlist.view
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,6 +16,7 @@ import com.gabrielcamargo.projetointegrador.R
 import com.gabrielcamargo.projetointegrador.favoritemovies.watchlist.model.MovieModel
 import com.gabrielcamargo.projetointegrador.favoritemovies.watchlist.repository.WatchlistRepository
 import com.gabrielcamargo.projetointegrador.favoritemovies.watchlist.viewmodel.WatchlistViewModel
+import com.gabrielcamargo.projetointegrador.moviedetails.view.MovieDetailsActivity
 
 class WatchlistFragment : Fragment() {
     lateinit var myView: View
@@ -37,8 +39,8 @@ class WatchlistFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         _viewModel = ViewModelProvider(
-                this,
-                WatchlistViewModel.WatchlistViewModelFactory(WatchlistRepository(myView.context))
+            this,
+            WatchlistViewModel.WatchlistViewModelFactory(WatchlistRepository(myView.context))
         ).get(WatchlistViewModel::class.java)
 
         _viewModel.movies.observe(viewLifecycleOwner, Observer {
@@ -53,14 +55,15 @@ class WatchlistFragment : Fragment() {
         val recyclerView = myView.findViewById<RecyclerView>(R.id.recyclerView_watchlistFragment)
 
         val viewAdapter = WatchListAdapter(movies) {
-            Toast.makeText(myView.context, it.name, Toast.LENGTH_SHORT).show()
+            val intent = Intent(activity, MovieDetailsActivity::class.java)
+            startActivity(intent)
         }
 
         recyclerView.addItemDecoration(
-                DividerItemDecoration(
-                        recyclerView.context,
-                        DividerItemDecoration.VERTICAL
-                )
+            DividerItemDecoration(
+                recyclerView.context,
+                DividerItemDecoration.VERTICAL
+            )
         )
 
         recyclerView.apply {

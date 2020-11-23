@@ -1,5 +1,6 @@
 package com.gabrielcamargo.projetointegrador.favoritemovies.movielist.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,8 @@ import com.gabrielcamargo.projetointegrador.R
 import com.gabrielcamargo.projetointegrador.favoritemovies.movielist.model.MovieListModel
 import com.gabrielcamargo.projetointegrador.favoritemovies.movielist.repository.MovieListRepository
 import com.gabrielcamargo.projetointegrador.favoritemovies.movielist.viewmodel.MovieListViewModel
+import com.gabrielcamargo.projetointegrador.moviedetails.view.MovieDetailsActivity
+import com.gabrielcamargo.projetointegrador.movielistdetails.view.MovieListDetailsActivity
 
 
 class MovieListFragment : Fragment() {
@@ -54,7 +57,12 @@ class MovieListFragment : Fragment() {
         val recyclerView = myView.findViewById<RecyclerView>(R.id.recyclerView_movieListFragment)
 
         val viewAdapter = MovieListAdapter(movieLists) {
-            Toast.makeText(myView.context, it.nome, Toast.LENGTH_SHORT).show()
+
+            val intent = Intent(activity, MovieListDetailsActivity::class.java)
+            intent.putExtra(getString(R.string.intent_list_name), it.nome)
+            intent.putExtra(getString(R.string.intent_list_img), it.img)
+
+            startActivity(intent)
         }
 
         recyclerView.addItemDecoration(
