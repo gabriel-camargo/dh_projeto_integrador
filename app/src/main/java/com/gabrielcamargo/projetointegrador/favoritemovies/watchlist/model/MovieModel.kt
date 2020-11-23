@@ -4,5 +4,6 @@ data class MovieModel(
     val name: String,
     val stars: Double,
     val genre: String,
-    val year: Int
+    val year: Int,
+    val img: Int
 )

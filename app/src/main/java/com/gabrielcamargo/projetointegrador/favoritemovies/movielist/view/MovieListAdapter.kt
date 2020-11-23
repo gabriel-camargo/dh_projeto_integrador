@@ -13,7 +13,7 @@ class MovieListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieListViewHolder {
         val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_movies_list, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_movie_list, parent, false)
 
         return MovieListViewHolder(view)
     }

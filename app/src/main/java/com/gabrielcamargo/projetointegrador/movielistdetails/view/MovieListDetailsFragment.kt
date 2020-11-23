@@ -34,7 +34,7 @@ class MovieListDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _myView = inflater.inflate(R.layout.movie_list_details_fragment, container, false)
+        _myView = inflater.inflate(R.layout.fragment_movie_list_details, container, false)
         return _myView
     }
 
