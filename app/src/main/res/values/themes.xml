@@ -27,4 +27,24 @@
         <item name="android:background">@drawable/rounded_shape</item>
     </style>
 
+
+
+
+    <style name="Theme.SignUp" parent="Theme.MaterialComponents">
+        <!-- Dark as default -->
+
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/purple_400</item>
+        <item name="colorPrimaryVariant">@color/purple_800</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/purple_400</item>
+        <item name="colorSecondaryVariant">@color/purple_400</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">@color/gray_900</item>
+        <!-- Customize your theme here. -->
+
+    </style>
+
 </resources>

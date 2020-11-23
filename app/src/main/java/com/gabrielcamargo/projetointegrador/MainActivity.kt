@@ -1,23 +1,13 @@
 package com.gabrielcamargo.projetointegrador
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.view.View
-import android.view.WindowManager
-import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import com.gabrielcamargo.projetointegrador.account.view.AccountFragment
 import com.gabrielcamargo.projetointegrador.favoritemovies.view.FavoriteMoviesFragment
 import com.gabrielcamargo.projetointegrador.home.view.HomeFragment
 import com.gabrielcamargo.projetointegrador.search.view.BuscaFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.textfield.TextInputEditText
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,6 +17,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val transactionFragment = supportFragmentManager.beginTransaction()
+        transactionFragment.replace(R.id.frameLayout_mainActivity, HomeFragment())
+        transactionFragment.commit()
 
         bottomNavigation = findViewById(R.id.bottom_navigation)
         bottomNavigation.setOnNavigationItemSelectedListener {
@@ -47,7 +41,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.page_user -> {
-                    setupFragment(HomeFragment())
+                    setupFragment(AccountFragment())
 
                     // Respond to navigation item 2 click
                     true
