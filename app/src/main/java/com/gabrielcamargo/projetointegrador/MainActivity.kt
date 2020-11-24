@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import com.gabrielcamargo.projetointegrador.account.view.AccountFragment
 import com.gabrielcamargo.projetointegrador.favoritemovies.view.FavoriteMoviesFragment
 import com.gabrielcamargo.projetointegrador.home.view.HomeFragment
-import com.gabrielcamargo.projetointegrador.search.view.BuscaFragment
+import com.gabrielcamargo.projetointegrador.search.view.SearchFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.page_search -> {
-                    setupFragment(BuscaFragment())
+                    setupFragment(SearchFragment())
                     // Respond to navigation item 2 click
                     true
                 }
