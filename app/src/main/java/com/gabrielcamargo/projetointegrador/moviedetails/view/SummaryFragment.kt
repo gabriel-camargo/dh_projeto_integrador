@@ -8,16 +8,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.gabrielcamargo.projetointegrador.R
-import com.gabrielcamargo.projetointegrador.moviedetails.model.PhotoModel
-import com.gabrielcamargo.projetointegrador.moviedetails.repository.MovieDetailsRepository
-import com.gabrielcamargo.projetointegrador.moviedetails.viewModel.MovieDetailsViewModel
+import com.gabrielcamargo.projetointegrador.moviedetails.repository.SummaryRepository
+import com.gabrielcamargo.projetointegrador.moviedetails.viewModel.SummaryViewModel
 
 class SummaryFragment : Fragment() {
     lateinit var _view: View
-    private lateinit var _viewModel: MovieDetailsViewModel
+    private lateinit var _viewModel: SummaryViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,8 +31,8 @@ class SummaryFragment : Fragment() {
 
         _viewModel = ViewModelProvider(
                 this,
-                MovieDetailsViewModel.MovieDetailsViewModelFactory(MovieDetailsRepository(_view.context))
-        ).get(MovieDetailsViewModel::class.java)
+                SummaryViewModel.SummaryViewModelFactory(SummaryRepository(_view.context))
+        ).get(SummaryViewModel::class.java)
 
         _viewModel.summary.observe(viewLifecycleOwner, Observer {
             val summary = _view.findViewById<TextView>(R.id.txtSummary)
