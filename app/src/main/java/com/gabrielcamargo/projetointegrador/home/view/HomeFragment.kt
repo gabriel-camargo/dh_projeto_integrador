@@ -1,5 +1,6 @@
 package com.gabrielcamargo.projetointegrador.home.view
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gabrielcamargo.projetointegrador.R
 import com.gabrielcamargo.projetointegrador.home.model.FilmeModel
+import com.gabrielcamargo.projetointegrador.moviedetails.view.MovieDetailsActivity
 
 const val  SPAN_COUNT = 2
 
@@ -39,7 +41,7 @@ class HomeFragment : Fragment() {
                 FilmeModel("corra!",R.drawable.corra)
             )
         val filmesCinema = arrayListOf<FilmeModel>(
-                FilmeModel("matrix",R.drawable.matrix),
+                FilmeModel("Matrix",R.drawable.matrix),
                 FilmeModel("Perdido em Marte",R.drawable.perdidomarte),
 
                 FilmeModel("corra!",R.drawable.corra),
@@ -51,8 +53,14 @@ class HomeFragment : Fragment() {
         val recyclerViewPopular = view.findViewById<RecyclerView>(R.id.recyclerCardPopular)
         val recyclerViewCinema = view.findViewById<RecyclerView>(R.id.recyclerCardCinema)
 
-        val viewAdapterPopular = HomeAdapter(filmesPopular){}
-        val viewAdapterCinema = HomeAdapter(filmesCinema){}
+        val viewAdapterPopular = HomeAdapter(filmesPopular){
+            val intent = Intent(view.context, MovieDetailsActivity::class.java)
+            startActivity(intent)
+        }
+        val viewAdapterCinema = HomeAdapter(filmesCinema){
+            val intent = Intent(view.context, MovieDetailsActivity::class.java)
+            startActivity(intent)
+        }
 
         recyclerViewPopular.apply {
             setHasFixedSize(true)
