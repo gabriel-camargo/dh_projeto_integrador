@@ -1,23 +1,12 @@
 package com.gabrielcamargo.projetointegrador
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.view.View
-import android.view.WindowManager
-import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.gabrielcamargo.projetointegrador.favoritemovies.view.FavoriteMoviesFragment
 import com.gabrielcamargo.projetointegrador.home.view.HomeFragment
-import com.gabrielcamargo.projetointegrador.search.view.BuscaFragment
+import com.gabrielcamargo.projetointegrador.search.view.SearchFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.textfield.TextInputEditText
 
 class MainActivity : AppCompatActivity() {
 
@@ -36,7 +25,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.page_search -> {
-                    setupFragment(BuscaFragment())
+                    setupFragment(SearchFragment())
                     // Respond to navigation item 2 click
                     true
                 }
