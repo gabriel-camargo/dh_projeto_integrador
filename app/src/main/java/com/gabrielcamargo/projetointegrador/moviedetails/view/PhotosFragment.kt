@@ -1,4 +1,4 @@
-package com.gabrielcamargo.projetointegrador.moviedetails.view
+package com.gabrielcamargo.projetointegrador.Photos.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,18 +8,17 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gabrielcamargo.projetointegrador.R
 import com.gabrielcamargo.projetointegrador.moviedetails.model.PhotoModel
-import com.gabrielcamargo.projetointegrador.moviedetails.model.ReviewModel
-import com.gabrielcamargo.projetointegrador.moviedetails.repository.MovieDetailsRepository
-import com.gabrielcamargo.projetointegrador.moviedetails.viewModel.MovieDetailsViewModel
+import com.gabrielcamargo.projetointegrador.moviedetails.repository.PhotosRepository
+import com.gabrielcamargo.projetointegrador.moviedetails.view.PhotosAdapter
+import com.gabrielcamargo.projetointegrador.moviedetails.viewModel.PhotosViewModel
 
 class PhotosFragment : Fragment() {
 
     lateinit var _view: View
-    private lateinit var _viewModel: MovieDetailsViewModel
+    private lateinit var _viewModel: PhotosViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,8 +34,8 @@ class PhotosFragment : Fragment() {
 
         _viewModel = ViewModelProvider(
                 this,
-                MovieDetailsViewModel.MovieDetailsViewModelFactory(MovieDetailsRepository(_view.context))
-        ).get(MovieDetailsViewModel::class.java)
+                PhotosViewModel.PhotosViewModelFactory(PhotosRepository(_view.context))
+        ).get(PhotosViewModel::class.java)
 
         _viewModel.photos.observe(viewLifecycleOwner, Observer {
             createPhotoList(it)

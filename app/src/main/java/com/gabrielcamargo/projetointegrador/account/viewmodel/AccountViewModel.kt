@@ -5,10 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.gabrielcamargo.projetointegrador.account.model.AccountModel
 import com.gabrielcamargo.projetointegrador.account.repository.AccountRepository
-import com.gabrielcamargo.projetointegrador.moviedetails.model.CastModel
-import com.gabrielcamargo.projetointegrador.moviedetails.model.PhotoModel
-import com.gabrielcamargo.projetointegrador.moviedetails.model.ReviewModel
-import com.gabrielcamargo.projetointegrador.moviedetails.repository.MovieDetailsRepository
 
 class AccountViewModel(
     private val repository: AccountRepository
