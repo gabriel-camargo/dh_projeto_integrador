@@ -13,7 +13,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/dim_espacamento_20dp"
         android:text="@string/cinelist"
         android:textSize="45sp"
         android:textAlignment="center"
@@ -28,7 +27,7 @@
         android:id="@+id/edt_singupNomeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dim_espacamento_60dp"
+        android:layout_marginTop="@dimen/dim_espacamento_40dp"
         android:hint="@string/nome"
         app:endIconMode="clear_text"
         android:textColorHint="@color/gray_600"
@@ -101,10 +100,10 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/btn_singUp"
+        android:id="@+id/btn_signUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/sing_up"
+        android:text="@string/sign_up"
         android:layout_marginTop="@dimen/dim_espacamento_40dp"
         android:textAllCaps="true"
         android:textStyle="bold"

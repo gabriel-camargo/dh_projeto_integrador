@@ -27,7 +27,7 @@
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="esqueceu_sua_senha">Esqueceu sua senha?</string>
-    <string name="sing_up">Sing Up</string>
+    <string name="sign_up">Sign Up</string>
     <string name="facebook">Facebook</string>
     <string name="google">Google</string>
     <string name="confirme_o_password">Confirme o password</string>
@@ -40,5 +40,7 @@
     <string name="pesquisar">Pesquisar</string>
     <string name="listas">Listas</string>
     <string name="usu_rio">Usuário</string>
+    <string name="intent_list_name">LIST_NAME</string>
+    <string name="intent_list_img">LIST_IMAGE</string>
 
 </resources>
