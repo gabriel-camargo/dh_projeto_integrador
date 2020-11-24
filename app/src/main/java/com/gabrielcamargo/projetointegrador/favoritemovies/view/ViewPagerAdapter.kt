@@ -3,21 +3,23 @@ package com.gabrielcamargo.projetointegrador.favoritemovies.view
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.gabrielcamargo.projetointegrador.favoritemovies.movielist.view.MovieListFragment
+import com.gabrielcamargo.projetointegrador.favoritemovies.watchlist.view.WatchlistFragment
 
 class ViewPagerAdapter(
-    private val fragments: List<Fragment>,
-    private val titles: List<String>,
-    manager: FragmentManager
-): FragmentPagerAdapter(
-    manager,
-    BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
+    fragment: Fragment
+): FragmentStateAdapter(
+    fragment
 ) {
-    //quantidade de tabs
-    override fun getCount() = this.fragments.size
+    override fun getItemCount(): Int = 2
 
-    //retorna o fragment correspondente
-    override fun getItem(position: Int) = this.fragments[position]
+    override fun createFragment(position: Int): Fragment = if(position==0) {
+        MovieListFragment()
+    } else {
+        WatchlistFragment()
+    }
 
-    //retorna o nome da tab
-    override fun getPageTitle(position: Int) = this.titles[position]
+
 }
