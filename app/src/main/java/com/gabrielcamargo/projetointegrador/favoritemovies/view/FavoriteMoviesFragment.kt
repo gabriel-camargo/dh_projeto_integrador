@@ -7,17 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
 import com.gabrielcamargo.projetointegrador.R
 import com.gabrielcamargo.projetointegrador.favoritemovies.movielist.view.MovieListFragment
 import com.gabrielcamargo.projetointegrador.favoritemovies.watchlist.view.WatchlistFragment
 import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 
 class FavoriteMoviesFragment : Fragment() {
 
-    private val movieListFragment = MovieListFragment()
-    private val watchlistFragment = WatchlistFragment()
-
     private lateinit var myView: View
+    private lateinit var viewPagerAdapter: ViewPagerAdapter
+    private lateinit var viewPager: ViewPager2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,23 +29,27 @@ class FavoriteMoviesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        myView =  inflater.inflate(R.layout.fragment_favorite_movies, container, false)
+        myView = inflater.inflate(R.layout.fragment_favorite_movies, container, false)
         return myView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val pager: ViewPager = myView.findViewById(R.id.vpMovieList_movieListFragment)
-        val tab: TabLayout = myView.findViewById(R.id.tabs_movieListFragment)
+        viewPagerAdapter = ViewPagerAdapter(this)
+        viewPager = myView.findViewById(R.id.vpMovieList_movieListFragment)
+        viewPager.isSaveEnabled = false
+        viewPager.adapter = viewPagerAdapter
 
-        tab.setupWithViewPager(pager)
+        val tabLayout: TabLayout = myView.findViewById(R.id.tabs_movieListFragment)
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            tab.text = if (position == 0) {
+                getString(R.string.tab_listas)
+            } else {
+                getString(R.string.tab_watchlist)
+            }
 
-        val fragments = listOf<Fragment>(movieListFragment, watchlistFragment)
-        val titles = listOf<String>(getString(R.string.tab_listas), getString(R.string.tab_watchlist))
-        val fragmentManagerTabLayout = (activity as FragmentActivity).supportFragmentManager
-
-        pager.adapter = ViewPagerAdapter(fragments, titles, fragmentManagerTabLayout)
+        }.attach()
     }
 
     companion object {
