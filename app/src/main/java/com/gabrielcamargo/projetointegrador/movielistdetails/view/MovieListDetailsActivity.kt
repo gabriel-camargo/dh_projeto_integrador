@@ -1,6 +1,7 @@
 package com.gabrielcamargo.projetointegrador.movielistdetails.view
 
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.gabrielcamargo.projetointegrador.R
 
@@ -18,13 +19,18 @@ class MovieListDetailsActivity : AppCompatActivity() {
 //
 //            val ss:String = intent.getStringExtra("samplename")
 
-
-
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container, MovieListDetailsFragment.newInstance(
                     title, img
                 ))
                 .commitNow()
         }
+
+        val back = findViewById<ImageView>(R.id.btn_BackListDetails)
+
+        back.setOnClickListener() {
+            onBackPressed()
+        }
+
     }
 }
