@@ -16,12 +16,27 @@ android:fillViewport="true">
     tools:context=".filmedetalhes.MovieDetailsActivity"
     >
 
-    <ImageView
-        android:id="@+id/img_movieDetails"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:src="@drawable/img_movie"
-        />
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/img_movieDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:src="@drawable/img_movie"
+            />
+
+        <ImageView
+            android:id="@+id/btn_BackMovieDetails"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="18dp"
+            app:tint="@color/purple_800"
+            android:src="@drawable/ic_baseline_arrow_back_24"/>
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

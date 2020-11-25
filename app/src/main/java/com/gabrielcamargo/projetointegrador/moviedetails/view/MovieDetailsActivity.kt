@@ -31,6 +31,11 @@ class MovieDetailsActivity : AppCompatActivity() {
         createCastView()
         createFragments()
 
+        val back = findViewById<ImageView>(R.id.btn_BackMovieDetails)
+
+        back.setOnClickListener() {
+            onBackPressed()
+        }
 
 
     }
