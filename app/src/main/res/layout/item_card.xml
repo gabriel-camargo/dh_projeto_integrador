@@ -11,7 +11,7 @@
 
     <LinearLayout
         android:layout_width="@dimen/dim_espacamento_120dp"
-        android:layout_height="@dimen/dim_espacamento_200dp"
+        android:layout_height="@dimen/dim_espacamento_220dp"
         android:orientation="vertical"
         android:padding="10dp">
 
@@ -23,17 +23,18 @@
 
         <TextView
             android:id="@+id/tvNameCard"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="@dimen/dim_8pt"
-            android:layout_marginTop="@dimen/dim_espacamento_8dp"
             android:fontFamily="sans-serif"
             android:layout_gravity="center"
-            tools:text="Sonic"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:ellipsize="end"/>
+            android:gravity="center"
+            tools:text="Matrix"
+            android:singleLine="false"
+            android:lines="2"
+            android:maxLines="2"
+            />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -42,24 +42,23 @@ android:fillViewport="true">
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_margin="20dp"
+        android:layout_margin="@dimen/dim_espacamento_20dp"
         tools:ignore="UseCompoundDrawables">
 
         <TextView
             android:id="@+id/txt_nameMovieDetails"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:fontFamily="@font/roboto_medium"
             android:textColor="@color/white"
-            android:textSize="36sp"
+            android:textSize="@dimen/dim_36sp"
             tools:text="@string/perdido_em_marte" />
 
         <ImageView
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="5dp"
+            android:layout_width="@dimen/dim_espacamento_30dp"
+            android:layout_height="match_parent"
+            android:paddingTop="@dimen/dim_espacamento_8dp"
+            android:layout_marginStart="@dimen/dim_espacamento_30dp"
             android:src="@drawable/ic_baseline_playlist_add_24"/>
 
     </LinearLayout>
@@ -70,8 +69,8 @@ android:fillViewport="true">
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="@dimen/dim_espacamento_30dp"
+            android:layout_height="@dimen/dim_espacamento_30dp"
             android:layout_gravity="top"
             android:layout_marginStart="20dp"
             android:src="@drawable/ic_baseline_star_rate_24"/>
@@ -80,7 +79,6 @@ android:fillViewport="true">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="3dp"
             android:layout_marginStart="5dp">
 
             <TextView
@@ -90,7 +88,7 @@ android:fillViewport="true">
                 android:fontFamily="@font/roboto"
                 android:textColor="@color/white"
                 android:paddingTop="2dp"
-                android:textSize="20sp"
+                android:textSize="@dimen/dim_16sp"
                 android:layout_marginBottom="10dp"
                 tools:text="@string/_8_0_10_0" />
 
@@ -100,7 +98,7 @@ android:fillViewport="true">
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
                 android:textColor="@color/white"
-                android:textSize="20sp"
+                android:textSize="@dimen/dim_16sp"
                 tools:text="@string/_2015" />
 
         </LinearLayout>
@@ -109,8 +107,7 @@ android:fillViewport="true">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="3dp"
-            android:layout_marginStart="20dp">
+            android:layout_marginStart="@dimen/dim_espacamento_20dp">
 
             <TextView
                 android:id="@+id/txt_genreMovieDetails"
@@ -119,9 +116,9 @@ android:fillViewport="true">
                 android:fontFamily="@font/roboto"
                 android:textColor="@color/white"
                 android:layout_gravity="center"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="@dimen/dim_espacamento_10dp"
                 android:paddingTop="2dp"
-                android:textSize="20sp"
+                android:textSize="@dimen/dim_16sp"
                 tools:text="Ficção científica" />
 
             <TextView
@@ -130,7 +127,7 @@ android:fillViewport="true">
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
                 android:textColor="@color/white"
-                android:textSize="20sp"
+                android:textSize="@dimen/dim_16sp"
                 tools:text="@string/_2h_31min" />
         </LinearLayout>
 
@@ -140,13 +137,15 @@ android:fillViewport="true">
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPagerMovieDetails"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_marginTop="@dimen/dim_espacamento_16dp"
+        android:layout_height="@dimen/dim_espacamento_200dp"
         >
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabMovieDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:tabTextAppearance="@style/MyTabLayoutTextAppearance"
             app:tabTextColor="@color/white"
             android:background="@color/gray_900"
             />
@@ -161,7 +160,7 @@ android:fillViewport="true">
         android:fontFamily="@font/roboto_medium"
         android:text="@string/elenco"
         android:textColor="@color/white"
-        android:textSize="30sp" />
+        android:textSize="@dimen/dim_24sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
