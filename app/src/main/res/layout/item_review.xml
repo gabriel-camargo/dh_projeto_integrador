@@ -7,47 +7,50 @@
     android:layout_height="wrap_content"
     android:layout_margin="10dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         >
 
-        <ImageView
-            android:id="@+id/star"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_star_rate_24"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/txtRateReviews"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="2dp"
+        <LinearLayout
+            android:layout_marginTop="@dimen/dim_espacamento_10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:fontFamily="@font/roboto"
-            tools:text="8,0"
-            app:layout_constraintStart_toEndOf="@+id/star"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_star_rate_24"
+                android:layout_marginStart="@dimen/dim_espacamento_10dp" />
+
+            <TextView
+                android:id="@+id/txtRateReviews"
+                android:layout_marginStart="@dimen/dim_espacamento_10dp"
+                android:layout_marginTop="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:fontFamily="@font/roboto"
+                tools:text="8,0"
+                />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/txtReview"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginStart="@dimen/dim_espacamento_10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/dim_espacamento_10dp"
             android:textColor="@color/white"
             tools:text="Filme Muito Bom"
             android:fontFamily="@font/roboto"
-            android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/star"
-            app:layout_constraintTop_toBottomOf="@+id/star"
+            android:textSize="@dimen/dim_16sp"
             />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>

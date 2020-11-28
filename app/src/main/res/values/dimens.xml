@@ -19,8 +19,13 @@
     <dimen name="dim_espacamento_16dp">16dp</dimen>
     <dimen name="dim_espacamento_12dp">12dp</dimen>
     <dimen name="dim_espacamento_120dp">120dp</dimen>
-    <dimen name="dim_espacamento_200dp">200dp</dimen>
     <dimen name="dim_espacamento_150dp">150dp</dimen>
+    <dimen name="dim_espacamento_200dp">200dp</dimen>
+    <dimen name="dim_espacamento_220dp">220dp</dimen>
     <dimen name="dim_8pt">8pt</dimen>
+    <dimen name="dim_12sp">12sp</dimen>
+    <dimen name="dim_16sp">16sp</dimen>
+    <dimen name="dim_24sp">24sp</dimen>
+    <dimen name="dim_36sp">36sp</dimen>
 
 </resources>

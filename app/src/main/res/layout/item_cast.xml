@@ -31,7 +31,7 @@
             android:maxLines="2"
             android:singleLine="false"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="@dimen/dim_16sp"
             tools:text="Matt Damon" />
 
         <TextView
@@ -40,12 +40,11 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_light"
             android:textColor="@color/white"
-            android:layout_marginTop="10dp"
             tools:text="Mark Watney"
             android:singleLine="false"
             android:lines="2"
             android:maxLines="2"
-            android:textSize="20sp" />
+            android:textSize="@dimen/dim_16sp" />
 
 
     </LinearLayout>
