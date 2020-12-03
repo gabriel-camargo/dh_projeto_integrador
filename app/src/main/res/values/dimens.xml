@@ -5,6 +5,8 @@
     <dimen name="dimen_card_corner_radius">16dp</dimen>
     <dimen name="dimen_100_dp">100dp</dimen>
 
+    <dimen name="dimen_sm_margin">8dp</dimen>
+
     <dimen name="dim_espacamento_60dp">60dp</dimen>
     <dimen name="dim_espacamento_50dp">50dp</dimen>
     <dimen name="dim_espacamento_40dp">40dp</dimen>
@@ -22,7 +24,8 @@
     <dimen name="dim_espacamento_150dp">150dp</dimen>
     <dimen name="dim_espacamento_200dp">200dp</dimen>
     <dimen name="dim_espacamento_220dp">220dp</dimen>
-    <dimen name="dim_8pt">8pt</dimen>
+
+    <dimen name="dim_8sp">8sp</dimen>
     <dimen name="dim_12sp">12sp</dimen>
     <dimen name="dim_16sp">16sp</dimen>
     <dimen name="dim_24sp">24sp</dimen>

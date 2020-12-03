@@ -42,5 +42,6 @@
     <string name="usu_rio">Usuário</string>
     <string name="intent_list_name">LIST_NAME</string>
     <string name="intent_list_img">LIST_IMAGE</string>
+    <string name="movie_image">Movie Image</string>
 
 </resources>

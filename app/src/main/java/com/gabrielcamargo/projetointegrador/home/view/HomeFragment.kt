@@ -36,17 +36,16 @@ class HomeFragment : Fragment() {
         val filmesPopular = arrayListOf<FilmeModel>(FilmeModel("Viuva Negra",R.drawable.viuva),
                 FilmeModel("Sonic",R.drawable.sonic),
                 FilmeModel("John Wick",R.drawable.jhon),
-                FilmeModel("matrix",R.drawable.matrix),
+                FilmeModel("Matrix",R.drawable.matrix),
                 FilmeModel("Perdido em Marte",R.drawable.perdidomarte),
-                FilmeModel("corra!",R.drawable.corra)
+                FilmeModel("Corra!",R.drawable.corra)
             )
         val filmesCinema = arrayListOf<FilmeModel>(
                 FilmeModel("Matrix",R.drawable.matrix),
                 FilmeModel("Perdido em Marte",R.drawable.perdidomarte),
-
-                FilmeModel("corra!",R.drawable.corra),
+                FilmeModel("Corra!",R.drawable.corra),
                 FilmeModel("Viuva Negra",R.drawable.viuva),
-                FilmeModel("Sonic",R.drawable.sonic),
+                FilmeModel("Perdido em Marte",R.drawable.perdidomarte),
                 FilmeModel("John Wick",R.drawable.jhon)
             )
 
