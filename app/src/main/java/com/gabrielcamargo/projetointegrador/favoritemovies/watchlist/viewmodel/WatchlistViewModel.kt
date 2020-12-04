@@ -3,8 +3,8 @@ package com.gabrielcamargo.projetointegrador.favoritemovies.watchlist.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.gabrielcamargo.projetointegrador.favoritemovies.watchlist.model.MovieModel
 import com.gabrielcamargo.projetointegrador.favoritemovies.watchlist.repository.WatchlistRepository
+import com.gabrielcamargo.projetointegrador.utils.movies.model.MovieModel
 
 class WatchlistViewModel (
         private val repository: WatchlistRepository

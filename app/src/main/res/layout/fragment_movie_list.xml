@@ -8,12 +8,14 @@
 
     <LinearLayout android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingHorizontal="@dimen/dimen_md_padding">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView_movieListFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_movie_list"/>
 
     </LinearLayout>
 

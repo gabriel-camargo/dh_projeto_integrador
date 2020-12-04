@@ -1,14 +1,14 @@
-package com.gabrielcamargo.projetointegrador.favoritemovies.watchlist.view
+package com.gabrielcamargo.projetointegrador.utils.movies.view
 
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.gabrielcamargo.projetointegrador.R
-import com.gabrielcamargo.projetointegrador.favoritemovies.watchlist.model.MovieModel
+import com.gabrielcamargo.projetointegrador.utils.movies.model.MovieModel
 import com.squareup.picasso.Picasso
 
-class WatchListViewHolder(view: View): RecyclerView.ViewHolder(view) {
+class MovieViewHolder(view: View): RecyclerView.ViewHolder(view) {
     private val txtName: TextView = view.findViewById<TextView>(R.id.txtName_itemMovie)
     private val txtGenre: TextView = view.findViewById<TextView>(R.id.txtGenre_itemMovie)
     private val txtStars: TextView = view.findViewById<TextView>(R.id.txtStars_itemMovie)

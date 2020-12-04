@@ -1,7 +1,6 @@
 package com.gabrielcamargo.projetointegrador.movielistdetails.view
 
 import android.content.Intent
-import android.media.Image
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,21 +9,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gabrielcamargo.projetointegrador.R
-import com.gabrielcamargo.projetointegrador.favoritemovies.movielist.repository.MovieListRepository
-import com.gabrielcamargo.projetointegrador.favoritemovies.movielist.viewmodel.MovieListViewModel
-import com.gabrielcamargo.projetointegrador.favoritemovies.watchlist.model.MovieModel
-import com.gabrielcamargo.projetointegrador.favoritemovies.watchlist.view.WatchListAdapter
 import com.gabrielcamargo.projetointegrador.moviedetails.view.MovieDetailsActivity
 import com.gabrielcamargo.projetointegrador.movielistdetails.repository.MovieListDetailsRepository
 import com.gabrielcamargo.projetointegrador.movielistdetails.viewmodel.MovieListDetailsViewModel
+import com.gabrielcamargo.projetointegrador.utils.movies.model.MovieModel
+import com.gabrielcamargo.projetointegrador.utils.movies.view.MovieAdapter
 import com.squareup.picasso.Picasso
-import org.w3c.dom.Text
 
 private const val ARG_PARAM_TITLE = "title"
 private const val ARG_PARAM_IMG = "img"
@@ -106,7 +101,7 @@ class MovieListDetailsFragment : Fragment() {
         val recyclerView =
             _myView.findViewById<RecyclerView>(R.id.recyclerView_movieListDetailsFragment)
 
-        val viewAdapter = WatchListAdapter(movies) {
+        val viewAdapter = MovieAdapter(movies) {
 
             val intent = Intent(activity, MovieDetailsActivity::class.java)
             startActivity(intent)

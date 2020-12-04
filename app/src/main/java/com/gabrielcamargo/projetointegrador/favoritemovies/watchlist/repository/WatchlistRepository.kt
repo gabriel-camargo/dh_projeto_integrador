@@ -2,7 +2,7 @@ package com.gabrielcamargo.projetointegrador.favoritemovies.watchlist.repository
 
 import android.content.Context
 import com.gabrielcamargo.projetointegrador.R
-import com.gabrielcamargo.projetointegrador.favoritemovies.watchlist.model.MovieModel
+import com.gabrielcamargo.projetointegrador.utils.movies.model.MovieModel
 
 class WatchlistRepository(private val context: Context) {
     fun getWatchlistMovies(callback: (movies: MutableList<MovieModel>) -> Unit) {

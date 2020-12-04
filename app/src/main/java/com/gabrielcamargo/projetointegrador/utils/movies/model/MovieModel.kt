@@ -1,4 +1,4 @@
-package com.gabrielcamargo.projetointegrador.favoritemovies.watchlist.model
+package com.gabrielcamargo.projetointegrador.utils.movies.model
 
 data class MovieModel(
     val name: String,

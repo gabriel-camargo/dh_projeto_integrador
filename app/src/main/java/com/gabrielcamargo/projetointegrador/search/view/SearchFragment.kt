@@ -10,8 +10,9 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gabrielcamargo.projetointegrador.R
-import com.gabrielcamargo.projetointegrador.favoritemovies.watchlist.model.MovieModel
 import com.gabrielcamargo.projetointegrador.moviedetails.view.MovieDetailsActivity
+import com.gabrielcamargo.projetointegrador.utils.movies.model.MovieModel
+import com.gabrielcamargo.projetointegrador.utils.movies.view.MovieAdapter
 
 
 class SearchFragment : Fragment() {
@@ -39,7 +40,7 @@ class SearchFragment : Fragment() {
                     MovieModel("Perdido em Marte",8.0,"Ficção Científica",2015,R.drawable.perdidomarte),
                     MovieModel("Corra!",7.7,"Terror",2017,R.drawable.corra),
                     MovieModel("Vingadores: Ultimato",8.7,"Ficção Científica",2019,R.drawable.vingadores))
-            val buscaAdapter = SearchAdapter(listaMovieModel){
+            val buscaAdapter = MovieAdapter(listaMovieModel){
                 val intent = Intent(view.context, MovieDetailsActivity::class.java)
                 startActivity(intent)
             }

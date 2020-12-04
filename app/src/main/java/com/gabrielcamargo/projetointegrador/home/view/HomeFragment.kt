@@ -9,10 +9,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gabrielcamargo.projetointegrador.R
-import com.gabrielcamargo.projetointegrador.home.model.FilmeModel
 import com.gabrielcamargo.projetointegrador.moviedetails.view.MovieDetailsActivity
+import com.gabrielcamargo.projetointegrador.utils.movies.model.MovieModel
 
-const val  SPAN_COUNT = 2
+const val SPAN_COUNT = 2
 
 class HomeFragment : Fragment() {
 
@@ -30,33 +30,37 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val viewManagerPopular = LinearLayoutManager(view.context,LinearLayoutManager.HORIZONTAL,false)
-        val viewManagerCinema = LinearLayoutManager(view.context,LinearLayoutManager.HORIZONTAL,false)
+        val viewManagerPopular =
+            LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
+        val viewManagerCinema =
+            LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
 
-        val filmesPopular = arrayListOf<FilmeModel>(FilmeModel("Viuva Negra",R.drawable.viuva),
-                FilmeModel("Sonic",R.drawable.sonic),
-                FilmeModel("John Wick",R.drawable.jhon),
-                FilmeModel("Matrix",R.drawable.matrix),
-                FilmeModel("Perdido em Marte",R.drawable.perdidomarte),
-                FilmeModel("Corra!",R.drawable.corra)
-            )
-        val filmesCinema = arrayListOf<FilmeModel>(
-                FilmeModel("Matrix",R.drawable.matrix),
-                FilmeModel("Perdido em Marte",R.drawable.perdidomarte),
-                FilmeModel("Corra!",R.drawable.corra),
-                FilmeModel("Viuva Negra",R.drawable.viuva),
-                FilmeModel("Perdido em Marte",R.drawable.perdidomarte),
-                FilmeModel("John Wick",R.drawable.jhon)
-            )
+        val filmesPopular = arrayListOf<MovieModel>(
+            MovieModel("Viuva Negra",8.0, "", 2020, R.drawable.viuva),
+            MovieModel("Sonic",8.0, "", 2020, R.drawable.sonic),
+            MovieModel("John Wick",8.0, "", 2020, R.drawable.jhon),
+            MovieModel("Matrix",8.0, "", 2020, R.drawable.matrix),
+            MovieModel("Perdido em Marte", 8.0, "", 2020,R.drawable.perdidomarte),
+            MovieModel("Corra!",8.0, "", 2020, R.drawable.corra)
+        )
+
+        val filmesCinema = arrayListOf<MovieModel>(
+            MovieModel("Matrix", 8.0, "", 2020, R.drawable.matrix),
+            MovieModel("Perdido em Marte", 8.0, "", 2020, R.drawable.perdidomarte),
+            MovieModel("Corra!", 8.0, "", 2020, R.drawable.corra),
+            MovieModel("Viuva Negra", 8.0, "", 2020, R.drawable.viuva),
+            MovieModel("Perdido em Marte",8.0, "", 2020, R.drawable.perdidomarte),
+            MovieModel("John Wick", 8.0, "", 2020, R.drawable.jhon)
+        )
 
         val recyclerViewPopular = view.findViewById<RecyclerView>(R.id.recyclerCardPopular)
         val recyclerViewCinema = view.findViewById<RecyclerView>(R.id.recyclerCardCinema)
 
-        val viewAdapterPopular = HomeAdapter(filmesPopular){
+        val viewAdapterPopular = HomeAdapter(filmesPopular) {
             val intent = Intent(view.context, MovieDetailsActivity::class.java)
             startActivity(intent)
         }
-        val viewAdapterCinema = HomeAdapter(filmesCinema){
+        val viewAdapterCinema = HomeAdapter(filmesCinema) {
             val intent = Intent(view.context, MovieDetailsActivity::class.java)
             startActivity(intent)
         }
