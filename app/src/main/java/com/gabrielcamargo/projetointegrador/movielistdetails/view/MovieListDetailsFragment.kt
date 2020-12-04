@@ -13,6 +13,10 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.gabrielcamargo.projetointegrador.R
 import com.gabrielcamargo.projetointegrador.moviedetails.view.MovieDetailsActivity
 import com.gabrielcamargo.projetointegrador.movielistdetails.repository.MovieListDetailsRepository
@@ -40,6 +44,9 @@ class MovieListDetailsFragment : Fragment() {
                     putInt(ARG_PARAM_IMG, img)
                 }
             }
+
+        private const val CARD_CORNER_RADIUS = 20
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,10 +95,10 @@ class MovieListDetailsFragment : Fragment() {
         txtDesc.text = getString(R.string.descricao_lista_exemplo)
 
         img?.let {
-            Picasso.get()
+            Glide.with(_myView.context)
                 .load(it)
-                .fit()
-                .centerCrop()
+                .transform(CenterCrop(), RoundedCorners(CARD_CORNER_RADIUS))
+                .transition(DrawableTransitionOptions.withCrossFade())
                 .into(imgView)
         }
     }
