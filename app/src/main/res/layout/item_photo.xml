@@ -2,9 +2,9 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="150dp"
-    android:layout_height="85dp"
-    android:layout_margin="20dp">
+    android:layout_width="@dimen/dim_espacamento_150dp"
+    android:layout_height="@dimen/dim_85_dp"
+    android:layout_margin="@dimen/dim_espacamento_20dp">
 
     <ImageView
         android:id="@+id/imgPhoto"

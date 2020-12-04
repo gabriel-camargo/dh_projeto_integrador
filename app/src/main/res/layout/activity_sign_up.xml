@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/cinelist"
-        android:textSize="45sp"
+        android:textSize="@dimen/dim_45sp"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:shadowRadius="1"
@@ -75,8 +75,8 @@
             android:id="@+id/edt_singupPasswordInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:password="true" />
+            android:inputType="textPassword" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -95,8 +95,8 @@
             android:id="@+id/edt_singupPasswordConfirmacaoInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:password="true" />
+            android:inputType="textPassword" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button

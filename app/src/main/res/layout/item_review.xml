@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp">
+    android:layout_margin="@dimen/dim_10_dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
             <TextView
                 android:id="@+id/txtRateReviews"
                 android:layout_marginStart="@dimen/dim_espacamento_10dp"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="@dimen/dim_2_dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"

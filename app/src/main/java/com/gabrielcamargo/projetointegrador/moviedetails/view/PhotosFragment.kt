@@ -1,4 +1,4 @@
-package com.gabrielcamargo.projetointegrador.Photos.view
+package com.gabrielcamargo.projetointegrador.moviedetails.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gabrielcamargo.projetointegrador.R
 import com.gabrielcamargo.projetointegrador.moviedetails.model.PhotoModel
 import com.gabrielcamargo.projetointegrador.moviedetails.repository.PhotosRepository
-import com.gabrielcamargo.projetointegrador.moviedetails.view.PhotosAdapter
 import com.gabrielcamargo.projetointegrador.moviedetails.viewModel.PhotosViewModel
 
 class PhotosFragment : Fragment() {
