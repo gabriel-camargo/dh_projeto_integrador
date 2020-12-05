@@ -17,16 +17,13 @@ class ItemViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     private val tvName: TextView = view.findViewById(R.id.tvNameCard)
     private val cardCornerRadius = 12
 
-    fun bind(filmeModel: MovieModel) {
-        tvName.text = filmeModel.name
+    fun bind(movieModel: MovieModel) {
+        tvName.text = movieModel.title
 
         Glide.with(view.context)
-            .load(filmeModel.img)
+            .load(movieModel.getPathPoster())
             .transform(CenterCrop(), RoundedCorners(cardCornerRadius))
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(ivImage)
-
     }
-
-
 }

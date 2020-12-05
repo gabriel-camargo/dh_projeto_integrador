@@ -3,31 +3,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/dimen_100_dp"
-    android:layout_height="wrap_content"
+    android:layout_height="200dp"
     android:layout_marginEnd="@dimen/dimen_md_padding">
 
     <ImageView
         android:id="@+id/ivImageCard"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dim_espacamento_150dp"
+        android:contentDescription="@string/movie_image"
         app:layout_constraintEnd_toStartOf="@+id/tvNameCard"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/movie_image" />
+        tools:src="@drawable/matrix"/>
 
     <TextView
         android:id="@+id/tvNameCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/dimen_sm_margin"
+        android:ellipsize="end"
         android:fontFamily="sans-serif"
         android:gravity="center"
+        android:inputType="none"
+        android:maxLines="2"
         android:singleLine="false"
         android:textSize="@dimen/dim_16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivImageCard"
-        tools:text="Matrix" />
+        tools:text="Harry Potter e o Prisioneiro de Azkaban" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -21,9 +21,8 @@ import com.gabrielcamargo.projetointegrador.R
 import com.gabrielcamargo.projetointegrador.moviedetails.view.MovieDetailsActivity
 import com.gabrielcamargo.projetointegrador.movielistdetails.repository.MovieListDetailsRepository
 import com.gabrielcamargo.projetointegrador.movielistdetails.viewmodel.MovieListDetailsViewModel
-import com.gabrielcamargo.projetointegrador.utils.movies.model.MovieModel
-import com.gabrielcamargo.projetointegrador.utils.movies.view.MovieAdapter
-import com.squareup.picasso.Picasso
+import com.gabrielcamargo.projetointegrador.utils.moviesoffline.model.MovieModelOffline
+import com.gabrielcamargo.projetointegrador.utils.moviesoffline.view.MovieOfflineAdapter
 
 private const val ARG_PARAM_TITLE = "title"
 private const val ARG_PARAM_IMG = "img"
@@ -103,12 +102,12 @@ class MovieListDetailsFragment : Fragment() {
         }
     }
 
-    private fun createList(movies: List<MovieModel>) {
+    private fun createList(movies: List<MovieModelOffline>) {
         val viewManager = LinearLayoutManager(_myView.context)
         val recyclerView =
             _myView.findViewById<RecyclerView>(R.id.recyclerView_movieListDetailsFragment)
 
-        val viewAdapter = MovieAdapter(movies) {
+        val viewAdapter = MovieOfflineAdapter(movies) {
 
             val intent = Intent(activity, MovieDetailsActivity::class.java)
             startActivity(intent)

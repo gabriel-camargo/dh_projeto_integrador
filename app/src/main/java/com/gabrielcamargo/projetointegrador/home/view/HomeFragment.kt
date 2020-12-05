@@ -6,15 +6,29 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gabrielcamargo.projetointegrador.R
+import com.gabrielcamargo.projetointegrador.home.repository.MovieRepository
+import com.gabrielcamargo.projetointegrador.home.viewmodel.MovieViewModel
 import com.gabrielcamargo.projetointegrador.moviedetails.view.MovieDetailsActivity
 import com.gabrielcamargo.projetointegrador.utils.movies.model.MovieModel
 
 const val SPAN_COUNT = 2
 
 class HomeFragment : Fragment() {
+
+    lateinit var _viewModel: MovieViewModel
+    lateinit var _view: View
+
+    private var _nowPlayingMovieList = mutableListOf<MovieModel>()
+    private var _popularMovieList = mutableListOf<MovieModel>()
+
+    private lateinit var _nowPlayingAdapter: HomeAdapter
+    private lateinit var _popularAdapter: HomeAdapter
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,54 +44,73 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val viewManagerPopular =
             LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
         val viewManagerCinema =
             LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
 
-        val filmesPopular = arrayListOf<MovieModel>(
-            MovieModel("Viuva Negra",8.0, "", 2020, R.drawable.viuva),
-            MovieModel("Sonic",8.0, "", 2020, R.drawable.sonic),
-            MovieModel("John Wick",8.0, "", 2020, R.drawable.jhon),
-            MovieModel("Matrix",8.0, "", 2020, R.drawable.matrix),
-            MovieModel("Perdido em Marte", 8.0, "", 2020,R.drawable.perdidomarte),
-            MovieModel("Corra!",8.0, "", 2020, R.drawable.corra)
-        )
-
-        val filmesCinema = arrayListOf<MovieModel>(
-            MovieModel("Matrix", 8.0, "", 2020, R.drawable.matrix),
-            MovieModel("Perdido em Marte", 8.0, "", 2020, R.drawable.perdidomarte),
-            MovieModel("Corra!", 8.0, "", 2020, R.drawable.corra),
-            MovieModel("Viuva Negra", 8.0, "", 2020, R.drawable.viuva),
-            MovieModel("Perdido em Marte",8.0, "", 2020, R.drawable.perdidomarte),
-            MovieModel("John Wick", 8.0, "", 2020, R.drawable.jhon)
-        )
-
         val recyclerViewPopular = view.findViewById<RecyclerView>(R.id.recyclerCardPopular)
         val recyclerViewCinema = view.findViewById<RecyclerView>(R.id.recyclerCardCinema)
+        _nowPlayingMovieList = mutableListOf<MovieModel>()
+        _popularMovieList = mutableListOf<MovieModel>()
 
-        val viewAdapterPopular = HomeAdapter(filmesPopular) {
+        _nowPlayingAdapter = HomeAdapter(_nowPlayingMovieList) {
             val intent = Intent(view.context, MovieDetailsActivity::class.java)
             startActivity(intent)
         }
-        val viewAdapterCinema = HomeAdapter(filmesCinema) {
+        _popularAdapter = HomeAdapter(_popularMovieList) {
+
             val intent = Intent(view.context, MovieDetailsActivity::class.java)
             startActivity(intent)
+        }
+
+        recyclerViewCinema.apply {
+            setHasFixedSize(true)
+
+            layoutManager = viewManagerCinema
+            adapter = _nowPlayingAdapter
         }
 
         recyclerViewPopular.apply {
             setHasFixedSize(true)
 
             layoutManager = viewManagerPopular
-            adapter = viewAdapterPopular
+            adapter = _popularAdapter
 
         }
-        recyclerViewCinema.apply {
-            setHasFixedSize(true)
 
-            layoutManager = viewManagerCinema
-            adapter = viewAdapterCinema
-        }
+        _viewModel = ViewModelProvider(
+            this,
+            MovieViewModel.MovieViewModelFactory(MovieRepository())
+        ).get(MovieViewModel::class.java)
+
+        _viewModel.getMoviesPopular().observe(viewLifecycleOwner, {
+            setMoviesPopular(it)
+        })
+
+
+        _viewModel = ViewModelProvider(
+            this,
+            MovieViewModel.MovieViewModelFactory(MovieRepository())
+        ).get(MovieViewModel::class.java)
+
+        _viewModel.getMoviesNowPaying().observe(viewLifecycleOwner, {
+            setMoviesNowPaying(it)
+        })
+
+    }
+
+    fun setMoviesPopular(movies: List<MovieModel>) {
+        _popularMovieList.addAll(movies)
+
+        _popularAdapter.notifyDataSetChanged()
+    }
+
+    fun setMoviesNowPaying(movies: List<MovieModel>) {
+        movies.let { _nowPlayingMovieList.addAll(it) }
+
+        _nowPlayingAdapter.notifyDataSetChanged()
     }
 
 

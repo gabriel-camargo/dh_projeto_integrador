@@ -1,9 +1,13 @@
 package com.gabrielcamargo.projetointegrador.utils.movies.model
 
+import com.gabrielcamargo.projetointegrador.data.api.NetworkUtils
+import com.google.gson.annotations.SerializedName
+
 data class MovieModel(
-    val name: String,
-    val stars: Double,
-    val genre: String,
-    val year: Int,
-    val img: Int
-)
+    @SerializedName("id") val id: Int,
+    @SerializedName("title") val title: String,
+    @SerializedName("poster_path") val posterPath: String){
+    fun getPathPoster():String{
+        return NetworkUtils.BASE_URL_IMAGE+posterPath
+    }
+}
