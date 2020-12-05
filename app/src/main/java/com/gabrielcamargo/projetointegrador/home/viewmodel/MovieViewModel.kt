@@ -3,7 +3,7 @@ package com.gabrielcamargo.projetointegrador.home.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.liveData
-import com.gabrielcamargo.projetointegrador.home.model.MovieModel
+import com.gabrielcamargo.projetointegrador.utils.movies.model.MovieModel
 import com.gabrielcamargo.projetointegrador.home.repository.MovieRepository
 import kotlinx.coroutines.Dispatchers
 

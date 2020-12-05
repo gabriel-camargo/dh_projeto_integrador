@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
-import com.gabrielcamargo.projetointegrador.Photos.view.PhotosFragment
 import com.gabrielcamargo.projetointegrador.R
 import com.gabrielcamargo.projetointegrador.moviedetails.model.CastModel
 import com.gabrielcamargo.projetointegrador.moviedetails.repository.CastRepository

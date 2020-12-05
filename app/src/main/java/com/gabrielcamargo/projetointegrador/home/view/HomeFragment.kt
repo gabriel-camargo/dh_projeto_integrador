@@ -11,12 +11,12 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gabrielcamargo.projetointegrador.R
-import com.gabrielcamargo.projetointegrador.home.model.MovieModel
 import com.gabrielcamargo.projetointegrador.home.repository.MovieRepository
 import com.gabrielcamargo.projetointegrador.home.viewmodel.MovieViewModel
 import com.gabrielcamargo.projetointegrador.moviedetails.view.MovieDetailsActivity
+import com.gabrielcamargo.projetointegrador.utils.movies.model.MovieModel
 
-const val  SPAN_COUNT = 2
+const val SPAN_COUNT = 2
 
 class HomeFragment : Fragment() {
 
@@ -44,23 +44,23 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val viewManagerPopular = LinearLayoutManager(view.context,LinearLayoutManager.HORIZONTAL,false)
-        val viewManagerCinema = LinearLayoutManager(view.context,LinearLayoutManager.HORIZONTAL,false)
 
-
-
+        val viewManagerPopular =
+            LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
+        val viewManagerCinema =
+            LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
 
         val recyclerViewPopular = view.findViewById<RecyclerView>(R.id.recyclerCardPopular)
         val recyclerViewCinema = view.findViewById<RecyclerView>(R.id.recyclerCardCinema)
-
         _nowPlayingMovieList = mutableListOf<MovieModel>()
         _popularMovieList = mutableListOf<MovieModel>()
 
-        _nowPlayingAdapter = HomeAdapter(_nowPlayingMovieList){
+        _nowPlayingAdapter = HomeAdapter(_nowPlayingMovieList) {
             val intent = Intent(view.context, MovieDetailsActivity::class.java)
             startActivity(intent)
         }
-        _popularAdapter = HomeAdapter(_popularMovieList){
+        _popularAdapter = HomeAdapter(_popularMovieList) {
+
             val intent = Intent(view.context, MovieDetailsActivity::class.java)
             startActivity(intent)
         }
@@ -101,13 +101,13 @@ class HomeFragment : Fragment() {
 
     }
 
-    fun setMoviesPopular(movies:List<MovieModel>){
+    fun setMoviesPopular(movies: List<MovieModel>) {
         _popularMovieList.addAll(movies)
 
         _popularAdapter.notifyDataSetChanged()
     }
 
-    fun setMoviesNowPaying(movies:List<MovieModel>){
+    fun setMoviesNowPaying(movies: List<MovieModel>) {
         movies.let { _nowPlayingMovieList.addAll(it) }
 
         _nowPlayingAdapter.notifyDataSetChanged()

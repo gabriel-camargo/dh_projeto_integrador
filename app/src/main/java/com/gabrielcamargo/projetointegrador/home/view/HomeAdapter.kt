@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gabrielcamargo.projetointegrador.R
-import com.gabrielcamargo.projetointegrador.home.model.MovieModel
+import com.gabrielcamargo.projetointegrador.utils.movies.model.MovieModel
 
 class HomeAdapter (private val filmesModel: List<MovieModel>, private val listener: (MovieModel) -> Unit) :
     RecyclerView.Adapter<ItemViewHolder>() {

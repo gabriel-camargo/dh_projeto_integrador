@@ -6,17 +6,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gabrielcamargo.projetointegrador.R
-import com.gabrielcamargo.projetointegrador.favoritemovies.watchlist.model.MovieModel
 import com.gabrielcamargo.projetointegrador.favoritemovies.watchlist.repository.WatchlistRepository
 import com.gabrielcamargo.projetointegrador.favoritemovies.watchlist.viewmodel.WatchlistViewModel
 import com.gabrielcamargo.projetointegrador.moviedetails.view.MovieDetailsActivity
+import com.gabrielcamargo.projetointegrador.utils.moviesoffline.model.MovieModelOffline
+import com.gabrielcamargo.projetointegrador.utils.moviesoffline.view.MovieOfflineAdapter
 
 class WatchlistFragment : Fragment() {
     lateinit var myView: View
@@ -50,11 +50,11 @@ class WatchlistFragment : Fragment() {
         _viewModel.getMovies()
     }
 
-    private fun createList(movies: List<MovieModel>) {
+    private fun createList(movies: List<MovieModelOffline>) {
         val viewManager = LinearLayoutManager(myView.context)
         val recyclerView = myView.findViewById<RecyclerView>(R.id.recyclerView_watchlistFragment)
 
-        val viewAdapter = WatchListAdapter(movies) {
+        val viewAdapter = MovieOfflineAdapter(movies) {
             val intent = Intent(activity, MovieDetailsActivity::class.java)
             startActivity(intent)
         }

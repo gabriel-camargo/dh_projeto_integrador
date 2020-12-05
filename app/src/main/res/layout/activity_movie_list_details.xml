@@ -16,10 +16,10 @@
 
     <ImageView
         android:id="@+id/btn_BackListDetails"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="18dp"
+        android:layout_width="@dimen/dim_32_dp"
+        android:layout_height="@dimen/dim_32_dp"
+        android:layout_marginTop="@dimen/dim_10_dp"
+        android:layout_marginStart="@dimen/dim_18_dp"
         app:tint="@color/purple_800"
         android:src="@drawable/ic_baseline_arrow_back_24"/>
 

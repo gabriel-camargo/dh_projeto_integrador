@@ -2,7 +2,7 @@ package com.gabrielcamargo.projetointegrador.home.repository
 
 import com.gabrielcamargo.projetointegrador.data.api.NetworkUtils
 import com.gabrielcamargo.projetointegrador.data.model.ResponseModel
-import com.gabrielcamargo.projetointegrador.home.model.MovieModel
+import com.gabrielcamargo.projetointegrador.utils.movies.model.MovieModel
 import retrofit2.http.GET
 
 interface IMovieEndpoint {
