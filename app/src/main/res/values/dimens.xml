@@ -39,5 +39,6 @@
     <dimen name="dim_85_dp">85dp</dimen>
     <dimen name="dim_4_dp">4dp</dimen>
     <dimen name="dim_2_dp">2dp</dimen>
+    <dimen name="dim_20_sp">20sp</dimen>
 
 </resources>
