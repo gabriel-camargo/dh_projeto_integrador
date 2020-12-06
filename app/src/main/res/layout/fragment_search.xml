@@ -33,11 +33,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.4">
+        app:layout_constraintVertical_bias="0.4"
+        tools:visibility="visible">
 
         <ProgressBar
             style="?android:attr/progressBarStyle"
@@ -49,31 +51,31 @@
         android:id="@+id/notfoundLayout_searchFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:orientation="vertical"
-        android:visibility="gone"
         tools:visibility="visible">
 
         <ImageView
             android:layout_width="@dimen/dim_espacamento_150dp"
             android:layout_height="@dimen/dim_espacamento_150dp"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/ic_round_search_24"
-            android:contentDescription="@string/image_nada_encontrado" />
+            android:contentDescription="@string/image_nada_encontrado"
+            android:src="@drawable/ic_round_search_24" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textAlignment="center"
             android:layout_marginTop="@dimen/dim_espacamento_15dp"
-            android:textSize="@dimen/dim_20_sp"
-            android:textStyle="bold"
+            android:text="@string/busque_por_um_filme_g_nero_ou_ator"
+            android:textAlignment="center"
             android:textColor="#fff"
-            android:text="@string/busque_por_um_filme_g_nero_ou_ator"/>
+            android:textSize="@dimen/dim_20_sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
