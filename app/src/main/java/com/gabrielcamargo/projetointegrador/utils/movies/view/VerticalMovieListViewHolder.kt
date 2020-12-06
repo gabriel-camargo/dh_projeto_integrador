@@ -22,9 +22,13 @@ class VerticalMovieListViewHolder(private val view: View): RecyclerView.ViewHold
 
     fun bind(movie: MovieModel) {
         txtName.text = movie.title
-        txtGenre.text = "..."
-        txtStars.text = 5.0.toString()
-        txtYear.text = 2000.toString()
+        txtGenre.text = ""
+        txtStars.text = movie.voteAverage.toString()
+
+        movie.releaseDate?.let {
+
+            txtYear.text = it.split("-")[0].toString()
+        }
 
         Glide.with(view.context)
             .load(movie.getPathPoster())

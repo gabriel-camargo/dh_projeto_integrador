@@ -24,7 +24,6 @@
                 android:scaleType="centerCrop"
                 android:contentDescription="@string/image_film_list" />
 
-
     </com.google.android.material.card.MaterialCardView>
 
     <TextView
