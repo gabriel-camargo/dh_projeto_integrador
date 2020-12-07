@@ -21,7 +21,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerCardPopular"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/dim_espacamento_200dp"
         android:paddingStart="@dimen/dimen_md_padding"
         android:clipToPadding="false"
         android:layout_marginTop="@dimen/dim_espacamento_8dp"
@@ -47,7 +47,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerCardCinema"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/dim_espacamento_200dp"
         android:paddingStart="@dimen/dimen_md_padding"
         android:clipToPadding="false"
         android:layout_marginTop="@dimen/dim_espacamento_8dp"
