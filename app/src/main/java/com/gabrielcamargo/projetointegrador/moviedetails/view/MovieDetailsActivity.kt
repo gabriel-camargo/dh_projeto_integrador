@@ -1,9 +1,10 @@
 package com.gabrielcamargo.projetointegrador.moviedetails.view
 
-import androidx.appcompat.app.AppCompatActivity
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
@@ -11,8 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.gabrielcamargo.projetointegrador.R
 import com.gabrielcamargo.projetointegrador.home.view.HomeFragment
@@ -22,7 +21,6 @@ import com.gabrielcamargo.projetointegrador.moviedetails.repository.MovieDetails
 import com.gabrielcamargo.projetointegrador.moviedetails.viewModel.CastViewModel
 import com.gabrielcamargo.projetointegrador.moviedetails.viewModel.MovieDetailsViewModel
 import com.gabrielcamargo.projetointegrador.utils.movies.model.MovieModel
-import com.google.android.material.tabs.TabLayout
 
 class MovieDetailsActivity : AppCompatActivity() {
     private lateinit var _castViewModel: CastViewModel
@@ -33,6 +31,10 @@ class MovieDetailsActivity : AppCompatActivity() {
 
     private lateinit var _imgMovie: ImageView
     private lateinit var _movieTitle: TextView
+    private lateinit var _movieRate: TextView
+    private lateinit var _movieYear: TextView
+    private lateinit var _movieGenre: TextView
+    private lateinit var _movieTime: TextView
     private var _id: Int = 0
 
 
@@ -43,12 +45,15 @@ class MovieDetailsActivity : AppCompatActivity() {
 
         _imgMovie = findViewById(R.id.img_movieDetails)
         _movieTitle = findViewById(R.id.txt_nameMovieDetails)
+        _movieRate = findViewById(R.id.txt_rateMovieDetails)
+        _movieYear = findViewById(R.id.txt_yearMovieDetails)
+        _movieGenre = findViewById(R.id.txt_genreMovieDetails)
+        _movieTime = findViewById(R.id.txt_timeMovieDetails)
 
         _id = intent.getIntExtra(HomeFragment.intentId, 0)
 
         createMovieDetails()
         createCastView()
-        createFragments()
 
         val back = findViewById<ImageView>(R.id.btn_BackMovieDetails)
 
@@ -59,6 +64,7 @@ class MovieDetailsActivity : AppCompatActivity() {
 
     }
 
+    @SuppressLint("SetTextI18n")
     private fun createMovieDetails() {
         _viewModel = ViewModelProvider(
             this,
@@ -86,7 +92,20 @@ class MovieDetailsActivity : AppCompatActivity() {
         _viewModel.getMovieDetails(_id).observe(this, {
             _movieDetails = it
 
+            val runtime = _movieDetails!!.runtime
+            val hours: Int = runtime / 60
+            val minutes: Int = runtime % 60
+
             _movieTitle.text = _movieDetails!!.title
+            _movieRate.text = _movieDetails!!.voteAverage.toString()
+            _movieGenre.text = _movieDetails!!.genres[0].name
+            _movieTime.text = "%dh %02dmin".format(hours, minutes)
+
+
+            _movieDetails!!.releaseDate?.let {
+
+                _movieYear.text = it.split("-")[0].toString()
+            }
 
             Glide.with(this)
                 .load(_movieDetails!!.getPathPoster())
@@ -94,8 +113,7 @@ class MovieDetailsActivity : AppCompatActivity() {
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(_imgMovie)
 
-
-
+            createFragments()
 
         })
 
@@ -132,9 +150,7 @@ class MovieDetailsActivity : AppCompatActivity() {
         val pager = findViewById<ViewPager>(R.id.viewPagerMovieDetails)
 
         val fragments =  listOf(
-            SummaryFragment()
-            , PhotosFragment()
-            , ReviewsFragment()
+            SummaryFragment.newInstance(_movieDetails!!.overview), PhotosFragment(), ReviewsFragment()
         )
 
         val titulos = listOf(

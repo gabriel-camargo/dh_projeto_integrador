@@ -12,9 +12,20 @@ import com.gabrielcamargo.projetointegrador.R
 import com.gabrielcamargo.projetointegrador.moviedetails.repository.SummaryRepository
 import com.gabrielcamargo.projetointegrador.moviedetails.viewModel.SummaryViewModel
 
+private const val ARG_PARAM1 = "OVERVIEW"
+
 class SummaryFragment : Fragment() {
     lateinit var _view: View
     private lateinit var _viewModel: SummaryViewModel
+
+    private var param1: String? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            param1 = it.getString(ARG_PARAM1)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,17 +40,30 @@ class SummaryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        _viewModel = ViewModelProvider(
-                this,
-                SummaryViewModel.SummaryViewModelFactory(SummaryRepository(_view.context))
-        ).get(SummaryViewModel::class.java)
+//        _viewModel = ViewModelProvider(
+//                this,
+//                SummaryViewModel.SummaryViewModelFactory(SummaryRepository(_view.context))
+//        ).get(SummaryViewModel::class.java)
+//
+//        _viewModel.summary.observe(viewLifecycleOwner, Observer {
+//            val summary = _view.findViewById<TextView>(R.id.txtSummary)
+//            summary.text = it
+//        })
 
-        _viewModel.summary.observe(viewLifecycleOwner, Observer {
+//        _viewModel.getSummary()
+
             val summary = _view.findViewById<TextView>(R.id.txtSummary)
-            summary.text = it
-        })
+            summary.text = param1
+    }
 
-        _viewModel.getSummary()
+    companion object {
+        @JvmStatic
+        fun newInstance(param1: String) =
+            SummaryFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                }
+            }
     }
 
 
