@@ -57,11 +57,12 @@ class HomeFragment : Fragment() {
 
         _nowPlayingAdapter = HomeAdapter(_nowPlayingMovieList) {
             val intent = Intent(view.context, MovieDetailsActivity::class.java)
+            intent.putExtra(intentId, it.id)
             startActivity(intent)
         }
         _popularAdapter = HomeAdapter(_popularMovieList) {
-
             val intent = Intent(view.context, MovieDetailsActivity::class.java)
+            intent.putExtra(intentId, it.id)
             startActivity(intent)
         }
 
@@ -113,5 +114,8 @@ class HomeFragment : Fragment() {
         _nowPlayingAdapter.notifyDataSetChanged()
     }
 
+    companion object {
+        const val intentId = "ID"
+    }
 
 }
