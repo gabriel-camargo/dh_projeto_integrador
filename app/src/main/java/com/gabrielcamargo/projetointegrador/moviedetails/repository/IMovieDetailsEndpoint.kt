@@ -5,11 +5,14 @@ import com.gabrielcamargo.projetointegrador.data.model.ResponseModel
 import com.gabrielcamargo.projetointegrador.utils.movies.model.MovieModel
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface IMovieDetailsEndpoint {
     @GET("movie/{movieId}")
     suspend fun getMovieDetails(
-        @Path("movieId") movieId: Int): MovieModel
+        @Path("movieId") movieId: Int,
+        @Query("language") language: String = "pt-BR"
+    ): MovieModel
 
 
         companion object {

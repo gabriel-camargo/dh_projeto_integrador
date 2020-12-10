@@ -1,10 +1,5 @@
 package com.gabrielcamargo.projetointegrador.moviedetails.repository
 
-import com.gabrielcamargo.projetointegrador.R
-import com.gabrielcamargo.projetointegrador.home.repository.IMovieEndpoint
-import com.gabrielcamargo.projetointegrador.moviedetails.model.CastModel
-import com.gabrielcamargo.projetointegrador.moviedetails.model.MovieDetailsModel
-
 class MovieDetailsRepository {
     private val client = IMovieDetailsEndpoint.endpoint
 

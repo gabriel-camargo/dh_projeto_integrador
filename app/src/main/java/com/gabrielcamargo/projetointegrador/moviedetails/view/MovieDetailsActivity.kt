@@ -150,7 +150,7 @@ class MovieDetailsActivity : AppCompatActivity() {
         val pager = findViewById<ViewPager>(R.id.viewPagerMovieDetails)
 
         val fragments =  listOf(
-            SummaryFragment.newInstance(_movieDetails!!.overview), PhotosFragment(), ReviewsFragment()
+            SummaryFragment.newInstance(_movieDetails!!.overview), PhotosFragment.newInstance(_movieDetails!!.id), ReviewsFragment()
         )
 
         val titulos = listOf(

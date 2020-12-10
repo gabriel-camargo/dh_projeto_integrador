@@ -1,12 +1,8 @@
 package com.gabrielcamargo.projetointegrador.moviedetails.viewModel
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.liveData
-import com.gabrielcamargo.projetointegrador.moviedetails.model.CastModel
-import com.gabrielcamargo.projetointegrador.moviedetails.model.MovieDetailsModel
-import com.gabrielcamargo.projetointegrador.moviedetails.repository.CastRepository
 import com.gabrielcamargo.projetointegrador.moviedetails.repository.MovieDetailsRepository
 import com.gabrielcamargo.projetointegrador.utils.movies.model.MovieModel
 import kotlinx.coroutines.Dispatchers

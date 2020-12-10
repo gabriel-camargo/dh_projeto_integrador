@@ -10,7 +10,8 @@ interface ISearchEndpoint {
     @GET("search/movie")
     suspend fun searchMovies(
         @Query("query") query: String,
-        @Query("page") page: Int = 1
+        @Query("page") page: Int = 1,
+        @Query("language") language: String = "pt-BR"
     ): ResponseModel<MovieModel>
 
     companion object {

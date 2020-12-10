@@ -16,7 +16,6 @@ private const val ARG_PARAM1 = "OVERVIEW"
 
 class SummaryFragment : Fragment() {
     lateinit var _view: View
-    private lateinit var _viewModel: SummaryViewModel
 
     private var param1: String? = null
 

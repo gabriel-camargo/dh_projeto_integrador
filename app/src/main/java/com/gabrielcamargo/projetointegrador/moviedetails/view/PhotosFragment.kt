@@ -11,13 +11,24 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gabrielcamargo.projetointegrador.R
 import com.gabrielcamargo.projetointegrador.moviedetails.model.PhotoModel
+import com.gabrielcamargo.projetointegrador.moviedetails.model.PosterModel
 import com.gabrielcamargo.projetointegrador.moviedetails.repository.PhotosRepository
 import com.gabrielcamargo.projetointegrador.moviedetails.viewModel.PhotosViewModel
+
+private const val ARG_PARAM1 = "ID"
 
 class PhotosFragment : Fragment() {
 
     lateinit var _view: View
     private lateinit var _viewModel: PhotosViewModel
+    private var param1: Int = 0
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            param1 = it.getInt(ARG_PARAM1)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,17 +44,19 @@ class PhotosFragment : Fragment() {
 
         _viewModel = ViewModelProvider(
                 this,
-                PhotosViewModel.PhotosViewModelFactory(PhotosRepository(_view.context))
+                PhotosViewModel.PhotosViewModelFactory(PhotosRepository())
         ).get(PhotosViewModel::class.java)
 
-        _viewModel.photos.observe(viewLifecycleOwner, Observer {
-            createPhotoList(it)
-        })
+//        _viewModel.photos.observe(viewLifecycleOwner, Observer {
+//            createPhotoList(it)
+//        })
 
-        _viewModel.getPhotos()
+        _viewModel.getPhotos(param1).observe(viewLifecycleOwner, {
+            createPhotoList(it.posters)
+        })
     }
 
-    fun createPhotoList(photos: MutableList<PhotoModel>) {
+    fun createPhotoList(photos: List<PosterModel>) {
         val viewManagerPhotos = GridLayoutManager(activity, 2)
         val recyclerViewPhotos = view?.findViewById<RecyclerView>(R.id.rcyVwPhotos)
 
@@ -53,6 +66,16 @@ class PhotosFragment : Fragment() {
             layoutManager = viewManagerPhotos
             adapter = viewAdapterPhotos
         }
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance(param1: Int) =
+            PhotosFragment().apply {
+                arguments = Bundle().apply {
+                    putInt(ARG_PARAM1, param1)
+                }
+            }
     }
 
 }
