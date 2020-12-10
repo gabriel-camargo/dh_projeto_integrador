@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gabrielcamargo.projetointegrador.R
 import com.gabrielcamargo.projetointegrador.home.repository.MovieRepository
 import com.gabrielcamargo.projetointegrador.home.viewmodel.MovieViewModel
-import com.gabrielcamargo.projetointegrador.moviedetails.view.MovieDetailsActivity
+import com.gabrielcamargo.projetointegrador.moviedetails.details.view.MovieDetailsActivity
 import com.gabrielcamargo.projetointegrador.utils.movies.model.MovieModel
 
 const val SPAN_COUNT = 2
@@ -57,11 +57,12 @@ class HomeFragment : Fragment() {
 
         _nowPlayingAdapter = HomeAdapter(_nowPlayingMovieList) {
             val intent = Intent(view.context, MovieDetailsActivity::class.java)
+            intent.putExtra(intentId, it.id)
             startActivity(intent)
         }
         _popularAdapter = HomeAdapter(_popularMovieList) {
-
             val intent = Intent(view.context, MovieDetailsActivity::class.java)
+            intent.putExtra(intentId, it.id)
             startActivity(intent)
         }
 
@@ -113,5 +114,8 @@ class HomeFragment : Fragment() {
         _nowPlayingAdapter.notifyDataSetChanged()
     }
 
+    companion object {
+        const val intentId = "ID"
+    }
 
 }

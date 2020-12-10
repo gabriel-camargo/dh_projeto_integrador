@@ -18,7 +18,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.gabrielcamargo.projetointegrador.R
-import com.gabrielcamargo.projetointegrador.moviedetails.view.MovieDetailsActivity
+import com.gabrielcamargo.projetointegrador.moviedetails.details.view.MovieDetailsActivity
 import com.gabrielcamargo.projetointegrador.movielistdetails.repository.MovieListDetailsRepository
 import com.gabrielcamargo.projetointegrador.movielistdetails.viewmodel.MovieListDetailsViewModel
 import com.gabrielcamargo.projetointegrador.utils.moviesoffline.model.MovieModelOffline

@@ -7,19 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gabrielcamargo.projetointegrador.R
-import com.gabrielcamargo.projetointegrador.moviedetails.view.MovieDetailsActivity
+import com.gabrielcamargo.projetointegrador.home.view.HomeFragment
+import com.gabrielcamargo.projetointegrador.moviedetails.details.view.MovieDetailsActivity
 import com.gabrielcamargo.projetointegrador.search.repository.SearchRepository
 import com.gabrielcamargo.projetointegrador.search.viewmodel.SearchViewModel
 import com.gabrielcamargo.projetointegrador.utils.movies.model.MovieModel
 import com.gabrielcamargo.projetointegrador.utils.movies.view.VerticalMovieListAdapter
-import com.gabrielcamargo.projetointegrador.utils.moviesoffline.model.MovieModelOffline
-import com.gabrielcamargo.projetointegrador.utils.moviesoffline.view.MovieOfflineAdapter
 
 class SearchFragment : Fragment() {
 
@@ -64,6 +62,7 @@ class SearchFragment : Fragment() {
 
         _movieListAdapter = VerticalMovieListAdapter(_movieList) {
             val intent = Intent(_myView.context, MovieDetailsActivity::class.java)
+            intent.putExtra(HomeFragment.intentId, it.id)
             startActivity(intent)
         }
 
@@ -131,6 +130,7 @@ class SearchFragment : Fragment() {
             viewLoading.visibility = View.GONE
         }
     }
+
 }
 
 
