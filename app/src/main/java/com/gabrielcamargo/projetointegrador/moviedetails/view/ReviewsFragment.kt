@@ -14,9 +14,19 @@ import com.gabrielcamargo.projetointegrador.moviedetails.model.ReviewModel
 import com.gabrielcamargo.projetointegrador.moviedetails.repository.ReviewsRepository
 import com.gabrielcamargo.projetointegrador.moviedetails.viewModel.ReviewsViewModel
 
+private const val ARG_PARAM1 = "ID"
+
 class ReviewsFragment : Fragment() {
     lateinit var _view: View
     private lateinit var _viewModel: ReviewsViewModel
+    private var param1: Int = 0
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            param1 = it.getInt(ARG_PARAM1)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,18 +43,16 @@ class ReviewsFragment : Fragment() {
 
         _viewModel = ViewModelProvider(
                 this,
-                ReviewsViewModel.ReviewsViewModelFactory(ReviewsRepository(_view.context))
+                ReviewsViewModel.ReviewsViewModelFactory(ReviewsRepository())
         ).get(ReviewsViewModel::class.java)
 
-        _viewModel.reviews.observe(viewLifecycleOwner, Observer {
+        _viewModel.getReviews(param1).observe(viewLifecycleOwner, {
             createReviewList(it)
         })
 
-        _viewModel.getReviews()
-
     }
 
-    fun createReviewList(reviews: MutableList<ReviewModel>) {
+    fun createReviewList(reviews: List<ReviewModel>) {
         val viewManagerReviews = LinearLayoutManager(activity)
         val recyclerViewReviews = view?.findViewById<RecyclerView>(R.id.rcyVwReviews)
 
@@ -54,6 +62,16 @@ class ReviewsFragment : Fragment() {
             layoutManager = viewManagerReviews
             adapter = viewAdapterReviews
         }
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance(param1: Int) =
+            ReviewsFragment().apply {
+                arguments = Bundle().apply {
+                    putInt(ARG_PARAM1, param1)
+                }
+            }
     }
 
 }

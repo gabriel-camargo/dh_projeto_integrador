@@ -18,8 +18,8 @@ class ReviewsAdapter(private val dataset: List<ReviewModel>): RecyclerView.Adapt
         private val rateTxt: TextView = view.findViewById(R.id.txtRateReviews)
 
         fun bind(review: ReviewModel) {
-            reviewTxt.text = review.review
-            rateTxt.text = review.rate.toString()
+            reviewTxt.text = review.content
+           // rateTxt.text = review.authorDetails[0].rating.toString()
         }
     }
 

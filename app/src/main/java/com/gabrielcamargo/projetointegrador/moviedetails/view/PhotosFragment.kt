@@ -47,10 +47,6 @@ class PhotosFragment : Fragment() {
                 PhotosViewModel.PhotosViewModelFactory(PhotosRepository())
         ).get(PhotosViewModel::class.java)
 
-//        _viewModel.photos.observe(viewLifecycleOwner, Observer {
-//            createPhotoList(it)
-//        })
-
         _viewModel.getPhotos(param1).observe(viewLifecycleOwner, {
             createPhotoList(it.posters)
         })

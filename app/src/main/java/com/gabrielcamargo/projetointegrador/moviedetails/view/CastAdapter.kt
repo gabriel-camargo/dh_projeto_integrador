@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.gabrielcamargo.projetointegrador.R
 import com.gabrielcamargo.projetointegrador.moviedetails.model.CastModel
 import com.squareup.picasso.Picasso
@@ -13,17 +15,19 @@ import com.squareup.picasso.Picasso
 class CastAdapter (private val dataset: List<CastModel>): RecyclerView.Adapter<CastAdapter.CastViewHolder>() {
 
     class CastViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        private val image: ImageView = view.findViewById(R.id.imgCast)
+        private val imageVw: ImageView = view.findViewById(R.id.imgCast)
         private val ActorName: TextView = view.findViewById(R.id.txtCastActor)
         private val CharacterName: TextView = view.findViewById(R.id.txtCastCharacter)
 
         fun bind(cast: CastModel) {
-            ActorName.text = cast.ActorName
-            CharacterName.text = cast.CharacterName
+            ActorName.text = cast.name
+            CharacterName.text = cast.character
 
-            Picasso.get()
-                .load(cast.image)
-                .into(image)
+            Glide.with(itemView.context)
+                .load(cast.getPathImage())
+                .transform()
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(imageVw)
         }
 
     }

@@ -123,14 +123,14 @@ class MovieDetailsActivity : AppCompatActivity() {
     private fun createCastView() {
         _castViewModel = ViewModelProvider(
             this,
-            CastViewModel.CastViewModelFactory(CastRepository(this))
+            CastViewModel.CastViewModelFactory(CastRepository())
         ).get(CastViewModel::class.java)
 
-        _castViewModel.cast.observe(this, Observer {
-            createCastList(it)
+        _castViewModel.getCast(_id).observe(this, {
+            if (it != null) {
+                createCastList(it)
+            }
         })
-
-        _castViewModel.getCast()
     }
 
     private fun createCastList(cast: List<CastModel>) {
@@ -150,7 +150,7 @@ class MovieDetailsActivity : AppCompatActivity() {
         val pager = findViewById<ViewPager>(R.id.viewPagerMovieDetails)
 
         val fragments =  listOf(
-            SummaryFragment.newInstance(_movieDetails!!.overview), PhotosFragment.newInstance(_movieDetails!!.id), ReviewsFragment()
+            SummaryFragment.newInstance(_movieDetails!!.overview), PhotosFragment.newInstance(_movieDetails!!.id), ReviewsFragment.newInstance(_movieDetails!!.id)
         )
 
         val titulos = listOf(

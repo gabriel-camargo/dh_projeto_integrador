@@ -21,14 +21,6 @@ class PhotosViewModel(
         emit(response)
     }
 
-//    val photos = MutableLiveData<MutableList<PhotoModel>>()
-//    fun getPhotos() {
-//        repository.getPhotos {
-//            photos.value = it
-//        }
-//    }
-
-
     class PhotosViewModelFactory(
         private val repository: PhotosRepository
     ): ViewModelProvider.Factory{

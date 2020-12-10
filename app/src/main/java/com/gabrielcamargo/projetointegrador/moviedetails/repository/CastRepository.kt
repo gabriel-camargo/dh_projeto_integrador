@@ -4,12 +4,8 @@ import android.content.Context
 import com.gabrielcamargo.projetointegrador.R
 import com.gabrielcamargo.projetointegrador.moviedetails.model.CastModel
 
-class CastRepository(private val context: Context) {
-    val mattDamon = CastModel("Matt Damon", "Mark Watney", R.drawable.img_cast)
-    val cast = mutableListOf(mattDamon, mattDamon, mattDamon, mattDamon, mattDamon)
+class CastRepository{
+    private val client = ICastEndpoint.endpoint
 
-
-    fun getCast(callback: (cast: MutableList<CastModel>) -> Unit) {
-        callback.invoke(cast)
-    }
+    suspend fun getCast(id: Int) = client.getCast(id)
 }

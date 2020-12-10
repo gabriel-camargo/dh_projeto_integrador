@@ -1,20 +1,23 @@
 package com.gabrielcamargo.projetointegrador.moviedetails.viewModel
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.liveData
 import com.gabrielcamargo.projetointegrador.moviedetails.model.ReviewModel
-import com.gabrielcamargo.projetointegrador.moviedetails.repository.PhotosRepository
 import com.gabrielcamargo.projetointegrador.moviedetails.repository.ReviewsRepository
+import kotlinx.coroutines.Dispatchers
 
 class ReviewsViewModel(
     private val repository: ReviewsRepository
 ): ViewModel()  {
-    val reviews = MutableLiveData<MutableList<ReviewModel>>()
-    fun getReviews() {
-        repository.getReviews {
-            reviews.value = it
-        }
+    private var _photo: List<ReviewModel>? = null
+
+    fun getReviews(id: Int) = liveData(Dispatchers.IO) {
+        val response = repository.getReviews(id)
+        val response2 = repository.getReviews2(id)
+
+        _photo = response.results
+        emit(response.results)
     }
 
     class ReviewsViewModelFactory(
