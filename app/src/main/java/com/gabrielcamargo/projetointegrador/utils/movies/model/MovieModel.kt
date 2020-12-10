@@ -1,7 +1,7 @@
 package com.gabrielcamargo.projetointegrador.utils.movies.model
 
 import com.gabrielcamargo.projetointegrador.data.api.NetworkUtils
-import com.gabrielcamargo.projetointegrador.moviedetails.model.GenreModel
+import com.gabrielcamargo.projetointegrador.moviedetails.details.model.GenreModel
 import com.google.gson.annotations.SerializedName
 
 data class MovieModel(

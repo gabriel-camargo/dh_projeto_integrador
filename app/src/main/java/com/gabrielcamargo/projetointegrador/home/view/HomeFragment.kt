@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gabrielcamargo.projetointegrador.R
 import com.gabrielcamargo.projetointegrador.home.repository.MovieRepository
 import com.gabrielcamargo.projetointegrador.home.viewmodel.MovieViewModel
-import com.gabrielcamargo.projetointegrador.moviedetails.view.MovieDetailsActivity
+import com.gabrielcamargo.projetointegrador.moviedetails.details.view.MovieDetailsActivity
 import com.gabrielcamargo.projetointegrador.utils.movies.model.MovieModel
 
 const val SPAN_COUNT = 2

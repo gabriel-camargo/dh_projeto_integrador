@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gabrielcamargo.projetointegrador.R
 import com.gabrielcamargo.projetointegrador.favoritemovies.watchlist.repository.WatchlistRepository
 import com.gabrielcamargo.projetointegrador.favoritemovies.watchlist.viewmodel.WatchlistViewModel
-import com.gabrielcamargo.projetointegrador.moviedetails.view.MovieDetailsActivity
+import com.gabrielcamargo.projetointegrador.moviedetails.details.view.MovieDetailsActivity
 import com.gabrielcamargo.projetointegrador.utils.moviesoffline.model.MovieModelOffline
 import com.gabrielcamargo.projetointegrador.utils.moviesoffline.view.MovieOfflineAdapter
 
