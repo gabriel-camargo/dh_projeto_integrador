@@ -10,9 +10,6 @@ interface IReviewsEndpoint {
     @GET("movie/{movieId}/reviews")
     suspend fun getReviews(
         @Path("movieId") movieId: Int): ResponseModel<ReviewModel>
-    @GET("movie/{movieId}/reviews")
-    suspend fun getReviews2(
-        @Path("movieId") movieId: Int): Any
 
     companion object {
         val endpoint: IReviewsEndpoint by lazy {

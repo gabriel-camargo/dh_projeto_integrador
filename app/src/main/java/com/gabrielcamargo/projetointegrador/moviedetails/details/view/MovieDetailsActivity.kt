@@ -72,24 +72,6 @@ class MovieDetailsActivity : AppCompatActivity() {
             MovieDetailsViewModel.MovieDetailsViewModelFactory(MovieDetailsRepository())
         ).get(MovieDetailsViewModel::class.java)
 
-//        _viewModel.movieDetails.observe(this, Observer {
-//            val image = this.findViewById<ImageView>(R.id.img_movieDetails)
-//            val name = this.findViewById<TextView>(R.id.txt_nameMovieDetails)
-//            val rate = this.findViewById<TextView>(R.id.txt_rateMovieDetails)
-//            val genre = this.findViewById<TextView>(R.id.txt_genreMovieDetails)
-//            val year = this.findViewById<TextView>(R.id.txt_yearMovieDetails)
-//            val time = this.findViewById<TextView>(R.id.txt_timeMovieDetails)
-//
-//            name.text = it.name
-//            rate.text = it.rate.toString()
-//            genre.text = it.genre
-//            year.text = it.year.toString()
-//            time.text = it.time
-//
-//            image.setImageResource(R.drawable.img_movie)
-//        })
-//        _viewModel.getMovieDetails()
-
         _viewModel.getMovieDetails(_id).observe(this, {
             _movieDetails = it
 

@@ -1,17 +1,22 @@
 package com.gabrielcamargo.projetointegrador.moviedetails.photos.view
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.gabrielcamargo.projetointegrador.MainActivity
 import com.gabrielcamargo.projetointegrador.R
+import com.gabrielcamargo.projetointegrador.home.view.HomeFragment
 import com.gabrielcamargo.projetointegrador.moviedetails.photos.model.PosterModel
 import com.gabrielcamargo.projetointegrador.moviedetails.photos.repository.PhotosRepository
 import com.gabrielcamargo.projetointegrador.moviedetails.photos.viewModel.PhotosViewModel
+import java.util.*
 
 private const val ARG_PARAM1 = "ID"
 
@@ -20,6 +25,7 @@ class PhotosFragment : Fragment() {
     lateinit var _view: View
     private lateinit var _viewModel: PhotosViewModel
     private var param1: Int = 0
+    private lateinit var _imgPhoto: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +46,7 @@ class PhotosFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         _viewModel = ViewModelProvider(
                 this,
                 PhotosViewModel.PhotosViewModelFactory(PhotosRepository())
@@ -54,7 +61,14 @@ class PhotosFragment : Fragment() {
         val viewManagerPhotos = GridLayoutManager(activity, 2)
         val recyclerViewPhotos = view?.findViewById<RecyclerView>(R.id.rcyVwPhotos)
 
-        val viewAdapterPhotos = PhotosAdapter(photos)
+        val viewAdapterPhotos = PhotosAdapter(photos) {
+            val poster = it
+
+            val intent = Intent(view!!.context, PhotoFullActivity::class.java)
+            intent.putExtra("IMAGE", poster.getPathPoster())
+            startActivity(intent)
+
+        }
 
         recyclerViewPhotos?.apply {
             layoutManager = viewManagerPhotos

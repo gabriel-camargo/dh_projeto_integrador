@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.gabrielcamargo.projetointegrador">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -11,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjetoIntegrador">
-
+        <activity android:name=".moviedetails.photos.view.PhotoFullActivity"></activity>
         <activity android:name=".SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,20 +20,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".movielistdetails.view.MovieListDetailsActivity" />
-
-        <activity android:name=".moviedetails.details.view.MovieDetailsActivity"
-            android:parentActivityName=".MainActivity">
-        </activity>
-        <activity android:name=".SignUpActivity"
-            android:parentActivityName=".LoginActivity"
+        <activity
+            android:name=".moviedetails.details.view.MovieDetailsActivity"
+            android:parentActivityName=".MainActivity"></activity>
+        <activity
+            android:name=".SignUpActivity"
             android:label="Sign Up"
-            android:theme="@style/Theme.SignUp"
-            />
+            android:parentActivityName=".LoginActivity"
+            android:theme="@style/Theme.SignUp" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".MainActivity">
-        </activity>
+        <activity android:name=".MainActivity"></activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
