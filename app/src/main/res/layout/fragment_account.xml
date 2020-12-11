@@ -1,96 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".account.view.AccountFragment">
-    <LinearLayout
+
+    <ImageView
+        android:id="@+id/img_usuario"
+        android:layout_width="@dimen/dimen_100_dp"
+        android:layout_height="@dimen/dimen_100_dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dim_espacamento_50dp"
+        android:contentDescription="@string/imagem_de_usuario"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_round_person_24" />
+
+    <TextView
+        android:id="@+id/txt_nomeUsuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dim_24_dp"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dim_20_sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_usuario"
+        tools:text="Nome do usuário" />
+
+    <TextView
+        android:id="@+id/txt_emailUsuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dim_espacamento_8dp"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dim_20_sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_nomeUsuario"
+        tools:text="Exemplo@exemplo.com" />
+
+    <TextView
+        android:id="@+id/txtEditEmail_accountFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="@dimen/dim_espacamento_40dp">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dim_32_dp"
+        android:layout_marginTop="@dimen/dim_espacamento_60dp"
+        android:layout_marginEnd="@dimen/dim_32_dp"
+        android:paddingVertical="@dimen/dim_espacamento_16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="@string/editar_email"
+        android:background="?attr/selectableItemBackground"
+        android:textSize="@dimen/dim_20_sp"
+        app:drawableEndCompat="@drawable/ic_baseline_email_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_emailUsuario" />
 
-        <ImageView
-            android:id="@+id/img_usuario"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center"
-            tools:src="@drawable/ic_round_person_24"
-            />
+    <View
+        android:id="@+id/viewSeparator_accountFragment"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="@dimen/dim_32_dp"
+        android:layout_marginEnd="@dimen/dim_32_dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtEditEmail_accountFragment" />
 
-        <TextView
-            android:id="@+id/txt_nomeUsuario"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            tools:text="Exemplo"
-            android:textSize="20sp"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:layout_marginTop="@dimen/dim_espacamento_40dp"/>
+    <TextView
+        android:id="@+id/txtEditPassword_accountFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="@dimen/dim_espacamento_16dp"
+        android:layout_marginEnd="@dimen/dim_32_dp"
+        android:layout_marginStart="@dimen/dim_32_dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="@string/editar_senha"
+        android:textSize="@dimen/dim_20_sp"
+        app:drawableEndCompat="@drawable/ic_baseline_lock_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewSeparator_accountFragment" />
 
-        <TextView
-            android:id="@+id/txt_emailUsuario"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            tools:text="Exemplo@exemplo.com"
-            android:textSize="20sp"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:layout_marginTop="@dimen/dim_espacamento_10dp"/>
+    <Button
+        android:id="@+id/btn_sair"
+        style="@style/AppTheme.RoundedCornerMaterialButton"
+        android:layout_width="@dimen/dim_espacamento_200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dim_espacamento_60dp"
+        android:text="@string/sair"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edt_alterarEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dim_espacamento_60dp"
-            android:hint="@string/alterar_e_mail"
-            app:endIconMode="clear_text"
-            android:textColorHint="@color/gray_600"
-            android:backgroundTint="@color/gray_600"
-            app:hintTextColor="@color/gray_600"
-            app:boxStrokeColor="@color/white">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_singupNomeInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edt_alterarPasswordLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dim_espacamento_40dp"
-            android:hint="@string/alterar_password"
-            app:endIconMode="password_toggle"
-            android:textColorHint="@color/gray_600"
-            android:backgroundTint="@color/gray_600"
-            app:hintTextColor="@color/gray_600"
-            app:boxStrokeColor="@color/white">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_alterarPasswordInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <Button
-            android:id="@+id/btn_sair"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/sair"
-            android:layout_marginTop="@dimen/dim_espacamento_40dp"
-            android:textAllCaps="true"
-            android:textStyle="bold"
-            style="@style/AppTheme.RoundedCornerMaterialButton" />
-
-
-    </LinearLayout >
-
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
