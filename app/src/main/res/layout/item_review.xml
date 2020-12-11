@@ -30,12 +30,24 @@
                 android:id="@+id/txtRateReviews"
                 android:layout_marginStart="@dimen/dim_espacamento_10dp"
                 android:layout_marginTop="@dimen/dim_2_dp"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
+                android:textSize="16sp"
                 android:fontFamily="@font/roboto"
                 tools:text="8,0"
                 />
+
+            <TextView
+                android:id="@+id/txtUsernameReviews"
+                android:layout_marginStart="@dimen/dim_espacamento_10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dim_2_dp"
+                android:fontFamily="@font/changa_one_italic"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                tools:text="exemplo user" />
 
         </LinearLayout>
 
