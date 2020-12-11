@@ -11,7 +11,7 @@ import com.gabrielcamargo.projetointegrador.R
 import com.gabrielcamargo.projetointegrador.moviedetails.photos.model.PosterModel
 import java.lang.Exception
 
-class PhotosAdapter (private val dataset: List<PosterModel>): RecyclerView.Adapter<PhotosAdapter.PhotosViewHolder>() {
+class PhotosAdapter (private val dataset: List<PosterModel>, private val listener: (PosterModel) -> Unit): RecyclerView.Adapter<PhotosAdapter.PhotosViewHolder>() {
 
     class PhotosViewHolder(view: View): RecyclerView.ViewHolder(view) {
         private val imageVw: ImageView = view.findViewById(R.id.imgPhoto)
@@ -41,7 +41,10 @@ class PhotosAdapter (private val dataset: List<PosterModel>): RecyclerView.Adapt
     }
 
     override fun onBindViewHolder(holder: PhotosViewHolder, position: Int) {
-        holder.bind(dataset[position])
+        val item = dataset[position]
+        holder.bind(item)
+
+        holder.itemView.setOnClickListener { listener(item) }
     }
 
     override fun getItemCount() = dataset.size

@@ -15,6 +15,7 @@ class ReviewsAdapter(private val dataset: List<ReviewModel>): RecyclerView.Adapt
     class ReviewsViewHolder(view: View): RecyclerView.ViewHolder(view) {
         private val reviewTxt: TextView = view.findViewById(R.id.txtReview)
         private val rateTxt: TextView = view.findViewById(R.id.txtRateReviews)
+        private val usernameTxt: TextView = view.findViewById(R.id.txtUsernameReviews)
 
         fun bind(review: ReviewModel) {
 
@@ -24,7 +25,9 @@ class ReviewsAdapter(private val dataset: List<ReviewModel>): RecyclerView.Adapt
                 reviewTxt.text = Html.fromHtml(review.content );
             }
 
-            rateTxt.text = review.authorDetails.rating.toString()
+
+            rateTxt.text = review.authorDetails.rating.toDouble().toString()
+            usernameTxt.text = review.authorDetails.username
         }
     }
 
