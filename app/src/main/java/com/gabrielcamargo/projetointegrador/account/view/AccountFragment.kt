@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.gabrielcamargo.projetointegrador.LoginActivity
 import com.gabrielcamargo.projetointegrador.MainActivity
 import com.gabrielcamargo.projetointegrador.R
@@ -46,8 +47,9 @@ class AccountFragment : Fragment() {
             _name.text = it.name
             _email.text = it.email
 
-            Picasso.get()
+            Glide.with(view.context)
                 .load(it.image)
+                .circleCrop()
                 .into(_image)
         })
 
@@ -58,6 +60,7 @@ class AccountFragment : Fragment() {
         btnSair.setOnClickListener {
             val intent = Intent(_view.context, LoginActivity::class.java)
             startActivity(intent)
+            activity!!.finish()
         }
 
     }
