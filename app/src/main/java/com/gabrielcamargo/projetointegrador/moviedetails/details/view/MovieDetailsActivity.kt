@@ -52,7 +52,7 @@ class MovieDetailsActivity : AppCompatActivity() {
         _movieGenre = findViewById(R.id.txt_genreMovieDetails)
         _movieTime = findViewById(R.id.txt_timeMovieDetails)
 
-        _id = intent.getIntExtra(HomeFragment.intentId, 0)
+        _id = intent.getIntExtra(HomeFragment.intentId, 550)
 
         createMovieDetails()
 
