@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.gabrielcamargo.projetointegrador">
+    package="com.cgmdigitalhouse.cinelist">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -12,25 +12,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjetoIntegrador">
-        <activity android:name=".moviedetails.photos.view.PhotoFullActivity"></activity>
-        <activity android:name=".SplashScreenActivity">
+        <activity android:name="com.cgmdigitalhouse.cinelist.moviedetails.photos.view.PhotoFullActivity"></activity>
+        <activity android:name="com.cgmdigitalhouse.cinelist.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".movielistdetails.view.MovieListDetailsActivity" />
+        <activity android:name="com.cgmdigitalhouse.cinelist.movielistdetails.view.MovieListDetailsActivity" />
         <activity
-            android:name=".moviedetails.details.view.MovieDetailsActivity"
-            android:parentActivityName=".MainActivity"></activity>
+            android:name="com.cgmdigitalhouse.cinelist.moviedetails.details.view.MovieDetailsActivity"
+            android:parentActivityName="com.cgmdigitalhouse.cinelist.MainActivity"></activity>
         <activity
-            android:name=".SignUpActivity"
+            android:name="com.cgmdigitalhouse.cinelist.SignUpActivity"
             android:label="Sign Up"
-            android:parentActivityName=".LoginActivity"
+            android:parentActivityName="com.cgmdigitalhouse.cinelist.LoginActivity"
             android:theme="@style/Theme.SignUp" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name="com.cgmdigitalhouse.cinelist.LoginActivity" />
+        <activity android:name="com.cgmdigitalhouse.cinelist.MainActivity"></activity>
 
         <meta-data
             android:name="preloaded_fonts"
