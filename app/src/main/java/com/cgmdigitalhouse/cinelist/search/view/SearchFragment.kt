@@ -54,6 +54,7 @@ class SearchFragment : Fragment() {
 
         showLoading(true)
         initSearch()
+        setInfiniteScroll()
     }
 
     private fun initRecyclerView() {
@@ -75,12 +76,15 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun showResults(movies: List<MovieModel>?) {
+    private fun showResults(movies: List<MovieModel>?, clearList: Boolean=true) {
         showLoading(false)
 
-        movies?.isNotEmpty()?.let { notfound(it) }
 
-        _movieList.clear()
+        if(clearList) {
+            _movieList.clear()
+            movies?.isNotEmpty()?.let { notfound(it) }
+        }
+
         movies?.let {
             _movieList.addAll(it)
         }
@@ -131,8 +135,25 @@ class SearchFragment : Fragment() {
         }
     }
 
+    private fun setInfiniteScroll() {
+        _recyclerView.run {
+            addOnScrollListener(object: RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+
+                    val target = recyclerView.layoutManager as LinearLayoutManager?
+                    val totalItemCount = target!!.itemCount
+                    val lastVisible = target.findLastVisibleItemPosition()
+                    val lastItem = (lastVisible + 5) >= totalItemCount
+
+                    if(totalItemCount > 0 && lastItem) {
+                        _viewModel.proximaPagina(_text!!).observe(viewLifecycleOwner, {
+                            showResults(it, false)
+                        })
+                    }
+                }
+            })
+        }
+    }
+
 }
-
-
-
-
