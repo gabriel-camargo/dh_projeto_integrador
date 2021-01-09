@@ -3,8 +3,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.cgmdigitalhouse.cinelist.utils.listmovies.dao.ListMovieCrossRefDao
+import com.cgmdigitalhouse.cinelist.utils.listmovies.dao.ListMovieDao
 import com.cgmdigitalhouse.cinelist.utils.listmovies.entity.ListMovieCrossRefEntity
 import com.cgmdigitalhouse.cinelist.utils.listmovies.entity.ListMovieEntity
+import com.cgmdigitalhouse.cinelist.utils.movies.dao.MovieDao
 import com.cgmdigitalhouse.cinelist.utils.movies.entity.MovieEntity
 
 @Database(
@@ -15,6 +18,8 @@ import com.cgmdigitalhouse.cinelist.utils.movies.entity.MovieEntity
 abstract class AppDatabase: RoomDatabase() {
 
     abstract fun MovieDao(): MovieDao
+    abstract fun ListMovieDao(): ListMovieDao
+    abstract fun ListMovieCrossRefDao(): ListMovieCrossRefDao
 
     companion object {
 
@@ -33,3 +38,4 @@ abstract class AppDatabase: RoomDatabase() {
             return INSTANCE!!
         }
     }
+}
