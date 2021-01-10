@@ -5,10 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.cgmdigitalhouse.cinelist.R
 import com.cgmdigitalhouse.cinelist.favoritemovies.movielist.model.MovieListModel
+import com.cgmdigitalhouse.cinelist.utils.listmovies.entity.ListMovieEntity
 
 class MovieListAdapter(
-    private val dataSet: List<MovieListModel>,
-    private val clickListener: (MovieListModel) -> Unit
+    private val dataSet: List<ListMovieEntity>,
+    private val clickListener: (ListMovieEntity) -> Unit
 ): RecyclerView.Adapter<MovieListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieListViewHolder {

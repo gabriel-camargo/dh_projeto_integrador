@@ -10,6 +10,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.cgmdigitalhouse.cinelist.R
 import com.cgmdigitalhouse.cinelist.favoritemovies.movielist.model.MovieListModel
+import com.cgmdigitalhouse.cinelist.utils.listmovies.entity.ListMovieEntity
 
 class MovieListViewHolder(private val view: View): RecyclerView.ViewHolder(view) {
 
@@ -18,14 +19,14 @@ class MovieListViewHolder(private val view: View): RecyclerView.ViewHolder(view)
     private val img: ImageView = view.findViewById(R.id.img_itemMovieList)
     private val cardCornerRadius = 12
 
-    fun bind(movieList: MovieListModel) {
-        txtName.text = movieList.nome
-        movies.text = movieList.qtd.toString()
-
-        Glide.with(view.context)
-            .load(movieList.img)
-            .transform(CenterCrop(), RoundedCorners(cardCornerRadius))
-            .transition(DrawableTransitionOptions.withCrossFade())
-            .into(img)
+    fun bind(movieList: ListMovieEntity) {
+        txtName.text = movieList.name
+//        movies.text = movieList.
+//
+//        Glide.with(view.context)
+//            .load(movieList.img)
+//            .transform(CenterCrop(), RoundedCorners(cardCornerRadius))
+//            .transition(DrawableTransitionOptions.withCrossFade())
+//            .into(img)
     }
 }

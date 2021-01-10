@@ -17,9 +17,9 @@ import com.cgmdigitalhouse.cinelist.utils.movies.entity.MovieEntity
 )
 abstract class AppDatabase: RoomDatabase() {
 
-    abstract fun MovieDao(): MovieDao
-    abstract fun ListMovieDao(): ListMovieDao
-    abstract fun ListMovieCrossRefDao(): ListMovieCrossRefDao
+    abstract fun movieDao(): MovieDao
+    abstract fun listMovieDao(): ListMovieDao
+    abstract fun listMovieCrossRefDao(): ListMovieCrossRefDao
 
     companion object {
 

@@ -50,5 +50,6 @@
     <string name="imagem_de_usuario">Imagem de usuário</string>
     <string name="editar_email">Editar email</string>
     <string name="editar_senha">Editar senha</string>
+    <string name="descricao">Descrição</string>
 
 </resources>
