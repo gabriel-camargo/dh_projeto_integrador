@@ -11,4 +11,5 @@ interface ListMovieDao {
     @Query("SELECT * FROM ListMovie")
     suspend fun obterlistsMovies(): MutableList<ListMovieEntity>
 
+
 }

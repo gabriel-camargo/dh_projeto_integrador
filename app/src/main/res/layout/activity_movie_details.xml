@@ -55,6 +55,7 @@ android:fillViewport="true">
             tools:text="@string/perdido_em_marte" />
 
         <ImageView
+            android:id="@+id/imvAddMovieList"
             android:layout_width="@dimen/dim_espacamento_30dp"
             android:layout_height="match_parent"
             android:paddingTop="@dimen/dim_espacamento_8dp"

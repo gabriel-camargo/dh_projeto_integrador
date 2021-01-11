@@ -1,10 +1,13 @@
 package com.cgmdigitalhouse.cinelist.moviedetails.details.view
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.os.Bundle
-import android.widget.ImageView
-import android.widget.TextView
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +16,9 @@ import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.cgmdigitalhouse.cinelist.R
+import com.cgmdigitalhouse.cinelist.db.AppDatabase
+import com.cgmdigitalhouse.cinelist.favoritemovies.movielist.repository.MovieListRepository
+import com.cgmdigitalhouse.cinelist.favoritemovies.movielist.viewmodel.MovieListViewModel
 import com.cgmdigitalhouse.cinelist.home.view.HomeFragment
 import com.cgmdigitalhouse.cinelist.moviedetails.cast.model.CastModel
 import com.cgmdigitalhouse.cinelist.moviedetails.cast.repository.CastRepository
@@ -22,16 +28,24 @@ import com.cgmdigitalhouse.cinelist.moviedetails.photos.view.PhotosFragment
 import com.cgmdigitalhouse.cinelist.moviedetails.reviews.view.ReviewsFragment
 import com.cgmdigitalhouse.cinelist.moviedetails.cast.viewModel.CastViewModel
 import com.cgmdigitalhouse.cinelist.moviedetails.details.viewModel.MovieDetailsViewModel
+import com.cgmdigitalhouse.cinelist.utils.listmovies.entity.ListMovieEntity
 import com.cgmdigitalhouse.cinelist.utils.movies.model.MovieModel
+import com.google.android.material.textfield.TextInputEditText
 
 class MovieDetailsActivity : AppCompatActivity() {
     private lateinit var _castViewModel: CastViewModel
     private lateinit var _viewModel: MovieDetailsViewModel
+    private lateinit var _mAlertDialog: AlertDialog
+    private lateinit var _listMovies: Spinner
+    lateinit var viewModel: MovieListViewModel
+    var movieLists: MutableList<ListMovieEntity> = mutableListOf()
+
 
     private var _movieDetails: MovieModel? = null
 
 
     private lateinit var _imgMovie: ImageView
+    private lateinit var _imgAddMovie: ImageView
     private lateinit var _movieTitle: TextView
     private lateinit var _movieRate: TextView
     private lateinit var _movieYear: TextView
@@ -51,6 +65,8 @@ class MovieDetailsActivity : AppCompatActivity() {
         _movieYear = findViewById(R.id.txt_yearMovieDetails)
         _movieGenre = findViewById(R.id.txt_genreMovieDetails)
         _movieTime = findViewById(R.id.txt_timeMovieDetails)
+        _imgAddMovie = findViewById(R.id.imvAddMovieList)
+
 
         _id = intent.getIntExtra(HomeFragment.intentId, 550)
 
@@ -61,6 +77,8 @@ class MovieDetailsActivity : AppCompatActivity() {
         back.setOnClickListener() {
             onBackPressed()
         }
+
+
 
 
     }
@@ -100,6 +118,56 @@ class MovieDetailsActivity : AppCompatActivity() {
             createCastView()
 
         })
+
+        _imgAddMovie.setOnClickListener {
+
+            val mDialogView =
+                    LayoutInflater.from(this).inflate(R.layout.add_movie_dialog, null)
+
+            val mBuilder = AlertDialog.Builder(this).setView(mDialogView)
+                    .setTitle("Adicionar Filme a Lista")
+            _mAlertDialog = mBuilder.show()
+
+            val btnCancelar = mDialogView.findViewById<Button>(R.id.btnCancelarMovie)
+            val btnAdicionar = mDialogView.findViewById<Button>(R.id.btnAdicionarMovie)
+            _listMovies = mDialogView.findViewById(R.id.list_movie_spinner)
+
+
+            viewModel = ViewModelProvider(
+                    this,
+                    MovieListViewModel.MovieListViewModelFactory(MovieListRepository(AppDatabase.getDatabase(this).listMovieDao()))
+            ).get(MovieListViewModel::class.java)
+
+            viewModel.getMovieLists().observe(this, Observer{
+                movieLists = it
+            })
+            val listMovies = arrayListOf<String>()
+            for(item in movieLists){
+                listMovies.add(item.name)
+            }
+            _listMovies.adapter = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,listMovies)
+
+
+
+            _listMovies.onItemSelectedListener = object :AdapterView.OnItemSelectedListener{
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+
+                }
+
+                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+
+                }
+
+            }
+            btnCancelar.setOnClickListener {
+                _mAlertDialog.dismiss()
+            }
+
+            btnAdicionar.setOnClickListener {
+                _mAlertDialog.dismiss()
+            }
+
+        }
 
 
     }
