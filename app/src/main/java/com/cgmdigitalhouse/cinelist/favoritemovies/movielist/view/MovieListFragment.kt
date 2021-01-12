@@ -69,6 +69,8 @@ class MovieListFragment : Fragment() {
 
             val intent = Intent(activity, MovieListDetailsActivity::class.java)
             intent.putExtra(getString(R.string.intent_list_name), it.name)
+            intent.putExtra("LIST_ID", it.listMovieId)
+
             //intent.putExtra(getString(R.string.intent_list_img), it.img)
 
             startActivity(intent)

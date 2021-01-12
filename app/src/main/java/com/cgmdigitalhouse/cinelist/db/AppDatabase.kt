@@ -7,17 +7,14 @@ import com.cgmdigitalhouse.cinelist.utils.listmovies.dao.ListMovieCrossRefDao
 import com.cgmdigitalhouse.cinelist.utils.listmovies.dao.ListMovieDao
 import com.cgmdigitalhouse.cinelist.utils.listmovies.entity.ListMovieCrossRefEntity
 import com.cgmdigitalhouse.cinelist.utils.listmovies.entity.ListMovieEntity
-import com.cgmdigitalhouse.cinelist.utils.movies.dao.MovieDao
-import com.cgmdigitalhouse.cinelist.utils.movies.entity.MovieEntity
 
 @Database(
-    entities = [MovieEntity::class, ListMovieEntity::class, ListMovieCrossRefEntity::class],
+    entities = [ ListMovieEntity::class, ListMovieCrossRefEntity::class],
     version = 1,
     exportSchema = false
 )
 abstract class AppDatabase: RoomDatabase() {
 
-    abstract fun movieDao(): MovieDao
     abstract fun listMovieDao(): ListMovieDao
     abstract fun listMovieCrossRefDao(): ListMovieCrossRefDao
 

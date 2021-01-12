@@ -5,11 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.cgmdigitalhouse.cinelist.R
-import com.cgmdigitalhouse.cinelist.utils.moviesoffline.model.MovieModelOffline
+import com.cgmdigitalhouse.cinelist.utils.movies.model.MovieModel
+
 
 class MovieOfflineAdapter(
-    private val dataSet: List<MovieModelOffline>,
-    private val clickListener: (MovieModelOffline) -> Unit
+    private val dataSet: MutableList<MovieModel>,
+    private val clickListener: (MovieModel) -> Unit
 ): RecyclerView.Adapter<MovieOfflineViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieOfflineViewHolder {

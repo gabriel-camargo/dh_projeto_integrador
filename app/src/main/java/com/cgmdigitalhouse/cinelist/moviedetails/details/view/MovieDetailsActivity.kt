@@ -37,7 +37,9 @@ class MovieDetailsActivity : AppCompatActivity() {
     private lateinit var _viewModel: MovieDetailsViewModel
     private lateinit var _mAlertDialog: AlertDialog
     private lateinit var _listMovies: Spinner
-    lateinit var viewModel: MovieListViewModel
+    private var _position: Int = 0
+    private lateinit var _movieListViewModel: MovieListViewModel
+    private lateinit var _movieDetailsViewModel: MovieDetailsViewModel
     var movieLists: MutableList<ListMovieEntity> = mutableListOf()
 
 
@@ -90,6 +92,9 @@ class MovieDetailsActivity : AppCompatActivity() {
             MovieDetailsViewModel.MovieDetailsViewModelFactory(MovieDetailsRepository())
         ).get(MovieDetailsViewModel::class.java)
 
+
+
+
         _viewModel.getMovieDetails(_id).observe(this, {
             _movieDetails = it
 
@@ -133,12 +138,12 @@ class MovieDetailsActivity : AppCompatActivity() {
             _listMovies = mDialogView.findViewById(R.id.list_movie_spinner)
 
 
-            viewModel = ViewModelProvider(
+            _movieListViewModel = ViewModelProvider(
                     this,
                     MovieListViewModel.MovieListViewModelFactory(MovieListRepository(AppDatabase.getDatabase(this).listMovieDao()))
             ).get(MovieListViewModel::class.java)
 
-            viewModel.getMovieLists().observe(this, Observer{
+            _movieListViewModel.getMovieLists().observe(this, Observer{
                 movieLists = it
             })
             val listMovies = arrayListOf<String>()
@@ -155,7 +160,7 @@ class MovieDetailsActivity : AppCompatActivity() {
                 }
 
                 override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-
+                    _position = p2
                 }
 
             }
@@ -163,8 +168,19 @@ class MovieDetailsActivity : AppCompatActivity() {
                 _mAlertDialog.dismiss()
             }
 
+
+
             btnAdicionar.setOnClickListener {
                 _mAlertDialog.dismiss()
+                _movieDetailsViewModel = ViewModelProvider(
+                        this,
+                        MovieDetailsViewModel.MovieDetailsViewModelFactory(MovieDetailsRepository())
+                ).get(MovieDetailsViewModel::class.java)
+                _movieDetailsViewModel.repository.listMovieCrossRefDao = AppDatabase.getDatabase(this).listMovieCrossRefDao()
+                _movieDetailsViewModel.addMovieToList( _id.toLong(),  movieLists[_position].listMovieId).observe(this, Observer{
+
+                })
+
             }
 
         }
