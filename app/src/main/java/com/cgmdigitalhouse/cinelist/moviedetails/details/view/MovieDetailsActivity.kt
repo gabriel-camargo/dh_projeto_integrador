@@ -53,6 +53,8 @@ class MovieDetailsActivity : AppCompatActivity() {
     private lateinit var _movieYear: TextView
     private lateinit var _movieGenre: TextView
     private lateinit var _movieTime: TextView
+    private lateinit var listMovies: ArrayList<String>
+    private lateinit var mDialogView: View
     private var _id: Int = 0
 
 
@@ -126,15 +128,14 @@ class MovieDetailsActivity : AppCompatActivity() {
 
         _imgAddMovie.setOnClickListener {
 
-            val mDialogView =
+             mDialogView =
                     LayoutInflater.from(this).inflate(R.layout.add_movie_dialog, null)
 
             val mBuilder = AlertDialog.Builder(this).setView(mDialogView)
                     .setTitle("Adicionar Filme a Lista")
             _mAlertDialog = mBuilder.show()
 
-            val btnCancelar = mDialogView.findViewById<Button>(R.id.btnCancelarMovie)
-            val btnAdicionar = mDialogView.findViewById<Button>(R.id.btnAdicionarMovie)
+
             _listMovies = mDialogView.findViewById(R.id.list_movie_spinner)
 
 
@@ -144,48 +145,57 @@ class MovieDetailsActivity : AppCompatActivity() {
             ).get(MovieListViewModel::class.java)
 
             _movieListViewModel.getMovieLists().observe(this, Observer{
-                movieLists = it
+                createListDialogDetail(it)
             })
-            val listMovies = arrayListOf<String>()
-            for(item in movieLists){
-                listMovies.add(item.name)
-            }
-            _listMovies.adapter = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,listMovies)
 
 
-
-            _listMovies.onItemSelectedListener = object :AdapterView.OnItemSelectedListener{
-                override fun onNothingSelected(p0: AdapterView<*>?) {
-
-                }
-
-                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                    _position = p2
-                }
-
-            }
-            btnCancelar.setOnClickListener {
-                _mAlertDialog.dismiss()
-            }
-
-
-
-            btnAdicionar.setOnClickListener {
-                _mAlertDialog.dismiss()
-                _movieDetailsViewModel = ViewModelProvider(
-                        this,
-                        MovieDetailsViewModel.MovieDetailsViewModelFactory(MovieDetailsRepository())
-                ).get(MovieDetailsViewModel::class.java)
-                _movieDetailsViewModel.repository.listMovieCrossRefDao = AppDatabase.getDatabase(this).listMovieCrossRefDao()
-                _movieDetailsViewModel.addMovieToList( _id.toLong(),  movieLists[_position].listMovieId).observe(this, Observer{
-
-                })
-
-            }
 
         }
 
 
+    }
+
+    fun createListDialogDetail(listaMovies : MutableList<ListMovieEntity>){
+        movieLists = listaMovies
+        listMovies = arrayListOf<String>()
+        for(item in movieLists){
+            listMovies.add(item.name)
+        }
+
+        val btnCancelar = mDialogView.findViewById<Button>(R.id.btnCancelarMovie)
+        val btnAdicionar = mDialogView.findViewById<Button>(R.id.btnAdicionarMovie)
+        _listMovies.adapter = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,listMovies)
+
+
+
+        _listMovies.onItemSelectedListener = object :AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+
+            }
+
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                _position = p2
+            }
+
+        }
+        btnCancelar.setOnClickListener {
+            _mAlertDialog.dismiss()
+        }
+
+
+
+        btnAdicionar.setOnClickListener {
+            _mAlertDialog.dismiss()
+            _movieDetailsViewModel = ViewModelProvider(
+                    this,
+                    MovieDetailsViewModel.MovieDetailsViewModelFactory(MovieDetailsRepository())
+            ).get(MovieDetailsViewModel::class.java)
+            _movieDetailsViewModel.repository.listMovieCrossRefDao = AppDatabase.getDatabase(this).listMovieCrossRefDao()
+            _movieDetailsViewModel.addMovieToList( _id.toLong(),  movieLists[_position].listMovieId).observe(this, Observer{
+
+            })
+
+        }
     }
 
     private fun createCastView() {

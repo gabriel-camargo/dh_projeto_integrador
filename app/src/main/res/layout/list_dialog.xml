@@ -64,7 +64,7 @@
             android:gravity="center"
             android:text="criar"
             android:textAllCaps="true"
-            app:backgroundTint="@color/facebook" />
+            app:backgroundTint="@color/purple_400" />
 
         <Button
             android:id="@+id/btn_cancelar"
@@ -74,7 +74,7 @@
             android:layout_marginHorizontal="@dimen/dim_espacamento_10dp"
             android:gravity="center"
             android:text="cancelar"
-            app:backgroundTint="@color/google"
+            app:backgroundTint="@color/gray_600"
             android:textAllCaps="true"
             style="@style/AppTheme.RoundedCornerMaterialButton"
             />
