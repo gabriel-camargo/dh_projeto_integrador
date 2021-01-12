@@ -3,19 +3,30 @@ package com.cgmdigitalhouse.cinelist.favoritemovies.movielist.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.liveData
 import com.cgmdigitalhouse.cinelist.favoritemovies.movielist.model.MovieListModel
 import com.cgmdigitalhouse.cinelist.favoritemovies.movielist.repository.MovieListRepository
+import com.cgmdigitalhouse.cinelist.utils.listmovies.entity.ListMovieEntity
+import kotlinx.coroutines.Dispatchers
 
 class MovieListViewModel(
     private val repository: MovieListRepository
 ): ViewModel() {
-    val movieLists = MutableLiveData<MutableList<MovieListModel>>()
+    fun inserirListMovie(nome:String, descricao: String) = liveData(Dispatchers.IO) {
+        val listMovie = ListMovieEntity(0,nome, descricao)
+        val newId = repository.inserirListMovie(ListMovieEntity(0,nome, descricao))
 
-    fun getMovieLists() {
-        repository.getMovieLists {
-            movieLists.value = it
-        }
+        listMovie.listMovieId = newId
+
+        emit(listMovie)
     }
+
+   fun getMovieLists() = liveData(Dispatchers.IO) {
+        emit(repository.getListMovies())
+  }
+
+
+
 
     @Suppress("UNCHECKED_CAST")
     class MovieListViewModelFactory(

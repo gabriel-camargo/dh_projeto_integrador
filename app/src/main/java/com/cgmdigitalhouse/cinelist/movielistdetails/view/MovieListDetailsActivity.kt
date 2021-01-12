@@ -16,12 +16,13 @@ class MovieListDetailsActivity : AppCompatActivity() {
 
             val title: String = mIntent.getStringExtra(getString(R.string.intent_list_name))!!
             val img: Int = mIntent.getIntExtra(getString(R.string.intent_list_img),0)
+            val id: Long = mIntent.getLongExtra("LIST_ID",0)!!
 //
 //            val ss:String = intent.getStringExtra("samplename")
 
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container, MovieListDetailsFragment.newInstance(
-                    title, img
+                    title, img, id
                 ))
                 .commitNow()
         }

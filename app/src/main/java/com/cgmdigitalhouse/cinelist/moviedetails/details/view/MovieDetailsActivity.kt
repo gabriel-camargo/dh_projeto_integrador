@@ -1,10 +1,13 @@
 package com.cgmdigitalhouse.cinelist.moviedetails.details.view
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.os.Bundle
-import android.widget.ImageView
-import android.widget.TextView
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +16,9 @@ import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.cgmdigitalhouse.cinelist.R
+import com.cgmdigitalhouse.cinelist.db.AppDatabase
+import com.cgmdigitalhouse.cinelist.favoritemovies.movielist.repository.MovieListRepository
+import com.cgmdigitalhouse.cinelist.favoritemovies.movielist.viewmodel.MovieListViewModel
 import com.cgmdigitalhouse.cinelist.home.view.HomeFragment
 import com.cgmdigitalhouse.cinelist.moviedetails.cast.model.CastModel
 import com.cgmdigitalhouse.cinelist.moviedetails.cast.repository.CastRepository
@@ -22,21 +28,33 @@ import com.cgmdigitalhouse.cinelist.moviedetails.photos.view.PhotosFragment
 import com.cgmdigitalhouse.cinelist.moviedetails.reviews.view.ReviewsFragment
 import com.cgmdigitalhouse.cinelist.moviedetails.cast.viewModel.CastViewModel
 import com.cgmdigitalhouse.cinelist.moviedetails.details.viewModel.MovieDetailsViewModel
+import com.cgmdigitalhouse.cinelist.utils.listmovies.entity.ListMovieEntity
 import com.cgmdigitalhouse.cinelist.utils.movies.model.MovieModel
+import com.google.android.material.textfield.TextInputEditText
 
 class MovieDetailsActivity : AppCompatActivity() {
     private lateinit var _castViewModel: CastViewModel
     private lateinit var _viewModel: MovieDetailsViewModel
+    private lateinit var _mAlertDialog: AlertDialog
+    private lateinit var _listMovies: Spinner
+    private var _position: Int = 0
+    private lateinit var _movieListViewModel: MovieListViewModel
+    private lateinit var _movieDetailsViewModel: MovieDetailsViewModel
+    var movieLists: MutableList<ListMovieEntity> = mutableListOf()
+
 
     private var _movieDetails: MovieModel? = null
 
 
     private lateinit var _imgMovie: ImageView
+    private lateinit var _imgAddMovie: ImageView
     private lateinit var _movieTitle: TextView
     private lateinit var _movieRate: TextView
     private lateinit var _movieYear: TextView
     private lateinit var _movieGenre: TextView
     private lateinit var _movieTime: TextView
+    private lateinit var listMovies: ArrayList<String>
+    private lateinit var mDialogView: View
     private var _id: Int = 0
 
 
@@ -51,6 +69,8 @@ class MovieDetailsActivity : AppCompatActivity() {
         _movieYear = findViewById(R.id.txt_yearMovieDetails)
         _movieGenre = findViewById(R.id.txt_genreMovieDetails)
         _movieTime = findViewById(R.id.txt_timeMovieDetails)
+        _imgAddMovie = findViewById(R.id.imvAddMovieList)
+
 
         _id = intent.getIntExtra(HomeFragment.intentId, 550)
 
@@ -63,6 +83,8 @@ class MovieDetailsActivity : AppCompatActivity() {
         }
 
 
+
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -71,6 +93,9 @@ class MovieDetailsActivity : AppCompatActivity() {
             this,
             MovieDetailsViewModel.MovieDetailsViewModelFactory(MovieDetailsRepository())
         ).get(MovieDetailsViewModel::class.java)
+
+
+
 
         _viewModel.getMovieDetails(_id).observe(this, {
             _movieDetails = it
@@ -101,7 +126,76 @@ class MovieDetailsActivity : AppCompatActivity() {
 
         })
 
+        _imgAddMovie.setOnClickListener {
 
+             mDialogView =
+                    LayoutInflater.from(this).inflate(R.layout.add_movie_dialog, null)
+
+            val mBuilder = AlertDialog.Builder(this).setView(mDialogView)
+                    .setTitle("Adicionar Filme a Lista")
+            _mAlertDialog = mBuilder.show()
+
+
+            _listMovies = mDialogView.findViewById(R.id.list_movie_spinner)
+
+
+            _movieListViewModel = ViewModelProvider(
+                    this,
+                    MovieListViewModel.MovieListViewModelFactory(MovieListRepository(AppDatabase.getDatabase(this).listMovieDao()))
+            ).get(MovieListViewModel::class.java)
+
+            _movieListViewModel.getMovieLists().observe(this, Observer{
+                createListDialogDetail(it)
+            })
+
+
+
+        }
+
+
+    }
+
+    fun createListDialogDetail(listaMovies : MutableList<ListMovieEntity>){
+        movieLists = listaMovies
+        listMovies = arrayListOf<String>()
+        for(item in movieLists){
+            listMovies.add(item.name)
+        }
+
+        val btnCancelar = mDialogView.findViewById<Button>(R.id.btnCancelarMovie)
+        val btnAdicionar = mDialogView.findViewById<Button>(R.id.btnAdicionarMovie)
+        _listMovies.adapter = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,listMovies)
+
+
+
+        _listMovies.onItemSelectedListener = object :AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+
+            }
+
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                _position = p2
+            }
+
+        }
+        btnCancelar.setOnClickListener {
+            _mAlertDialog.dismiss()
+        }
+
+
+
+        btnAdicionar.setOnClickListener {
+            _mAlertDialog.dismiss()
+            _movieDetailsViewModel = ViewModelProvider(
+                    this,
+                    MovieDetailsViewModel.MovieDetailsViewModelFactory(MovieDetailsRepository())
+            ).get(MovieDetailsViewModel::class.java)
+            _movieDetailsViewModel.repository.listMovieCrossRefDao = AppDatabase.getDatabase(this).listMovieCrossRefDao()
+            _movieDetailsViewModel.addMovieToList( _id.toLong(),  movieLists[_position].listMovieId).observe(this, Observer{
+
+            })
+
+        }
     }
 
     private fun createCastView() {

@@ -18,29 +18,39 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.cgmdigitalhouse.cinelist.R
+import com.cgmdigitalhouse.cinelist.db.AppDatabase
+import com.cgmdigitalhouse.cinelist.moviedetails.details.repository.MovieDetailsRepository
 import com.cgmdigitalhouse.cinelist.moviedetails.details.view.MovieDetailsActivity
+import com.cgmdigitalhouse.cinelist.moviedetails.details.viewModel.MovieDetailsViewModel
 import com.cgmdigitalhouse.cinelist.movielistdetails.repository.MovieListDetailsRepository
 import com.cgmdigitalhouse.cinelist.movielistdetails.viewmodel.MovieListDetailsViewModel
+import com.cgmdigitalhouse.cinelist.utils.listmovies.entity.ListMovieCrossRefEntity
+import com.cgmdigitalhouse.cinelist.utils.movies.model.MovieModel
 import com.cgmdigitalhouse.cinelist.utils.moviesoffline.model.MovieModelOffline
 import com.cgmdigitalhouse.cinelist.utils.moviesoffline.view.MovieOfflineAdapter
 
 private const val ARG_PARAM_TITLE = "title"
 private const val ARG_PARAM_IMG = "img"
+private const val ARG_PARAM_ID= "id"
 
 class MovieListDetailsFragment : Fragment() {
 
     private var title: String? = null
     private var img: Int? = null
+    private var id: Long? = null
+    private  var movies = mutableListOf<MovieModel>()
 
     private lateinit var _viewModel: MovieListDetailsViewModel
+    private lateinit var _movieDetailsViewModel: MovieDetailsViewModel
     private lateinit var _myView: View
 
     companion object {
-        fun newInstance(title: String, img: Int) =
+        fun newInstance(title: String, img: Int, id: Long) =
             MovieListDetailsFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM_TITLE, title)
                     putInt(ARG_PARAM_IMG, img)
+                    putLong(ARG_PARAM_ID, id)
                 }
             }
 
@@ -53,6 +63,7 @@ class MovieListDetailsFragment : Fragment() {
         arguments?.let {
             title = it.getString(ARG_PARAM_TITLE)
             img = it.getInt(ARG_PARAM_IMG)
+            id = it.getLong(ARG_PARAM_ID)
         }
     }
 
@@ -73,16 +84,16 @@ class MovieListDetailsFragment : Fragment() {
             this,
             MovieListDetailsViewModel.MovieListDetailsViewModelFactory(
                 MovieListDetailsRepository(
-                    _myView.context
+                        AppDatabase.getDatabase(_myView.context).listMovieCrossRefDao()
                 )
             )
         ).get(MovieListDetailsViewModel::class.java)
 
-        _viewModel.movies.observe(viewLifecycleOwner, Observer {
+        _viewModel.getListMoviesCrossRefEntity(id!!).observe(viewLifecycleOwner, Observer {
             createList(it)
         })
 
-        _viewModel.getMovies()
+
     }
 
     private fun setDataMovieDetails() {
@@ -102,11 +113,27 @@ class MovieListDetailsFragment : Fragment() {
         }
     }
 
-    private fun createList(movies: List<MovieModelOffline>) {
+    private fun createList(listMovieCrossRefEntity: MutableList<ListMovieCrossRefEntity>) {
+        _movieDetailsViewModel = ViewModelProvider(
+                this,
+                MovieDetailsViewModel.MovieDetailsViewModelFactory(MovieDetailsRepository())
+        ).get(MovieDetailsViewModel::class.java)
+
+        for (listMovie in listMovieCrossRefEntity){
+            _movieDetailsViewModel.getMovieDetails(listMovie.movieId.toInt()).observe(viewLifecycleOwner, Observer {
+                movies.add(it)
+                addItens(movies)
+            })
+
+
+        }
+
+
+    }
+    fun addItens(movies :MutableList<MovieModel>){
         val viewManager = LinearLayoutManager(_myView.context)
         val recyclerView =
-            _myView.findViewById<RecyclerView>(R.id.recyclerView_movieListDetailsFragment)
-
+                _myView.findViewById<RecyclerView>(R.id.recyclerView_movieListDetailsFragment)
         val viewAdapter = MovieOfflineAdapter(movies) {
 
             val intent = Intent(activity, MovieDetailsActivity::class.java)
@@ -115,10 +142,10 @@ class MovieListDetailsFragment : Fragment() {
         }
 
         recyclerView.addItemDecoration(
-            DividerItemDecoration(
-                recyclerView.context,
-                DividerItemDecoration.VERTICAL
-            )
+                DividerItemDecoration(
+                        recyclerView.context,
+                        DividerItemDecoration.VERTICAL
+                )
         )
 
         recyclerView.apply {

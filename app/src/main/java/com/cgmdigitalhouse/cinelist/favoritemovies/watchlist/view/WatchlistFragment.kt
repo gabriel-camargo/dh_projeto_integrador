@@ -15,6 +15,7 @@ import com.cgmdigitalhouse.cinelist.R
 import com.cgmdigitalhouse.cinelist.favoritemovies.watchlist.repository.WatchlistRepository
 import com.cgmdigitalhouse.cinelist.favoritemovies.watchlist.viewmodel.WatchlistViewModel
 import com.cgmdigitalhouse.cinelist.moviedetails.details.view.MovieDetailsActivity
+import com.cgmdigitalhouse.cinelist.utils.movies.model.MovieModel
 import com.cgmdigitalhouse.cinelist.utils.moviesoffline.model.MovieModelOffline
 import com.cgmdigitalhouse.cinelist.utils.moviesoffline.view.MovieOfflineAdapter
 
@@ -43,14 +44,14 @@ class WatchlistFragment : Fragment() {
             WatchlistViewModel.WatchlistViewModelFactory(WatchlistRepository(myView.context))
         ).get(WatchlistViewModel::class.java)
 
-        _viewModel.movies.observe(viewLifecycleOwner, Observer {
-            createList(it)
-        })
+//        _viewModel.movies.observe(viewLifecycleOwner, Observer {
+//            createList(it)
+//        })
 
         _viewModel.getMovies()
     }
 
-    private fun createList(movies: List<MovieModelOffline>) {
+    private fun createList(movies: MutableList<MovieModel>) {
         val viewManager = LinearLayoutManager(myView.context)
         val recyclerView = myView.findViewById<RecyclerView>(R.id.recyclerView_watchlistFragment)
 

@@ -4,11 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.liveData
 import com.cgmdigitalhouse.cinelist.moviedetails.details.repository.MovieDetailsRepository
+import com.cgmdigitalhouse.cinelist.utils.listmovies.entity.ListMovieCrossRefEntity
 import com.cgmdigitalhouse.cinelist.utils.movies.model.MovieModel
 import kotlinx.coroutines.Dispatchers
 
 class MovieDetailsViewModel(
-    private val repository: MovieDetailsRepository
+    val repository: MovieDetailsRepository
 ): ViewModel()  {
     private var _movieDetails: MovieModel? = null
 
@@ -17,6 +18,13 @@ class MovieDetailsViewModel(
 
         _movieDetails = response
         emit(response)
+    }
+
+     fun addMovieToList(idMovie:Long, idListMovie:Long) = liveData(Dispatchers.IO){
+
+        val newId = repository.inserirListMovieCrossRef(ListMovieCrossRefEntity(idListMovie,idMovie))
+
+        emit(ListMovieCrossRefEntity(idListMovie,idMovie))
     }
 
     class MovieDetailsViewModelFactory(

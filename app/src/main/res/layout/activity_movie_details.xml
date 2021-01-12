@@ -16,6 +16,15 @@
         tools:context=".filmedetalhes.MovieDetailsActivity"
         >
 
+
+        <ImageView
+            android:id="@+id/imvAddMovieList"
+            android:layout_width="@dimen/dim_espacamento_30dp"
+            android:layout_height="match_parent"
+            android:paddingTop="@dimen/dim_espacamento_8dp"
+            android:layout_marginStart="@dimen/dim_espacamento_30dp"
+            android:src="@drawable/ic_baseline_playlist_add_24"/>
+      
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
