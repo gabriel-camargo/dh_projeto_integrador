@@ -24,7 +24,7 @@ class MovieOfflineViewHolder(private val view: View): RecyclerView.ViewHolder(vi
         txtName.text = movie.title
         txtGenre.text = movie.genres[0].name
         txtStars.text = movie.voteAverage.toString()
-        txtYear.text = movie.runtime.toString()
+        txtYear.text = movie.releaseDate
 
         Glide.with(view.context)
             .load(movie.getPathPoster())
