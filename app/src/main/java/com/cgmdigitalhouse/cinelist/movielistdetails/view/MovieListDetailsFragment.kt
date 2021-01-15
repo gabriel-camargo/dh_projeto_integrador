@@ -19,6 +19,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.cgmdigitalhouse.cinelist.R
 import com.cgmdigitalhouse.cinelist.db.AppDatabase
+import com.cgmdigitalhouse.cinelist.home.view.HomeFragment
 import com.cgmdigitalhouse.cinelist.moviedetails.details.repository.MovieDetailsRepository
 import com.cgmdigitalhouse.cinelist.moviedetails.details.view.MovieDetailsActivity
 import com.cgmdigitalhouse.cinelist.moviedetails.details.viewModel.MovieDetailsViewModel
@@ -124,12 +125,9 @@ class MovieListDetailsFragment : Fragment() {
                 movies.add(it)
                 addItens(movies)
             })
-
-
         }
-
-
     }
+
     fun addItens(movies :MutableList<MovieModel>){
         val viewManager = LinearLayoutManager(_myView.context)
         val recyclerView =
@@ -137,6 +135,7 @@ class MovieListDetailsFragment : Fragment() {
         val viewAdapter = MovieOfflineAdapter(movies) {
 
             val intent = Intent(activity, MovieDetailsActivity::class.java)
+            intent.putExtra(HomeFragment.intentId, it.id)
             startActivity(intent)
 
         }
@@ -154,4 +153,6 @@ class MovieListDetailsFragment : Fragment() {
             adapter = viewAdapter
         }
     }
+
+
 }
