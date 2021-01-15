@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
@@ -109,15 +110,22 @@ class MovieListFragment : Fragment() {
             }
 
             btnCriar.setOnClickListener {
-                mAlertDialog.dismiss()
-                viewModel.inserirListMovie(edtName.text.toString(),edtDescription.text.toString()).observe(viewLifecycleOwner, {
-                    movieLists.add(it)
-                    createList()
-                })
 
+                val listName = edtName.text.toString().trim()
+                val listDescription = edtDescription.text.toString().trim()
+
+                if(listName.isBlank()) {
+                    Toast.makeText(myView.context, "Preencha o nome da lista", Toast.LENGTH_SHORT).show()
+                } else {
+                    mAlertDialog.dismiss()
+
+                    viewModel.inserirListMovie(listName,listDescription).observe(viewLifecycleOwner, {
+                        movieLists.add(it)
+                        createList()
+                    })
+                }
             }
         }
-
     }
 
     companion object {
