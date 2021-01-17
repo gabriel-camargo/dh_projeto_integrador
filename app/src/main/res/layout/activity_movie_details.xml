@@ -15,15 +15,6 @@
         android:background="@color/gray_900"
         tools:context=".filmedetalhes.MovieDetailsActivity"
         >
-
-
-        <ImageView
-            android:id="@+id/imvAddMovieList"
-            android:layout_width="@dimen/dim_espacamento_30dp"
-            android:layout_height="match_parent"
-            android:paddingTop="@dimen/dim_espacamento_8dp"
-            android:layout_marginStart="@dimen/dim_espacamento_30dp"
-            android:src="@drawable/ic_baseline_playlist_add_24"/>
       
         <RelativeLayout
             android:layout_width="match_parent"
@@ -47,35 +38,33 @@
 
         </RelativeLayout>
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_margin="@dimen/dim_espacamento_20dp">
 
             <TextView
                 android:id="@+id/txt_nameMovieDetails"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_medium"
                 android:textColor="@color/white"
                 android:textSize="@dimen/dim_36sp"
-                tools:text="Mulher-Maravilha 1984" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/imvAddMovieList"
+                tools:text="Mulher-Maravilha" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="end">
+            <ImageView
+                android:id="@+id/imvAddMovieList"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_baseline_playlist_add_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-                <ImageView
-                    android:layout_width="@dimen/dim_espacamento_30dp"
-                    android:layout_height="match_parent"
-                    android:paddingTop="@dimen/dim_espacamento_8dp"
-                    android:src="@drawable/ic_baseline_playlist_add_24"/>
-
-            </LinearLayout>
-
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
