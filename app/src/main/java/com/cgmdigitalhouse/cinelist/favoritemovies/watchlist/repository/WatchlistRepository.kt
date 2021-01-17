@@ -1,57 +1,13 @@
 package com.cgmdigitalhouse.cinelist.favoritemovies.watchlist.repository
 
-import android.content.Context
-import com.cgmdigitalhouse.cinelist.R
-import com.cgmdigitalhouse.cinelist.utils.moviesoffline.model.MovieModelOffline
 
-class WatchlistRepository(private val context: Context) {
-    fun getWatchlistMovies(callback: (movies: MutableList<MovieModelOffline>) -> Unit) {
-        callback.invoke(
-                mutableListOf<MovieModelOffline>(
-                        MovieModelOffline(
-                                "Interestelar",
-                                8.6,
-                                "Ficção científica, Aventura, Drama",
-                                2014,
-                                R.drawable.interstellar
-                        ),
-                        MovieModelOffline(
-                                "Invocação do Mal",
-                                7.5,
-                                "Terror, Mistério",
-                                2013,
-                                R.drawable.invocacao
-                        ),
-                        MovieModelOffline(
-                                "Vingadores - Endgame",
-                                8.4,
-                                "Ação, Aventura",
-                                2019,
-                                R.drawable.vingadores
-                        ),
-                        MovieModelOffline(
-                                "Interestelar",
-                                8.6,
-                                "Ficção científica, Aventura, Drama",
-                                2014,
-                                R.drawable.interstellar
-                        ),
-                        MovieModelOffline(
-                                "Invocação do Mal",
-                                7.5,
-                                "Terror, Mistério",
-                                2013,
-                                R.drawable.invocacao
-                        ),
-                        MovieModelOffline(
-                                "Vingadores - Endgame",
-                                8.4,
-                                "Ação, Aventura",
-                                2019,
-                                R.drawable.vingadores
-                        ),
-                )
-        )
-    }
+import com.cgmdigitalhouse.cinelist.utils.listmovies.dao.ListMovieCrossRefDao
+import com.cgmdigitalhouse.cinelist.utils.listmovies.dao.ListMovieDao
+import com.cgmdigitalhouse.cinelist.utils.listmovies.entity.ListMovieCrossRefEntity
+import com.cgmdigitalhouse.cinelist.utils.listmovies.entity.ListMovieEntity
+
+
+class WatchlistRepository(private val listMovieCrossRefDao: ListMovieCrossRefDao) {
+    suspend fun getWatchList(): MutableList<ListMovieCrossRefEntity> = listMovieCrossRefDao.obterlistsMoviestMovieCrossRef(1)
 
 }
