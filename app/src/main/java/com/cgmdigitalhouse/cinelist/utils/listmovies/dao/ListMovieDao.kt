@@ -9,7 +9,11 @@ interface ListMovieDao {
     @Insert
     suspend fun inserirListMovie(listMovieEntity:ListMovieEntity) : Long
     @Query("SELECT * FROM ListMovie")
-    suspend fun obterlistsMovies(): MutableList<ListMovieEntity>
+    suspend fun obterListsMovies(): MutableList<ListMovieEntity>
+
+    @Query("SELECT * FROM ListMovie where listMovieId <> 1 ")
+    suspend fun obterMovies(): MutableList<ListMovieEntity>
+
 
 
 }

@@ -15,6 +15,4 @@ class MovieDetailsRepository() {
     suspend fun inserirListMovieCrossRef(listMovieCrossRef: ListMovieCrossRefEntity):Long = listMovieCrossRefDao!!.inserirListMovieCrossRef(listMovieCrossRef)
 
 
-
-
 }
