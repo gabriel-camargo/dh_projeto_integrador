@@ -53,5 +53,6 @@
     <string name="descricao">Descrição</string>
     <string name="editar_lista">Editar Lista</string>
     <string name="deletar_lista">Deletar Lista</string>
+    <string name="editar">Editar</string>
 
 </resources>

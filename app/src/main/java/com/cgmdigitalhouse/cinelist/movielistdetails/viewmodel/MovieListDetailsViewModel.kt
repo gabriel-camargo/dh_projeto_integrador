@@ -16,6 +16,14 @@ class MovieListDetailsViewModel(
         emit(repository.getListMoviesCrossRefEntity(id))
     }
 
+    fun getListDetais(id: Long) = liveData(Dispatchers.IO) {
+        emit(repository.findList(id))
+    }
+
+    fun editList(id: Long, name: String, description: String) =  liveData(Dispatchers.IO) {
+        emit(repository.editList(id, name, description))
+    }
+
     class MovieListDetailsViewModelFactory(
         private val repository: MovieListDetailsRepository
     ): ViewModelProvider.Factory{
