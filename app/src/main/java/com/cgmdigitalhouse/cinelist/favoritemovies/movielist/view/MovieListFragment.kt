@@ -3,6 +3,7 @@ package com.cgmdigitalhouse.cinelist.favoritemovies.movielist.view
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,17 +49,14 @@ class MovieListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        Log.d("MOVIE_LIST_FRAGMENT", "onViewCreated")
+
         viewModel = ViewModelProvider(
             this,
             MovieListViewModel.MovieListViewModelFactory(MovieListRepository(AppDatabase.getDatabase(myView.context).listMovieDao()))
         ).get(MovieListViewModel::class.java)
 
-         viewModel.getMovieLists().observe(viewLifecycleOwner, {
-                movieLists = it
-                createList()
-         })
         addItemList()
-
     }
 
     private fun createList() {
@@ -128,6 +126,14 @@ class MovieListFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        Log.d("MOVIE_LIST_FRAGMENT", "onResume")
+        viewModel.getMovieLists().observe(viewLifecycleOwner, {
+            movieLists = it
+            createList()
+        })
+    }
     companion object {
         @JvmStatic
         fun newInstance() = MovieListFragment()

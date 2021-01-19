@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.liveData
 import com.cgmdigitalhouse.cinelist.movielistdetails.repository.MovieListDetailsRepository
+import com.cgmdigitalhouse.cinelist.utils.listmovies.entity.ListMovieEntity
 import com.cgmdigitalhouse.cinelist.utils.moviesoffline.model.MovieModelOffline
 import kotlinx.coroutines.Dispatchers
 
@@ -21,7 +22,7 @@ class MovieListDetailsViewModel(
     }
 
     fun editList(id: Long, name: String, description: String) =  liveData(Dispatchers.IO) {
-        emit(repository.editList(id, name, description))
+        emit(repository.editList(ListMovieEntity(id, name, description)))
     }
 
     class MovieListDetailsViewModelFactory(
