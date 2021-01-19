@@ -213,4 +213,12 @@ class MovieListDetailsFragment : Fragment() {
             Toast.makeText(_myView.context, "Edição salva com sucesso", Toast.LENGTH_SHORT).show()
         })
     }
+
+    fun deleteMovieList() {
+        _viewModel.deleteList(_id!!).observe(viewLifecycleOwner, Observer {
+            Toast.makeText(_myView.context, "Lista excluída com sucesso", Toast.LENGTH_SHORT).show()
+        })
+
+        activity?.finish()
+    }
 }

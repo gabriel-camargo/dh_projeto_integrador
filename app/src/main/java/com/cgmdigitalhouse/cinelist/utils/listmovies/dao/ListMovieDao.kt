@@ -1,9 +1,6 @@
 package com.cgmdigitalhouse.cinelist.utils.listmovies.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Update
-import androidx.room.Query
+import androidx.room.*
 import com.cgmdigitalhouse.cinelist.utils.listmovies.entity.ListMovieEntity
 @Dao
 interface ListMovieDao {
@@ -15,6 +12,6 @@ interface ListMovieDao {
     suspend fun findList(id: Long): List<ListMovieEntity>
     @Update
     suspend fun editList(listMovieEntity:ListMovieEntity)
-
-
+    @Query("DELETE FROM ListMovie WHERE listMovieId= :id")
+    suspend fun deleteListById(id: Long)
 }

@@ -84,7 +84,7 @@ class MovieListDetailsActivity : AppCompatActivity() {
                 true
             }
             R.id.list_details_delete -> {
-                Toast.makeText(this, "Delete", Toast.LENGTH_SHORT).show()
+                _fragment.deleteMovieList()
                 true
             }
             else -> false
