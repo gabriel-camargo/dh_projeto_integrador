@@ -14,6 +14,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -28,9 +29,11 @@ import com.cgmdigitalhouse.cinelist.moviedetails.details.view.MovieDetailsActivi
 import com.cgmdigitalhouse.cinelist.moviedetails.details.viewModel.MovieDetailsViewModel
 import com.cgmdigitalhouse.cinelist.movielistdetails.repository.MovieListDetailsRepository
 import com.cgmdigitalhouse.cinelist.movielistdetails.viewmodel.MovieListDetailsViewModel
+import com.cgmdigitalhouse.cinelist.utils.SwipeToDeleteCallback
 import com.cgmdigitalhouse.cinelist.utils.listmovies.entity.ListMovieCrossRefEntity
 import com.cgmdigitalhouse.cinelist.utils.listmovies.entity.ListMovieEntity
 import com.cgmdigitalhouse.cinelist.utils.movies.model.MovieModel
+import com.cgmdigitalhouse.cinelist.utils.movies.view.VerticalMovieListAdapter
 import com.cgmdigitalhouse.cinelist.utils.moviesoffline.model.MovieModelOffline
 import com.cgmdigitalhouse.cinelist.utils.moviesoffline.view.MovieOfflineAdapter
 import com.google.android.material.textfield.TextInputEditText
@@ -143,7 +146,7 @@ class MovieListDetailsFragment : Fragment() {
         val viewManager = LinearLayoutManager(_myView.context)
         val recyclerView =
                 _myView.findViewById<RecyclerView>(R.id.recyclerView_movieListDetailsFragment)
-        val viewAdapter = MovieOfflineAdapter(movies) {
+        val viewAdapter = VerticalMovieListAdapter(movies) {
 
             val intent = Intent(activity, MovieDetailsActivity::class.java)
             intent.putExtra(HomeFragment.intentId, it.id)
@@ -163,6 +166,16 @@ class MovieListDetailsFragment : Fragment() {
             layoutManager = viewManager
             adapter = viewAdapter
         }
+
+        val swipeHandler = object : SwipeToDeleteCallback(_myView.context) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val adapter = recyclerView.adapter as VerticalMovieListAdapter
+                adapter.removeAt(viewHolder.adapterPosition)
+            }
+        }
+
+        val itemTouchHelper = ItemTouchHelper(swipeHandler)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
     }
 
     fun editDialog() {
