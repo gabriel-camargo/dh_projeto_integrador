@@ -53,6 +53,7 @@
         tools:text="XX" />
 
     <TextView
+        android:id="@+id/txtCountText_itemMovieList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dim_espacamento_8dp"

@@ -31,7 +31,7 @@ class MovieListFragment : Fragment() {
     lateinit var myView: View
     lateinit var viewModel: MovieListViewModel
     lateinit var mAlertDialog: AlertDialog
-    lateinit var movieLists: MutableList<ListMovieEntity>
+    lateinit var movieLists: MutableList<MovieListModel>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -118,7 +118,7 @@ class MovieListFragment : Fragment() {
                     mAlertDialog.dismiss()
 
                     viewModel.inserirListMovie(listName,listDescription).observe(viewLifecycleOwner, {
-                        movieLists.add(it)
+                        movieLists.add(MovieListModel(it.listMovieId, it.name, it.description, 0))
                         createList()
                     })
                 }

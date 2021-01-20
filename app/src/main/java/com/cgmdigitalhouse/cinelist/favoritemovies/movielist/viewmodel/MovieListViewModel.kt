@@ -25,9 +25,6 @@ class MovieListViewModel(
         emit(repository.getListMovies())
   }
 
-
-
-
     @Suppress("UNCHECKED_CAST")
     class MovieListViewModelFactory(
         private val repository: MovieListRepository
