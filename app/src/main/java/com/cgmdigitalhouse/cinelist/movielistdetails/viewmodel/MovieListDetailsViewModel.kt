@@ -29,6 +29,11 @@ class MovieListDetailsViewModel(
         emit(repository.deleteListById(id))
     }
 
+    fun removeMovieFromList(listId: Long, movieId: Int) =  liveData(Dispatchers.IO) {
+        emit(repository.removeMovieFromList(listId, movieId))
+    }
+
+
     class MovieListDetailsViewModelFactory(
         private val repository: MovieListDetailsRepository
     ): ViewModelProvider.Factory{

@@ -36,6 +36,7 @@ import com.cgmdigitalhouse.cinelist.utils.movies.model.MovieModel
 import com.cgmdigitalhouse.cinelist.utils.movies.view.VerticalMovieListAdapter
 import com.cgmdigitalhouse.cinelist.utils.moviesoffline.model.MovieModelOffline
 import com.cgmdigitalhouse.cinelist.utils.moviesoffline.view.MovieOfflineAdapter
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 
 private const val ARG_PARAM_TITLE = "title"
@@ -170,7 +171,11 @@ class MovieListDetailsFragment : Fragment() {
         val swipeHandler = object : SwipeToDeleteCallback(_myView.context) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val adapter = recyclerView.adapter as VerticalMovieListAdapter
-                adapter.removeAt(viewHolder.adapterPosition)
+                val movieToRemove = adapter.removeAt(viewHolder.adapterPosition)
+
+                _viewModel.removeMovieFromList(_id!!, movieToRemove.id).observe(viewLifecycleOwner, Observer {
+                    Snackbar.make(_myView, "Filme ${movieToRemove.title} removido da lista", Snackbar.LENGTH_SHORT).show()
+                })
             }
         }
 

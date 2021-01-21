@@ -11,4 +11,6 @@ interface ListMovieCrossRefDao {
     suspend fun inserirListMovieCrossRef(listMovieCrossRef: ListMovieCrossRefEntity):Long
     @Query("SELECT * FROM ListMovieCrossRefEntity WHERE listMovieId = :id")
     suspend fun obterlistsMoviestMovieCrossRef(id: Long): MutableList<ListMovieCrossRefEntity>
+    @Query("DELETE FROM ListMovieCrossRefEntity WHERE listMovieId = :listId and movieId = :movieId")
+    suspend fun removeMovieFromList(listId: Long, movieId: Int)
 }

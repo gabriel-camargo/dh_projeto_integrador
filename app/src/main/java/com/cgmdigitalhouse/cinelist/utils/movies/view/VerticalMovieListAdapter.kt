@@ -25,8 +25,11 @@ class VerticalMovieListAdapter(
 
     override fun getItemCount() = dataset.size
 
-    fun removeAt(position: Int) {
+    fun removeAt(position: Int): MovieModel {
+        val movieToRemove = dataset[position]
         dataset.removeAt(position)
         notifyItemRemoved(position)
+
+        return movieToRemove
     }
 }
