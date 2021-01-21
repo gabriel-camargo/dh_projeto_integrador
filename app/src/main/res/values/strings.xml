@@ -51,5 +51,10 @@
     <string name="editar_email">Editar email</string>
     <string name="editar_senha">Editar senha</string>
     <string name="descricao">Descrição</string>
+    <string name="editar_lista">Editar Lista</string>
+    <string name="deletar_lista">Deletar Lista</string>
+    <string name="editar">Editar</string>
+    <string name="nenhum_filme">Nenhum filme na lista</string>
+    <string name="filme">Filme</string>
 
 </resources>

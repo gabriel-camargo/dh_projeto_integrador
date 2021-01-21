@@ -8,7 +8,7 @@ import com.cgmdigitalhouse.cinelist.R
 import com.cgmdigitalhouse.cinelist.utils.movies.model.MovieModel
 
 class VerticalMovieListAdapter(
-    private val dataset: List<MovieModel>,
+    private val dataset: MutableList<MovieModel>,
     private val clickListener: (MovieModel) -> Unit
 ) : RecyclerView.Adapter<VerticalMovieListViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VerticalMovieListViewHolder {
@@ -25,4 +25,11 @@ class VerticalMovieListAdapter(
 
     override fun getItemCount() = dataset.size
 
+    fun removeAt(position: Int): MovieModel {
+        val movieToRemove = dataset[position]
+        dataset.removeAt(position)
+        notifyItemRemoved(position)
+
+        return movieToRemove
+    }
 }

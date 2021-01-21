@@ -3,6 +3,7 @@ package com.cgmdigitalhouse.cinelist.moviedetails.details.view
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
@@ -17,6 +18,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.cgmdigitalhouse.cinelist.R
 import com.cgmdigitalhouse.cinelist.db.AppDatabase
+import com.cgmdigitalhouse.cinelist.favoritemovies.movielist.model.MovieListModel
 import com.cgmdigitalhouse.cinelist.favoritemovies.movielist.repository.MovieListRepository
 import com.cgmdigitalhouse.cinelist.favoritemovies.movielist.viewmodel.MovieListViewModel
 import com.cgmdigitalhouse.cinelist.home.view.HomeFragment
@@ -30,6 +32,7 @@ import com.cgmdigitalhouse.cinelist.moviedetails.cast.viewModel.CastViewModel
 import com.cgmdigitalhouse.cinelist.moviedetails.details.viewModel.MovieDetailsViewModel
 import com.cgmdigitalhouse.cinelist.utils.listmovies.entity.ListMovieEntity
 import com.cgmdigitalhouse.cinelist.utils.movies.model.MovieModel
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 
 class MovieDetailsActivity : AppCompatActivity() {
@@ -40,11 +43,9 @@ class MovieDetailsActivity : AppCompatActivity() {
     private var _position: Int = 0
     private lateinit var _movieListViewModel: MovieListViewModel
     private lateinit var _movieDetailsViewModel: MovieDetailsViewModel
-    var movieLists: MutableList<ListMovieEntity> = mutableListOf()
-
+    var movieLists: MutableList<MovieListModel> = mutableListOf()
 
     private var _movieDetails: MovieModel? = null
-
 
     private lateinit var _imgMovie: ImageView
     private lateinit var _imgAddMovie: ImageView
@@ -93,9 +94,6 @@ class MovieDetailsActivity : AppCompatActivity() {
             this,
             MovieDetailsViewModel.MovieDetailsViewModelFactory(MovieDetailsRepository())
         ).get(MovieDetailsViewModel::class.java)
-
-
-
 
         _viewModel.getMovieDetails(_id).observe(this, {
             _movieDetails = it
@@ -147,15 +145,10 @@ class MovieDetailsActivity : AppCompatActivity() {
             _movieListViewModel.getMovieLists().observe(this, Observer{
                 createListDialogDetail(it)
             })
-
-
-
         }
-
-
     }
 
-    fun createListDialogDetail(listaMovies : MutableList<ListMovieEntity>){
+    fun createListDialogDetail(listaMovies : MutableList<MovieListModel>){
         movieLists = listaMovies
         listMovies = arrayListOf<String>()
         for(item in movieLists){
@@ -165,8 +158,6 @@ class MovieDetailsActivity : AppCompatActivity() {
         val btnCancelar = mDialogView.findViewById<Button>(R.id.btnCancelarMovie)
         val btnAdicionar = mDialogView.findViewById<Button>(R.id.btnAdicionarMovie)
         _listMovies.adapter = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,listMovies)
-
-
 
         _listMovies.onItemSelectedListener = object :AdapterView.OnItemSelectedListener{
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -185,16 +176,24 @@ class MovieDetailsActivity : AppCompatActivity() {
 
 
         btnAdicionar.setOnClickListener {
-            _mAlertDialog.dismiss()
+
             _movieDetailsViewModel = ViewModelProvider(
                     this,
                     MovieDetailsViewModel.MovieDetailsViewModelFactory(MovieDetailsRepository())
             ).get(MovieDetailsViewModel::class.java)
             _movieDetailsViewModel.repository.listMovieCrossRefDao = AppDatabase.getDatabase(this).listMovieCrossRefDao()
-            _movieDetailsViewModel.addMovieToList( _id.toLong(),  movieLists[_position].listMovieId).observe(this, Observer{
 
+            _movieDetailsViewModel.checkIfMovieIsOnList( _id.toLong(),  movieLists[_position].listMovieId).observe(this, Observer{
+                if(it[0].toInt() == 0) {
+                    _movieDetailsViewModel.addMovieToList( _id.toLong(),  movieLists[_position].listMovieId).observe(this, Observer{
+                        Toast.makeText(this, "Filme inserido na lista com sucesso!", Toast.LENGTH_SHORT).show()
+
+                        _mAlertDialog.dismiss()
+                    })
+                } else {
+                    Toast.makeText(this, "Esse filme já foi adicionado nesta lista!", Toast.LENGTH_SHORT).show()
+                }
             })
-
         }
     }
 

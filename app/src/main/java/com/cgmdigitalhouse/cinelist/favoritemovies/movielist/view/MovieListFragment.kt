@@ -3,10 +3,12 @@ package com.cgmdigitalhouse.cinelist.favoritemovies.movielist.view
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
@@ -29,7 +31,7 @@ class MovieListFragment : Fragment() {
     lateinit var myView: View
     lateinit var viewModel: MovieListViewModel
     lateinit var mAlertDialog: AlertDialog
-    lateinit var movieLists: MutableList<ListMovieEntity>
+    lateinit var movieLists: MutableList<MovieListModel>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +49,8 @@ class MovieListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        Log.d("MOVIE_LIST_FRAGMENT", "onViewCreated")
+
         viewModel = ViewModelProvider(
             this,
             MovieListViewModel.MovieListViewModelFactory(MovieListRepository(AppDatabase.getDatabase(myView.context).listMovieDao()))
@@ -56,8 +60,8 @@ class MovieListFragment : Fragment() {
                 movieLists = it
                 createList()
          })
+      
         addItemList()
-
     }
 
     private fun createList() {
@@ -109,17 +113,32 @@ class MovieListFragment : Fragment() {
             }
 
             btnCriar.setOnClickListener {
-                mAlertDialog.dismiss()
-                viewModel.inserirListMovie(edtName.text.toString(),edtDescription.text.toString()).observe(viewLifecycleOwner, {
-                    movieLists.add(it)
-                    createList()
-                })
 
+                val listName = edtName.text.toString().trim()
+                val listDescription = edtDescription.text.toString().trim()
+
+                if(listName.isBlank()) {
+                    Toast.makeText(myView.context, "Preencha o nome da lista", Toast.LENGTH_SHORT).show()
+                } else {
+                    mAlertDialog.dismiss()
+
+                    viewModel.inserirListMovie(listName,listDescription).observe(viewLifecycleOwner, {
+                        movieLists.add(MovieListModel(it.listMovieId, it.name, it.description, 0))
+                        createList()
+                    })
+                }
             }
         }
-
     }
 
+    override fun onResume() {
+        super.onResume()
+        Log.d("MOVIE_LIST_FRAGMENT", "onResume")
+        viewModel.getMovieLists().observe(viewLifecycleOwner, {
+            movieLists = it
+            createList()
+        })
+    }
     companion object {
         @JvmStatic
         fun newInstance() = MovieListFragment()

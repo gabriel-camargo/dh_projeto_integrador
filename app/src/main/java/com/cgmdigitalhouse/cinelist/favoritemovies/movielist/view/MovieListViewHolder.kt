@@ -15,12 +15,29 @@ import com.cgmdigitalhouse.cinelist.utils.listmovies.entity.ListMovieEntity
 class MovieListViewHolder(private val view: View): RecyclerView.ViewHolder(view) {
 
     private val txtName: TextView = view.findViewById(R.id.txtName_itemMovieList)
+    private val txtQtdMovies: TextView = view.findViewById(R.id.txtCount_itemMovieList)
+    private val txtQtdTextMovies: TextView = view.findViewById(R.id.txtCountText_itemMovieList)
     private val movies: TextView = view.findViewById(R.id.txtCount_itemMovieList)
     private val img: ImageView = view.findViewById(R.id.img_itemMovieList)
     private val cardCornerRadius = 12
 
-    fun bind(movieList: ListMovieEntity) {
+    fun bind(movieList: MovieListModel) {
         txtName.text = movieList.name
+
+        when (movieList.qtd) {
+            0 -> {
+                txtQtdMovies.text =  view.context.getString(R.string.nenhum_filme)
+                txtQtdTextMovies.text=""
+            }
+            1 -> {
+                txtQtdMovies.text = movieList.qtd.toString()
+                txtQtdTextMovies.text = view.context.getString(R.string.filme)
+            }
+            else -> {
+                txtQtdMovies.text = movieList.qtd.toString()
+
+            }
+        }
 //        movies.text = movieList.
 //
 //        Glide.with(view.context)
