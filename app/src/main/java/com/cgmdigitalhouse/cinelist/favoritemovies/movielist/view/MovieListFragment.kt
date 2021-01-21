@@ -56,6 +56,11 @@ class MovieListFragment : Fragment() {
             MovieListViewModel.MovieListViewModelFactory(MovieListRepository(AppDatabase.getDatabase(myView.context).listMovieDao()))
         ).get(MovieListViewModel::class.java)
 
+         viewModel.getMovies().observe(viewLifecycleOwner, {
+                movieLists = it
+                createList()
+         })
+      
         addItemList()
     }
 

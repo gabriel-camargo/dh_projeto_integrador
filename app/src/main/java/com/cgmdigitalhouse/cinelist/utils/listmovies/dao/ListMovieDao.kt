@@ -8,12 +8,15 @@ import com.cgmdigitalhouse.cinelist.utils.listmovies.entity.ListMovieEntity
 interface ListMovieDao {
     @Insert
     suspend fun inserirListMovie(listMovieEntity: ListMovieEntity): Long
-
-    @Query("SELECT listMovieId, name, description, (SELECT COUNT(*) FROM ListMovieCrossRefEntity where ListMovieCrossRefEntity.listMovieId = ListMovie.listMovieId) as qtd FROM ListMovie")
+  
+    @Query("SELECT listMovieId, name, description, (SELECT COUNT(*) FROM ListMovieCrossRefEntity where ListMovieCrossRefEntity.listMovieId = ListMovie.listMovieId) as qtd FROM ListMovie where listMovieId <> 1")
     suspend fun obterlistsMovies(): MutableList<MovieListModel>
-
+  
     @Query("SELECT * FROM ListMovie WHERE listMovieId= :id")
     suspend fun findList(id: Long): List<ListMovieEntity>
+  
+    @Query("SELECT * FROM ListMovie where listMovieId <> 1 ")
+    suspend fun obterMovies(): MutableList<ListMovieEntity>
 
     @Update
     suspend fun editList(listMovieEntity: ListMovieEntity)

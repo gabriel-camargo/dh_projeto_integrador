@@ -24,6 +24,10 @@ class MovieListViewModel(
    fun getMovieLists() = liveData(Dispatchers.IO) {
         emit(repository.getListMovies())
   }
+    fun getMovies() = liveData(Dispatchers.IO) {
+        emit(repository.getMovies())
+  }
+
 
     @Suppress("UNCHECKED_CAST")
     class MovieListViewModelFactory(
