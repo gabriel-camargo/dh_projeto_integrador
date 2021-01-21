@@ -21,10 +21,12 @@ class MovieDetailsViewModel(
     }
 
      fun addMovieToList(idMovie:Long, idListMovie:Long) = liveData(Dispatchers.IO){
-
-        val newId = repository.inserirListMovieCrossRef(ListMovieCrossRefEntity(idListMovie,idMovie))
-
+        repository.inserirListMovieCrossRef(ListMovieCrossRefEntity(idListMovie,idMovie))
         emit(ListMovieCrossRefEntity(idListMovie,idMovie))
+    }
+
+    fun checkIfMovieIsOnList(idMovie: Long, idListMovie: Long)= liveData(Dispatchers.IO){
+        emit(repository.checkIfMovieIsOnList(idMovie,idListMovie))
     }
 
     class MovieDetailsViewModelFactory(

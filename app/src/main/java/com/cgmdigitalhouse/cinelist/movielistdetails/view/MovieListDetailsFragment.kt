@@ -174,7 +174,7 @@ class MovieListDetailsFragment : Fragment() {
                 val movieToRemove = adapter.removeAt(viewHolder.adapterPosition)
 
                 _viewModel.removeMovieFromList(_id!!, movieToRemove.id).observe(viewLifecycleOwner, Observer {
-                    Snackbar.make(_myView, "Filme ${movieToRemove.title} removido da lista", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(_myView, "${movieToRemove.title} removido da lista", Snackbar.LENGTH_SHORT).show()
                 })
             }
         }
