@@ -9,6 +9,11 @@ import com.cgmdigitalhouse.cinelist.home.view.HomeFragment
 import com.cgmdigitalhouse.cinelist.search.view.SearchFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
+enum class ProviderType {
+    BASIC,
+    GOOGLE,
+    FACEBOOK
+}
 class MainActivity : AppCompatActivity() {
 
     lateinit var bottomNavigation: BottomNavigationView

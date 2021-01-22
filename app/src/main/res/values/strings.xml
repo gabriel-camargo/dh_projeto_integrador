@@ -59,4 +59,7 @@
     <string name="boas_vindas">Boas vindas!</string>
     <string name="ator_do_elenco">Ator do elenco</string>
 
+    <string name="facebook_app_id">203659214568330</string>
+    <string name="fb_login_protocol_scheme">fb203659214568330</string>
+
 </resources>
