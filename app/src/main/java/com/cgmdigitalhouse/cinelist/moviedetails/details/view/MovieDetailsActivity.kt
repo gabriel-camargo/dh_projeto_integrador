@@ -43,7 +43,7 @@ class MovieDetailsActivity : AppCompatActivity() {
     private var _position: Int = 0
     private lateinit var _movieListViewModel: MovieListViewModel
     private lateinit var _movieDetailsViewModel: MovieDetailsViewModel
-    var movieLists: MutableList<MovieListModel> = mutableListOf()
+    var movieLists: MutableList<ListMovieEntity> = mutableListOf()
 
     private var _movieDetails: MovieModel? = null
 
@@ -142,13 +142,13 @@ class MovieDetailsActivity : AppCompatActivity() {
                     MovieListViewModel.MovieListViewModelFactory(MovieListRepository(AppDatabase.getDatabase(this).listMovieDao()))
             ).get(MovieListViewModel::class.java)
 
-            _movieListViewModel.getMovieLists().observe(this, Observer{
+            _movieListViewModel.getAllMovieLists().observe(this, Observer{
                 createListDialogDetail(it)
             })
         }
     }
 
-    fun createListDialogDetail(listaMovies : MutableList<MovieListModel>){
+    fun createListDialogDetail(listaMovies : MutableList<ListMovieEntity>){
         movieLists = listaMovies
         listMovies = arrayListOf<String>()
         for(item in movieLists){
