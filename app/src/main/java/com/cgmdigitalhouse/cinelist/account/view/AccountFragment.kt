@@ -16,6 +16,7 @@ import com.cgmdigitalhouse.cinelist.LoginActivity
 import com.cgmdigitalhouse.cinelist.R
 import com.cgmdigitalhouse.cinelist.account.repository.AccountRepository
 import com.cgmdigitalhouse.cinelist.account.viewmodel.AccountViewModel
+import com.facebook.login.LoginManager
 import com.google.firebase.auth.FirebaseAuth
 
 class AccountFragment : Fragment() {
@@ -58,6 +59,9 @@ class AccountFragment : Fragment() {
 
         btnSair.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
+
+            LoginManager.getInstance().logOut()
+
             val intent = Intent(_view.context, LoginActivity::class.java)
             startActivity(intent)
             activity!!.finish()
