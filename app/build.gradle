@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-android-extensions'
     id 'org.jetbrains.kotlin.kapt'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -11,7 +12,7 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.gabrielcamargo.projetointegrador"
+        applicationId "com.cgmdigitalhouse.cinelist"
         minSdkVersion 22
         targetSdkVersion 30
         versionCode 1
@@ -65,6 +66,9 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation "androidx.viewpager2:viewpager2:1.0.0"
+
+    implementation platform('com.google.firebase:firebase-bom:26.3.0')
+    implementation 'com.google.firebase:firebase-auth-ktx'
 
     implementation ("com.github.bumptech.glide:glide:4.11.0") {
         exclude group: "com.android.support"

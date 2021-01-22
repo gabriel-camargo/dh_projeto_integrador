@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -15,6 +16,8 @@ import com.cgmdigitalhouse.cinelist.favoritemovies.movielist.repository.MovieLis
 import com.cgmdigitalhouse.cinelist.favoritemovies.movielist.viewmodel.MovieListViewModel
 import com.cgmdigitalhouse.cinelist.utils.listmovies.entity.ListMovieEntity
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var _movieListViewModel: MovieListViewModel
@@ -41,12 +44,37 @@ class LoginActivity : AppCompatActivity() {
         ).get(MovieListViewModel::class.java)
 
         btnLogin.setOnClickListener {
-            _movieListViewModel.searchWatchList().observe(this, Observer{
-                createWatchList(it[0].toInt())
-            })
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
+            val edtEmail = findViewById<TextInputLayout>(R.id.edt_loginEmailLayout)
+            val edtSenha = findViewById<TextInputLayout>(R.id.edt_loginPasswordLayout)
+
+            val email = edtEmail.editText!!.text.toString().trim()
+            val password = edtSenha.editText!!.text.toString().trim()
+
+            when {
+                email.isEmpty() -> {
+                    Toast.makeText(this, "Preencha o campo de email!", Toast.LENGTH_SHORT).show()
+                }
+                password.isEmpty() -> {
+                    Toast.makeText(this, "Preencha o campo de senha!", Toast.LENGTH_SHORT).show()
+                }
+                else -> {
+                    FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener{
+                            if(it.isSuccessful) {
+                                _movieListViewModel.searchWatchList().observe(this, Observer{
+                                    createWatchList(it[0].toInt())
+                                })
+                                val intent = Intent(this, MainActivity::class.java)
+                                startActivity(intent)
+                                finish()
+                            } else {
+                                Toast.makeText(this, "Email ou senha incorretas!", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                }
+            }
+
+
         }
 
         btnSignUpLogin.setOnClickListener {
