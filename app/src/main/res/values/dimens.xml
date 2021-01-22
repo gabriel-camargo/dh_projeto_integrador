@@ -2,7 +2,7 @@
 <resources>
     <dimen name="dimen_sm_padding">8dp</dimen>
     <dimen name="dimen_md_padding">16dp</dimen>
-    <dimen name="dimen_card_corner_radius">16dp</dimen>
+    <dimen name="dimen_card_corner_radius">8dp</dimen>
     <dimen name="dimen_100_dp">100dp</dimen>
 
     <dimen name="dimen_sm_margin">8dp</dimen>

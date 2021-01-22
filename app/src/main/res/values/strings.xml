@@ -56,5 +56,7 @@
     <string name="editar">Editar</string>
     <string name="nenhum_filme">Nenhum filme na lista</string>
     <string name="filme">Filme</string>
+    <string name="boas_vindas">Boas vindas!</string>
+    <string name="ator_do_elenco">Ator do elenco</string>
 
 </resources>
