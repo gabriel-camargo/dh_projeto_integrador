@@ -16,6 +16,7 @@ import com.cgmdigitalhouse.cinelist.R
 import com.cgmdigitalhouse.cinelist.db.AppDatabase
 import com.cgmdigitalhouse.cinelist.favoritemovies.watchlist.repository.WatchlistRepository
 import com.cgmdigitalhouse.cinelist.favoritemovies.watchlist.viewmodel.WatchlistViewModel
+import com.cgmdigitalhouse.cinelist.home.view.HomeFragment
 import com.cgmdigitalhouse.cinelist.moviedetails.details.repository.MovieDetailsRepository
 import com.cgmdigitalhouse.cinelist.moviedetails.details.view.MovieDetailsActivity
 import com.cgmdigitalhouse.cinelist.moviedetails.details.viewModel.MovieDetailsViewModel
@@ -86,6 +87,7 @@ class WatchlistFragment : Fragment() {
 
         val viewAdapter = VerticalMovieListAdapter(listMovieModel) {
             val intent = Intent(activity, MovieDetailsActivity::class.java)
+            intent.putExtra(HomeFragment.intentId, it.id)
             startActivity(intent)
         }
 
