@@ -1,44 +1,35 @@
 {
   "project_info": {
-    "project_number": "1080548623921",
-    "project_id": "cinelist-83814",
-    "storage_bucket": "cinelist-83814.appspot.com"
+    "project_number": "604743759109",
+    "project_id": "projetointegradorcinelist",
+    "storage_bucket": "projetointegradorcinelist.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1080548623921:android:6794ae9477efcd9ea47710",
+        "mobilesdk_app_id": "1:604743759109:android:b849c89d45dcdde5c4f36c",
         "android_client_info": {
           "package_name": "com.gabrielcamargo.projetointegrador"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1080548623921-k1bdoocdduq0gmdsjksu60e29q8m33mq.apps.googleusercontent.com",
+          "client_id": "604743759109-04bkbrndapnr03ii9b8igbcbg3539ua3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.gabrielcamargo.projetointegrador",
             "certificate_hash": "c31d2a23e346e9442cf4369921515bde33547864"
           }
-        },
-        {
-          "client_id": "1080548623921-dlpfrfromlo5ses3ru1ie5m5ursiaggm.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA0V20gmPVOyoiZUFpgp5oyhVm2qp2Plyo"
+          "current_key": "AIzaSyAeYZ0g_0e3Nd8xqVrK6DqlYYHwXOH-534"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1080548623921-dlpfrfromlo5ses3ru1ie5m5ursiaggm.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

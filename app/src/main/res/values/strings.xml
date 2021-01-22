@@ -51,10 +51,11 @@
     <string name="editar_email">Editar email</string>
     <string name="editar_senha">Editar senha</string>
     <string name="descricao">Descrição</string>
+    <string name="google_sign_up">Sign in with Google</string>
 
     <string name="facebook_app_id">425864005392846</string>
     <string name="fb_login_protocol_scheme">fb425864005392846</string>
-    <string name="default_web_client_id" translatable="false">1080548623921-k1bdoocdduq0gmdsjksu60e29q8m33mq.apps.googleusercontent.com</string>
+    <string name="default_web_client_id" translatable="false">604743759109-04bkbrndapnr03ii9b8igbcbg3539ua3.apps.googleusercontent.com</string>
 
 
 

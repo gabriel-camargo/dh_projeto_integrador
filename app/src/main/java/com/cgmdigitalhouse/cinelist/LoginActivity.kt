@@ -26,6 +26,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.*
+import com.shobhitpuri.custombuttons.GoogleSignInButton
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var _movieListViewModel: MovieListViewModel
@@ -35,7 +36,7 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     private lateinit var auth: FirebaseAuth
-    private val signInButton: SignInButton by lazy { findViewById(R.id.btn_google) }
+    private val signInButton: GoogleSignInButton by lazy { findViewById(R.id.btn_google) }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,6 +77,7 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        auth = FirebaseAuth.getInstance()
 
         // LOGIN FACEBOOK
         callbackManager = CallbackManager.Factory.create()
@@ -89,7 +91,6 @@ class LoginActivity : AppCompatActivity() {
             .build()
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
-        auth = FirebaseAuth.getInstance()
         signInButton.setOnClickListener { signIn() }
     }
 
@@ -108,29 +109,6 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RC_SIGN_IN_FACEBOOK) {
-            callbackManager.onActivityResult(requestCode, resultCode, data)
-        }
-
-        if (requestCode == RC_SIGN_IN) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            try {
-                // Google Sign In was successful, authenticate with Firebase
-                val account = task.getResult(ApiException::class.java)!!
-                Log.d("TAG", "firebaseAuthWithGoogle:" + account.id)
-                firebaseAuthWithGoogle(account.idToken!!)
-            } catch (e: ApiException) {
-                // Google Sign In failed, update UI appropriately
-                Log.d("TAG", "Google sign in failed", e)
-                // ...
-            }
-        }
-
-    }
-
     private fun irParaHome(uiid: String) {
         AppUtil.salvarIdUsuario(application.applicationContext, uiid)
         startActivity(Intent(applicationContext, MainActivity::class.java))
@@ -145,7 +123,7 @@ class LoginActivity : AppCompatActivity() {
             override fun onSuccess(loginResult: LoginResult) {
                 val credential: AuthCredential =
                     FacebookAuthProvider.getCredential(loginResult.accessToken.token)
-                FirebaseAuth.getInstance().signInWithCredential(credential)
+                auth.signInWithCredential(credential)
                     .addOnCompleteListener { irParaHome(loginResult.accessToken.userId) }
             }
 
@@ -200,6 +178,30 @@ class LoginActivity : AppCompatActivity() {
                     // ...
                 }
             }
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        callbackManager.onActivityResult(requestCode, resultCode, data)
+        /*if (requestCode == RC_SIGN_IN_FACEBOOK) {
+            callbackManager.onActivityResult(requestCode, resultCode, data)
+        }
+
+        if (requestCode == RC_SIGN_IN) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                // Google Sign In was successful, authenticate with Firebase
+                val account = task.getResult(ApiException::class.java)!!
+                Log.d("TAG", "firebaseAuthWithGoogle:" + account.id)
+                firebaseAuthWithGoogle(account.idToken!!)
+            } catch (e: ApiException) {
+                // Google Sign In failed, update UI appropriately
+                Log.d("TAG", "Google sign in failed", e)
+                // ...
+            }
+        }*/
+
     }
 
     companion object {
