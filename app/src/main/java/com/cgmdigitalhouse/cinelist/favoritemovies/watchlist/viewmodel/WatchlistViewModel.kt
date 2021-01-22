@@ -8,19 +8,23 @@ import com.cgmdigitalhouse.cinelist.favoritemovies.watchlist.repository.Watchlis
 import com.cgmdigitalhouse.cinelist.utils.moviesoffline.model.MovieModelOffline
 import kotlinx.coroutines.Dispatchers
 
-class WatchlistViewModel (
-        private val repository: WatchlistRepository
-): ViewModel() {
+class WatchlistViewModel(
+    private val repository: WatchlistRepository
+) : ViewModel() {
     val movies = MutableLiveData<MutableList<MovieModelOffline>>()
 
 
-        fun getMovies() = liveData(Dispatchers.IO) {
-            emit(repository.getWatchList())
-        }
+    fun getMovies() = liveData(Dispatchers.IO) {
+        emit(repository.getWatchList())
+    }
+
+    fun removeMovieFromList(movieId: Int) =  liveData(Dispatchers.IO) {
+        emit(repository.removeMovieFromList(movieId))
+    }
 
     class WatchlistViewModelFactory(
-            private val repository: WatchlistRepository
-    ): ViewModelProvider.Factory{
+        private val repository: WatchlistRepository
+    ) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return WatchlistViewModel(repository) as T
         }

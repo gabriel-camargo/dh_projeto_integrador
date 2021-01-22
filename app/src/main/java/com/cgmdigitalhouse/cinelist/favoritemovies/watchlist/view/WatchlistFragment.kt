@@ -9,20 +9,25 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cgmdigitalhouse.cinelist.R
 import com.cgmdigitalhouse.cinelist.db.AppDatabase
 import com.cgmdigitalhouse.cinelist.favoritemovies.watchlist.repository.WatchlistRepository
 import com.cgmdigitalhouse.cinelist.favoritemovies.watchlist.viewmodel.WatchlistViewModel
+import com.cgmdigitalhouse.cinelist.home.view.HomeFragment
 import com.cgmdigitalhouse.cinelist.moviedetails.details.repository.MovieDetailsRepository
 import com.cgmdigitalhouse.cinelist.moviedetails.details.view.MovieDetailsActivity
 import com.cgmdigitalhouse.cinelist.moviedetails.details.viewModel.MovieDetailsViewModel
+import com.cgmdigitalhouse.cinelist.utils.SwipeToDeleteCallback
 import com.cgmdigitalhouse.cinelist.utils.listmovies.entity.ListMovieCrossRefEntity
 import com.cgmdigitalhouse.cinelist.utils.listmovies.entity.ListMovieEntity
 import com.cgmdigitalhouse.cinelist.utils.movies.model.MovieModel
+import com.cgmdigitalhouse.cinelist.utils.movies.view.VerticalMovieListAdapter
 import com.cgmdigitalhouse.cinelist.utils.moviesoffline.model.MovieModelOffline
 import com.cgmdigitalhouse.cinelist.utils.moviesoffline.view.MovieOfflineAdapter
+import com.google.android.material.snackbar.Snackbar
 
 class WatchlistFragment : Fragment() {
     lateinit var myView: View
@@ -80,8 +85,9 @@ class WatchlistFragment : Fragment() {
         val viewManager = LinearLayoutManager(myView.context)
         val recyclerView = myView.findViewById<RecyclerView>(R.id.recyclerView_watchlistFragment)
 
-        val viewAdapter = MovieOfflineAdapter(listMovieModel) {
+        val viewAdapter = VerticalMovieListAdapter(listMovieModel) {
             val intent = Intent(activity, MovieDetailsActivity::class.java)
+            intent.putExtra(HomeFragment.intentId, it.id)
             startActivity(intent)
         }
 
@@ -97,6 +103,20 @@ class WatchlistFragment : Fragment() {
             layoutManager = viewManager
             adapter = viewAdapter
         }
+
+        val swipeHandler = object : SwipeToDeleteCallback(myView.context) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val adapter = recyclerView.adapter as VerticalMovieListAdapter
+                val movieToRemove = adapter.removeAt(viewHolder.adapterPosition)
+
+                _viewModel.removeMovieFromList(movieToRemove.id).observe(viewLifecycleOwner, Observer {
+                    Snackbar.make(myView, "${movieToRemove.title} foi removido da watchlist", Snackbar.LENGTH_SHORT).show()
+                })
+            }
+        }
+
+        val itemTouchHelper = ItemTouchHelper(swipeHandler)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
     }
 
 
