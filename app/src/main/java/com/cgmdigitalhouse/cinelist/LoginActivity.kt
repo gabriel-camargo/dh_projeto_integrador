@@ -38,6 +38,9 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        FirebaseAuth.getInstance().signOut()
+        LoginManager.getInstance().logOut()
+
         // Fonte DK
         val fontDK = ResourcesCompat.getFont(this, R.font.dk_butterfly_ball)
         val textLogo: TextView = findViewById(R.id.txt_logo)
@@ -107,12 +110,14 @@ class LoginActivity : AppCompatActivity() {
         val btnFacebook = findViewById<Button>(R.id.btn_facebook)
         btnFacebook.setOnClickListener {
 
-            LoginManager.getInstance().logInWithReadPermissions(this, listOf("email"))
+//            LoginManager.getInstance().logInWithReadPermissions(this, listOf("email"))
 
             LoginManager.getInstance().registerCallback(callbackManager,
                 object: FacebookCallback<LoginResult> {
                     override fun onSuccess(result: LoginResult?) {
+                        val i = 1
                         result?.let {
+
                             val token = it.accessToken
 
                             val credential = FacebookAuthProvider.getCredential(token.token)

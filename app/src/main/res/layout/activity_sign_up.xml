@@ -23,29 +23,29 @@
         android:shadowColor="@color/gray_600"
         />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edt_singupNomeLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dim_espacamento_40dp"
-        android:hint="@string/nome"
-        app:endIconMode="clear_text"
-        android:textColorHint="@color/gray_600"
-        android:backgroundTint="@color/gray_600"
-        app:hintTextColor="@color/gray_600"
-        app:boxStrokeColor="@color/white">
+<!--    <com.google.android.material.textfield.TextInputLayout-->
+<!--        android:id="@+id/edt_singupNomeLayout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="@dimen/dim_espacamento_40dp"-->
+<!--        android:hint="@string/nome"-->
+<!--        app:endIconMode="clear_text"-->
+<!--        android:textColorHint="@color/gray_600"-->
+<!--        android:backgroundTint="@color/gray_600"-->
+<!--        app:hintTextColor="@color/gray_600"-->
+<!--        app:boxStrokeColor="@color/white">-->
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_singupNomeInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
+<!--        <com.google.android.material.textfield.TextInputEditText-->
+<!--            android:id="@+id/edt_singupNomeInput"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content" />-->
+<!--    </com.google.android.material.textfield.TextInputLayout>-->
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edt_singupEmailLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dim_espacamento_40dp"
+        android:layout_marginTop="@dimen/dim_espacamento_70dp"
         android:hint="@string/e_mail"
         app:endIconMode="clear_text"
         android:textColorHint="@color/gray_600"

@@ -106,7 +106,7 @@
 
         <com.facebook.login.widget.LoginButton
             android:id="@+id/btn_facebook"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
@@ -114,12 +114,11 @@
 
         <Button
             android:id="@+id/btn_google"
-            android:layout_width="170dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_marginHorizontal="@dimen/dim_espacamento_10dp"
             android:gravity="center"
             android:text="@string/google"
             app:backgroundTint="@color/google"
