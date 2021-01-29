@@ -130,7 +130,7 @@ class MovieDetailsActivity : AppCompatActivity() {
                     LayoutInflater.from(this).inflate(R.layout.add_movie_dialog, null)
 
             val mBuilder = AlertDialog.Builder(this).setView(mDialogView)
-                    .setTitle("Adicionar Filme a Lista")
+                    .setTitle("Adicionar filme à lista")
             _mAlertDialog = mBuilder.show()
 
 
