@@ -1,8 +1,9 @@
 package com.cgmdigitalhouse.cinelist.account.model
 
+import android.net.Uri
+
 data class AccountModel (
-    val image: Int
-    , val name: String
-    , val email: String
-    , val password: String
+    val image: Uri?
+    , val name: String?
+    , val email: String?
         )
