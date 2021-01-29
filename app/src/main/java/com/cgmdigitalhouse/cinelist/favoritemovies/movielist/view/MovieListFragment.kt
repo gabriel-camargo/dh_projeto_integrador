@@ -1,13 +1,16 @@
 package com.cgmdigitalhouse.cinelist.favoritemovies.movielist.view
 
+import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
@@ -32,6 +35,8 @@ class MovieListFragment : Fragment() {
     lateinit var viewModel: MovieListViewModel
     lateinit var mAlertDialog: AlertDialog
     lateinit var movieLists: MutableList<MovieListModel>
+    private lateinit var _view: View
+    private var imageURI: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +55,7 @@ class MovieListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         Log.d("MOVIE_LIST_FRAGMENT", "onViewCreated")
-
+        _view = view
         viewModel = ViewModelProvider(
             this,
             MovieListViewModel.MovieListViewModelFactory(MovieListRepository(AppDatabase.getDatabase(myView.context).listMovieDao()))
@@ -107,7 +112,7 @@ class MovieListFragment : Fragment() {
             val btnCriar = mDialogView.findViewById<Button>(R.id.btn_criar)
             val edtName = mDialogView.findViewById<TextInputEditText>(R.id.edt_nameListInput)
             val edtDescription = mDialogView.findViewById<TextInputEditText>(R.id.edt_descriptionListInput)
-
+            procurarArquivo()
             btnCancelar.setOnClickListener {
                 mAlertDialog.dismiss()
             }
@@ -139,9 +144,26 @@ class MovieListFragment : Fragment() {
             createList()
         })
     }
+    fun procurarArquivo() {
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(intent, CONTENT_REQUEST_CODE)
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == CONTENT_REQUEST_CODE && resultCode == RESULT_OK) {
+            imageURI = data?.data
+            _view.findViewById<ImageView>(R.id.imv_ImageList).setImageURI(imageURI)
+        }
+    }
     companion object {
+
         @JvmStatic
         fun newInstance() = MovieListFragment()
+
+        const val CONTENT_REQUEST_CODE = 1
 
     }
 }
