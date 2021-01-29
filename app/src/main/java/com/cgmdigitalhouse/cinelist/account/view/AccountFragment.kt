@@ -23,6 +23,7 @@ class AccountFragment : Fragment() {
     lateinit var _view: View
     private lateinit var _viewModel: AccountViewModel
 
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -42,7 +43,6 @@ class AccountFragment : Fragment() {
             val _image = _view.findViewById<ImageView>(R.id.img_usuario)
             val _name = _view.findViewById<TextView>(R.id.txt_nomeUsuario)
             val _email = _view.findViewById<TextView>(R.id.txt_emailUsuario)
-
 
             _name.text = it.name
             _email.text = it.email
