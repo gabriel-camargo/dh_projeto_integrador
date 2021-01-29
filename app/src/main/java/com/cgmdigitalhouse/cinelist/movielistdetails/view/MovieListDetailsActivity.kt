@@ -37,11 +37,11 @@ class MovieListDetailsActivity : AppCompatActivity() {
             val mIntent = intent
 
             val title: String = mIntent.getStringExtra(getString(R.string.intent_list_name))!!
-            val img: Int = mIntent.getIntExtra(getString(R.string.intent_list_img), 0)
+            val imgURL: String = mIntent.getStringExtra("LIST_IMAGE")!!
             _id = mIntent.getLongExtra("LIST_ID", 0)!!
 
             _fragment = MovieListDetailsFragment.newInstance(
-                title, img, _id!!
+                title, imgURL, _id!!
             )
 
             supportFragmentManager.beginTransaction()

@@ -38,6 +38,8 @@ import com.cgmdigitalhouse.cinelist.utils.moviesoffline.model.MovieModelOffline
 import com.cgmdigitalhouse.cinelist.utils.moviesoffline.view.MovieOfflineAdapter
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.storage.FirebaseStorage
+import com.squareup.picasso.Picasso
 
 private const val ARG_PARAM_TITLE = "title"
 private const val ARG_PARAM_IMG = "img"
@@ -47,7 +49,7 @@ class MovieListDetailsFragment : Fragment() {
 
     private var _title: String? = null
     private var _description: String? = null
-    private var _img: Int? = null
+    private var _img: String? = null
     private var _id: Long? = null
     private  var _movies = mutableListOf<MovieModel>()
 
@@ -60,11 +62,11 @@ class MovieListDetailsFragment : Fragment() {
     private lateinit var _viewAdapter: VerticalMovieListAdapter
 
     companion object {
-        fun newInstance(title: String, img: Int, id: Long) =
+        fun newInstance(title: String, img: String, id: Long) =
             MovieListDetailsFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM_TITLE, title)
-                    putInt(ARG_PARAM_IMG, img)
+                    putString(ARG_PARAM_IMG, img)
                     putLong(ARG_PARAM_ID, id)
                 }
             }
@@ -76,7 +78,7 @@ class MovieListDetailsFragment : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
             _title = it.getString(ARG_PARAM_TITLE)
-            _img = it.getInt(ARG_PARAM_IMG)
+            _img = it.getString(ARG_PARAM_IMG)
             _id = it.getLong(ARG_PARAM_ID)
         }
     }
@@ -120,6 +122,9 @@ class MovieListDetailsFragment : Fragment() {
     }
 
     private fun setDataMovieDetails(movieList: ListMovieEntity) {
+        val firebase = FirebaseStorage.getInstance()
+        val storage = firebase.getReference("uploads")
+
         val txtName: TextView = _myView.findViewById(R.id.txtTitle_movieListDetailsFragment)
         val txtDesc: TextView = _myView.findViewById(R.id.txtDesc_movieListDetailsFragment)
         val imgView: ImageView = _myView.findViewById(R.id.img_movieListDetailsFragment)
@@ -127,16 +132,21 @@ class MovieListDetailsFragment : Fragment() {
         _title = movieList.name
         _description = movieList.description
 
+
         txtName.text = movieList.name
         txtDesc.text = movieList.description
 
-        _img?.let {
-            Glide.with(_myView.context)
-                .load(it)
-                .transform(CenterCrop(), RoundedCorners(CARD_CORNER_RADIUS))
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .into(imgView)
+        storage.child(movieList.imageURL.substringAfter("uploads/")).downloadUrl.addOnSuccessListener {
+            Picasso.get().load(it).into(imgView)
         }
+
+//        _img?.let {
+//            Glide.with(_myView.context)
+//                .load(it)
+//                .transform(CenterCrop(), RoundedCorners(CARD_CORNER_RADIUS))
+//                .transition(DrawableTransitionOptions.withCrossFade())
+//                .into(imgView)
+//        }
     }
 
     private fun createList(listMovieCrossRefEntity: MutableList<ListMovieCrossRefEntity>) {
@@ -241,7 +251,7 @@ class MovieListDetailsFragment : Fragment() {
     }
 
     private fun editMovieList(id: Long, name: String, description: String) {
-        _viewModel.editList(id, name, description).observe(viewLifecycleOwner, Observer {
+        _viewModel.editList(id, name, description,"").observe(viewLifecycleOwner, Observer {
             Toast.makeText(_myView.context, "Edição salva com sucesso", Toast.LENGTH_SHORT).show()
         })
     }

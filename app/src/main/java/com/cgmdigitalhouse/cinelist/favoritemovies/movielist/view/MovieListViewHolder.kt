@@ -11,8 +11,13 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.cgmdigitalhouse.cinelist.R
 import com.cgmdigitalhouse.cinelist.favoritemovies.movielist.model.MovieListModel
 import com.cgmdigitalhouse.cinelist.utils.listmovies.entity.ListMovieEntity
+import com.google.firebase.storage.FirebaseStorage
+import com.squareup.picasso.Picasso
 
 class MovieListViewHolder(private val view: View): RecyclerView.ViewHolder(view) {
+
+    val firebase = FirebaseStorage.getInstance()
+    val storage = firebase.getReference("uploads")
 
     private val txtName: TextView = view.findViewById(R.id.txtName_itemMovieList)
     private val txtQtdMovies: TextView = view.findViewById(R.id.txtCount_itemMovieList)
@@ -38,12 +43,8 @@ class MovieListViewHolder(private val view: View): RecyclerView.ViewHolder(view)
 
             }
         }
-//        movies.text = movieList.
-//
-//        Glide.with(view.context)
-//            .load(movieList.img)
-//            .transform(CenterCrop(), RoundedCorners(cardCornerRadius))
-//            .transition(DrawableTransitionOptions.withCrossFade())
-//            .into(img)
+        storage.child(movieList.imageURL.substringAfter("uploads/")).downloadUrl.addOnSuccessListener {
+            Picasso.get().load(it).into(img)
+        }
     }
 }

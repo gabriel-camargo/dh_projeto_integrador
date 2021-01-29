@@ -21,8 +21,8 @@ class MovieListDetailsViewModel(
         emit(repository.findList(id))
     }
 
-    fun editList(id: Long, name: String, description: String) =  liveData(Dispatchers.IO) {
-        emit(repository.editList(ListMovieEntity(id, name, description)))
+    fun editList(id: Long, name: String, description: String, imageURL:String) =  liveData(Dispatchers.IO) {
+        emit(repository.editList(ListMovieEntity(id, name, description,imageURL)))
     }
 
     fun deleteList(id: Long) =  liveData(Dispatchers.IO) {
