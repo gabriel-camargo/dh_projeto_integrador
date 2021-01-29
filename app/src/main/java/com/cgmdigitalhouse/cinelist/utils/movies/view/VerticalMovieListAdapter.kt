@@ -8,7 +8,7 @@ import com.cgmdigitalhouse.cinelist.R
 import com.cgmdigitalhouse.cinelist.utils.movies.model.MovieModel
 
 class VerticalMovieListAdapter(
-    private val dataset: MutableList<MovieModel>,
+    val dataset: MutableList<MovieModel>,
     private val clickListener: (MovieModel) -> Unit
 ) : RecyclerView.Adapter<VerticalMovieListViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VerticalMovieListViewHolder {

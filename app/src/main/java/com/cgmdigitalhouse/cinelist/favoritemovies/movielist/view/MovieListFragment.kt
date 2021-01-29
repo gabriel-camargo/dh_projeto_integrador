@@ -92,7 +92,18 @@ class MovieListFragment : Fragment() {
             layoutManager = viewManager
             adapter = viewAdapter
         }
+
+        notFound(movieLists.isNotEmpty())
     }
+
+    private fun notFound(show: Boolean) {
+        myView.findViewById<View>(R.id.notfoundLayout_favoriteMovies).visibility = if (show) {
+            View.GONE
+        } else {
+            View.VISIBLE
+        }
+    }
+
     private fun addItemList(){
         val btnCreaterList = myView.findViewById<FloatingActionButton>(R.id.fbtnCreatList_movieListFragment)
         btnCreaterList.setOnClickListener {

@@ -57,6 +57,8 @@ class MovieListDetailsFragment : Fragment() {
 
     private lateinit var _mAlertDialog: AlertDialog
 
+    private lateinit var _viewAdapter: VerticalMovieListAdapter
+
     companion object {
         fun newInstance(title: String, img: Int, id: Long) =
             MovieListDetailsFragment().apply {
@@ -109,6 +111,14 @@ class MovieListDetailsFragment : Fragment() {
         })
     }
 
+    private fun notFound(show: Boolean) {
+        _myView.findViewById<View>(R.id.notfoundLayout_movieListDetails).visibility = if (show) {
+            View.GONE
+        } else {
+            View.VISIBLE
+        }
+    }
+
     private fun setDataMovieDetails(movieList: ListMovieEntity) {
         val txtName: TextView = _myView.findViewById(R.id.txtTitle_movieListDetailsFragment)
         val txtDesc: TextView = _myView.findViewById(R.id.txtDesc_movieListDetailsFragment)
@@ -135,6 +145,8 @@ class MovieListDetailsFragment : Fragment() {
                 MovieDetailsViewModel.MovieDetailsViewModelFactory(MovieDetailsRepository())
         ).get(MovieDetailsViewModel::class.java)
 
+        notFound(listMovieCrossRefEntity.isNotEmpty())
+
         for (listMovie in listMovieCrossRefEntity){
             _movieDetailsViewModel.getMovieDetails(listMovie.movieId.toInt()).observe(viewLifecycleOwner, Observer {
                 _movies.add(it)
@@ -147,7 +159,8 @@ class MovieListDetailsFragment : Fragment() {
         val viewManager = LinearLayoutManager(_myView.context)
         val recyclerView =
                 _myView.findViewById<RecyclerView>(R.id.recyclerView_movieListDetailsFragment)
-        val viewAdapter = VerticalMovieListAdapter(movies) {
+
+        _viewAdapter = VerticalMovieListAdapter(movies) {
 
             val intent = Intent(activity, MovieDetailsActivity::class.java)
             intent.putExtra(HomeFragment.intentId, it.id)
@@ -165,7 +178,7 @@ class MovieListDetailsFragment : Fragment() {
         recyclerView.apply {
             setHasFixedSize(true)
             layoutManager = viewManager
-            adapter = viewAdapter
+            adapter = _viewAdapter
         }
 
         val swipeHandler = object : SwipeToDeleteCallback(_myView.context) {
@@ -175,6 +188,7 @@ class MovieListDetailsFragment : Fragment() {
 
                 _viewModel.removeMovieFromList(_id!!, movieToRemove.id).observe(viewLifecycleOwner, Observer {
                     Snackbar.make(_myView, "${movieToRemove.title} removido da lista", Snackbar.LENGTH_SHORT).show()
+                    notFound(_viewAdapter.dataset.isNotEmpty())
                 })
             }
         }

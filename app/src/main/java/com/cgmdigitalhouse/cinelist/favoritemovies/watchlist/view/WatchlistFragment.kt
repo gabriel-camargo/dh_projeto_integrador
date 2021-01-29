@@ -34,7 +34,7 @@ class WatchlistFragment : Fragment() {
     private lateinit var _viewModel: WatchlistViewModel
     private lateinit var _movieDetailsViewModel: MovieDetailsViewModel
     private lateinit var _listMovieCrossRefEntity: MutableList<ListMovieCrossRefEntity>
-
+    private lateinit var _viewAdapter: VerticalMovieListAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -66,26 +66,37 @@ class WatchlistFragment : Fragment() {
 
     private fun createList() {
         val listMovieModel = mutableListOf<MovieModel>()
+
         _movieDetailsViewModel = ViewModelProvider(
                 this,
                 MovieDetailsViewModel.MovieDetailsViewModelFactory(MovieDetailsRepository())
         ).get(MovieDetailsViewModel::class.java)
+
+
+        notFound(_listMovieCrossRefEntity.isNotEmpty())
+
         for (itemListMovie in _listMovieCrossRefEntity){
             _movieDetailsViewModel.getMovieDetails(itemListMovie.movieId.toInt()).observe(viewLifecycleOwner, Observer {
                 listMovieModel.add(it)
                 addItens(listMovieModel)
             })
-
-
         }
-
-
     }
+
+    private fun notFound(show: Boolean) {
+        myView.findViewById<View>(R.id.notfoundLayout_watchList).visibility = if (show) {
+            View.GONE
+        } else {
+            View.VISIBLE
+        }
+    }
+
     fun addItens(listMovieModel: MutableList<MovieModel>){
+
         val viewManager = LinearLayoutManager(myView.context)
         val recyclerView = myView.findViewById<RecyclerView>(R.id.recyclerView_watchlistFragment)
 
-        val viewAdapter = VerticalMovieListAdapter(listMovieModel) {
+        _viewAdapter = VerticalMovieListAdapter(listMovieModel) {
             val intent = Intent(activity, MovieDetailsActivity::class.java)
             intent.putExtra(HomeFragment.intentId, it.id)
             startActivity(intent)
@@ -101,7 +112,7 @@ class WatchlistFragment : Fragment() {
         recyclerView.apply {
             setHasFixedSize(true)
             layoutManager = viewManager
-            adapter = viewAdapter
+            adapter = _viewAdapter
         }
 
         val swipeHandler = object : SwipeToDeleteCallback(myView.context) {
@@ -111,12 +122,14 @@ class WatchlistFragment : Fragment() {
 
                 _viewModel.removeMovieFromList(movieToRemove.id).observe(viewLifecycleOwner, Observer {
                     Snackbar.make(myView, "${movieToRemove.title} foi removido da watchlist", Snackbar.LENGTH_SHORT).show()
+                    notFound(_viewAdapter.dataset.isNotEmpty())
                 })
             }
         }
 
         val itemTouchHelper = ItemTouchHelper(swipeHandler)
         itemTouchHelper.attachToRecyclerView(recyclerView)
+
     }
 
 

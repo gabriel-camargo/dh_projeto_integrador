@@ -74,8 +74,39 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtDesc_movieListDetailsFragment"
-            tools:itemCount="3"
+            tools:itemCount="0"
             tools:listitem="@layout/item_movie" />
+
+        <LinearLayout
+            android:id="@+id/notfoundLayout_movieListDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtDesc_movieListDetailsFragment"
+            tools:visibility="visible">
+
+            <ImageView
+                android:layout_width="@dimen/dim_espacamento_150dp"
+                android:layout_height="@dimen/dim_espacamento_150dp"
+                android:layout_gravity="center_horizontal"
+                android:contentDescription="@string/image_nada_encontrado"
+                android:src="@drawable/ic_baseline_inbox_24" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dim_espacamento_15dp"
+                android:text="@string/nenhum_filme_adicionado"
+                android:textAlignment="center"
+                android:textColor="#DEDEDE"
+                android:textSize="@dimen/dim_20_sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

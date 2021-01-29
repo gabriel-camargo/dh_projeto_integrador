@@ -8,7 +8,7 @@ import com.cgmdigitalhouse.cinelist.favoritemovies.movielist.model.MovieListMode
 import com.cgmdigitalhouse.cinelist.utils.listmovies.entity.ListMovieEntity
 
 class MovieListAdapter(
-    private val dataSet: List<MovieListModel>,
+    val dataSet: List<MovieListModel>,
     private val clickListener: (MovieListModel) -> Unit
 ): RecyclerView.Adapter<MovieListViewHolder>() {
 
