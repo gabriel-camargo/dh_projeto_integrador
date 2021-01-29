@@ -12,9 +12,9 @@ import kotlinx.coroutines.Dispatchers
 class MovieListViewModel(
     private val repository: MovieListRepository
 ) : ViewModel() {
-    fun inserirListMovie(nome: String, descricao: String) = liveData(Dispatchers.IO) {
-        val listMovie = ListMovieEntity(0, nome, descricao)
-        val newId = repository.inserirListMovie(ListMovieEntity(0, nome, descricao))
+    fun inserirListMovie(nome: String, descricao: String,imageURL:String) = liveData(Dispatchers.IO) {
+        val listMovie = ListMovieEntity(0, nome, descricao,imageURL)
+        val newId = repository.inserirListMovie(ListMovieEntity(0, nome, descricao,imageURL))
 
         listMovie.listMovieId = newId
 

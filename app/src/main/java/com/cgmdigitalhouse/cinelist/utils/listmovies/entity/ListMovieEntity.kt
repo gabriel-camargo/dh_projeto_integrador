@@ -10,5 +10,7 @@ data class ListMovieEntity (
     @ColumnInfo
     var name: String,
     @ColumnInfo
-    var description: String
+    var description: String,
+    @ColumnInfo
+    var imageURL: String
 )

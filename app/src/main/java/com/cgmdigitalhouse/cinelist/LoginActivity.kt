@@ -155,7 +155,7 @@ class LoginActivity : AppCompatActivity() {
     fun createWatchList(count: Int){
 
         if(count == 0){
-            _movieListViewModel.inserirListMovie("WatchList","Filmes que pretendo assistir").observe(this, Observer {
+            _movieListViewModel.inserirListMovie("WatchList","Filmes que pretendo assistir","").observe(this, Observer {
             })
         }
     }
