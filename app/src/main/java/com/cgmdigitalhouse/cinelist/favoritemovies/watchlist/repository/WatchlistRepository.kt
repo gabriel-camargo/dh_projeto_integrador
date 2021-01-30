@@ -8,6 +8,6 @@ import com.cgmdigitalhouse.cinelist.utils.listmovies.entity.ListMovieEntity
 
 
 class WatchlistRepository(private val listMovieCrossRefDao: ListMovieCrossRefDao) {
-    suspend fun getWatchList(): MutableList<ListMovieCrossRefEntity> = listMovieCrossRefDao.obterWatcListMoviestMovieCrossRef(1)
+    suspend fun getWatchList(idUser:String): MutableList<ListMovieCrossRefEntity> = listMovieCrossRefDao.obterWatcListMoviestMovieCrossRef(1,idUser)
     suspend fun removeMovieFromList(movieId: Int) = listMovieCrossRefDao.removeMovieFromList(1, movieId)
 }

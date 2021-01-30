@@ -14,8 +14,8 @@ class WatchlistViewModel(
     val movies = MutableLiveData<MutableList<MovieModelOffline>>()
 
 
-    fun getMovies() = liveData(Dispatchers.IO) {
-        emit(repository.getWatchList())
+    fun getMovies(idUser:String) = liveData(Dispatchers.IO) {
+        emit(repository.getWatchList(idUser))
     }
 
     fun removeMovieFromList(movieId: Int) =  liveData(Dispatchers.IO) {

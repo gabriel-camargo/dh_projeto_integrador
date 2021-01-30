@@ -18,6 +18,8 @@ interface ListMovieCrossRefDao {
     @Query("SELECT COUNT(*) from ListMovieCrossRefEntity where movieId=:idMovie and listMovieId=:idListMovie")
     suspend fun checkIfMovieIsOnList(idMovie: Long, idListMovie: Long): List<String>
 
-    @Query("SELECT *,(SELECT watchList FROM ListMovie where  ListMovie.listMovieId = ListMovieCrossRefEntity.listMovieId) as watchList  FROM ListMovieCrossRefEntity WHERE watchList = :watch")
-    suspend fun obterWatcListMoviestMovieCrossRef(watch: Int): MutableList<ListMovieCrossRefEntity>
+    @Query("SELECT *,(SELECT watchList FROM ListMovie where  ListMovie.listMovieId = ListMovieCrossRefEntity.listMovieId) as watchList," +
+            "(SELECT useId FROM ListMovie where  ListMovie.listMovieId = ListMovieCrossRefEntity.listMovieId) as useId  FROM ListMovieCrossRefEntity " +
+            "WHERE watchList = :watch AND useId = :idUser")
+    suspend fun obterWatcListMoviestMovieCrossRef(watch: Int,idUser: String): MutableList<ListMovieCrossRefEntity>
 }
