@@ -90,8 +90,6 @@ class LoginActivity : AppCompatActivity() {
                         }
                 }
             }
-
-
         }
 
         val btnGoogle = findViewById<Button>(R.id.btn_google)
