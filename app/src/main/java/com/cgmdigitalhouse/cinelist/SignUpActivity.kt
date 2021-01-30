@@ -14,82 +14,102 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 class SignUpActivity : AppCompatActivity() {
+
+    private lateinit var _name: String
+    private lateinit var _email: String
+    private lateinit var _password: String
+    private lateinit var _passwordConfirm: String
     private lateinit var _auth: FirebaseAuth
+    private lateinit var _btnSignUp: Button
+    private lateinit var _edtSignUpName: TextInputLayout
+    private lateinit var _edtSignUpEmail: TextInputLayout
+    private lateinit var _edtSignUpPassword: TextInputLayout
+    private lateinit var _edtSignUpConfirmPassword: TextInputLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
-
-        _auth = Firebase.auth
 
         // Fonte DK
         val fontDK = ResourcesCompat.getFont(this, R.font.dk_butterfly_ball)
         val textLogo: TextView = findViewById(R.id.txt_logo)
         textLogo.typeface = fontDK
 
-        val btnSignUp = findViewById<Button>(R.id.btn_signUp)
-        btnSignUp.setOnClickListener {
-            val edtName = findViewById<TextInputLayout>(R.id.edt_singupNomeLayout)
-            val edtLoginEmail = findViewById<TextInputLayout>(R.id.edt_singupEmailLayout)
-            val edtPassword = findViewById<TextInputLayout>(R.id.edt_singupPasswordLayout)
-            val edtConfirmPassword =
-                findViewById<TextInputLayout>(R.id.edt_singupPasswordConfirmacaoLayout)
+        // Variaveis
+        _auth = Firebase.auth
 
-            edtName.error = null
-            edtLoginEmail.error = null
-            edtPassword.error = null
-            edtConfirmPassword.error = null
+        _btnSignUp = findViewById(R.id.btn_signUp)
+        _edtSignUpName = findViewById(R.id.edt_singupNomeLayout)
+        _edtSignUpEmail = findViewById(R.id.edt_singupEmailLayout)
+        _edtSignUpPassword = findViewById(R.id.edt_singupPasswordLayout)
+        _edtSignUpConfirmPassword = findViewById(R.id.edt_singupPasswordConfirmacaoLayout)
 
-            val name = edtName.editText!!.text.toString().trim()
-            val email = edtLoginEmail.editText!!.text.toString().trim()
-            val password = edtPassword.editText!!.text.toString().trim()
-            val passwordConfirm = edtConfirmPassword.editText!!.text.toString().trim()
-
-            when {
-                name.isEmpty() -> {
-                    edtName.error = "Preencha o campo de nome!"
-                }
-                email.isEmpty() -> {
-                    edtLoginEmail.error = "Preencha o campo de e-mail!"
-                }
-                password.isEmpty() -> {
-                    edtPassword.error = "Preencha o campo de senha!"
-                }
-                password != passwordConfirm -> {
-                    edtConfirmPassword.error = "As senhas fornecidas não correspondem!"
-                }
-                else -> {
-                    _auth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener {
-                            if (it.isSuccessful) {
-                                val profileUpdates = UserProfileChangeRequest.Builder()
-                                    .setDisplayName(name).build()
-
-                                _auth.currentUser!!.updateProfile(profileUpdates)
-
-                                Snackbar.make(
-                                    findViewById(android.R.id.content),
-                                    "Usuário cadastrado com sucesso!",
-                                    Snackbar.LENGTH_SHORT
-                                ).show()
-
-                                val intent = Intent(this, MainActivity::class.java)
-                                intent.apply {
-                                    putExtra("provider", ProviderType.BASIC)
-                                }
-                                startActivity(intent)
-                                finish()
-
-                            } else {
-                                Snackbar.make(
-                                    findViewById(android.R.id.content),
-                                    "Erro ao cadastrar usuário!",
-                                    Snackbar.LENGTH_SHORT
-                                ).show()
-                            }
-                        }
-                }
+        _btnSignUp.setOnClickListener {
+            if (checkFields()) {
+                createAccount()
             }
         }
+    }
+
+    private fun checkFields(): Boolean {
+        _name = _edtSignUpName.editText!!.text.toString().trim()
+        _email = _edtSignUpEmail.editText!!.text.toString().trim()
+        _password = _edtSignUpPassword.editText!!.text.toString().trim()
+        _passwordConfirm = _edtSignUpConfirmPassword.editText!!.text.toString().trim()
+
+        _edtSignUpName.error = null
+        _edtSignUpEmail.error = null
+        _edtSignUpPassword.error = null
+        _edtSignUpConfirmPassword.error = null
+        var response = false
+        when {
+            _name.isEmpty() -> {
+                _edtSignUpName.error = getString(R.string.preencher_nome)
+            }
+            _email.isEmpty() -> {
+                _edtSignUpEmail.error = getString(R.string.preencher_email)
+            }
+            _password.isEmpty() -> {
+                _edtSignUpPassword.error = getString(R.string.preencher_senha)
+            }
+            _password != _passwordConfirm -> {
+                _edtSignUpConfirmPassword.error = getString(R.string.preencher_confirmar_senha)
+            }
+            else -> {
+                response = true
+            }
+        }
+        return response
+    }
+
+    private fun createAccount() {
+        _auth.createUserWithEmailAndPassword(_email, _password)
+            .addOnCompleteListener(this) { task ->
+                if(task.isSuccessful) {
+                    val profileUpdates = UserProfileChangeRequest.Builder()
+                        .setDisplayName(_name).build()
+
+                    _auth.currentUser!!.updateProfile(profileUpdates)
+
+                    Snackbar.make(
+                        findViewById(android.R.id.content),
+                        getString(R.string.usuario_sucesso),
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+
+                    val intent = Intent(this, MainActivity::class.java)
+                    intent.apply {
+                        putExtra("provider", ProviderType.BASIC)
+                    }
+                    startActivity(intent)
+                    finish()
+                } else {
+                    Snackbar.make(
+                        findViewById(android.R.id.content),
+                        getString(R.string.usuario_erro),
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }
+            }
     }
 }

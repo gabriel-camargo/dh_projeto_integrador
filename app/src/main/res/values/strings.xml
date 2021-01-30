@@ -71,4 +71,15 @@
     <string name="senha">Senha</string>
     <string name="email_ou_senha_invalidos">Email ou senha inválidos</string>
 
+
+    <string name="preencher_nome">Preencha o campo de nome!</string>
+    <string name="preencher_email">Preencha o campo de e-mail!</string>
+    <string name="preencher_senha">Preencha o campo de senha!</string>
+    <string name="preencher_confirmar_senha">As senhas fornecidas não correspondem!</string>
+    <string name="usuario_sucesso">Usuário cadastrado com sucesso!</string>
+    <string name="usuario_erro">Erro ao cadastrar usuário!</string>
+    <string name="novo_e_mail">Novo e-mail</string>
+    <string name="trocar_e_mail">Trocar e-mail</string>
+
+
 </resources>
