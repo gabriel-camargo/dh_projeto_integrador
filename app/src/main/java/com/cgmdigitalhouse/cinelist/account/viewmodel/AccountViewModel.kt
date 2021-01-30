@@ -24,7 +24,6 @@ class AccountViewModel(
             return AccountViewModel(repository) as T
         }
     }
-
 }
 
 
