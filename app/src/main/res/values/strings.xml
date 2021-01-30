@@ -26,7 +26,7 @@
     <string name="e_mail">E-mail</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
-    <string name="esqueceu_sua_senha">Esqueceu sua senha?</string>
+    <string name="esqueceu_sua_senha">Esqueci minha senha</string>
     <string name="sign_up">Sign Up</string>
     <string name="facebook">Facebook</string>
     <string name="google">Google</string>
@@ -63,5 +63,11 @@
     <string name="fb_login_protocol_scheme">fb203659214568330</string>
     <string name="nenhuma_lista_cadastrada">Nenhuma lista cadastrada</string>
     <string name="nenhum_filme_adicionado">Nenhum filme adicionado</string>
+    <string name="ainda_nao_possui_uma_conta">Não possui uma conta?</string>
+    <string name="cadastre_se">Cadastre-se</string>
+    <string name="ou_faca_login_com">Ou continue com</string>
+    <string name="cadastrar">Cadastrar</string>
+    <string name="confirme_a_senha">Confirme a senha</string>
+    <string name="senha">Senha</string>
 
 </resources>
