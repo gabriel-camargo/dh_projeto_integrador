@@ -12,25 +12,25 @@ import kotlinx.coroutines.Dispatchers
 class MovieListViewModel(
     private val repository: MovieListRepository
 ) : ViewModel() {
-    fun inserirListMovie(nome: String, descricao: String,imageURL:String) = liveData(Dispatchers.IO) {
-        val listMovie = ListMovieEntity(0, nome, descricao,imageURL)
-        val newId = repository.inserirListMovie(ListMovieEntity(0, nome, descricao,imageURL))
+    fun inserirListMovie(nome: String, descricao: String,imageURL:String,idUse:String,warchList:Boolean) = liveData(Dispatchers.IO) {
+        val listMovie = ListMovieEntity(0, nome, descricao,imageURL,idUse,warchList)
+        val newId = repository.inserirListMovie(ListMovieEntity(0, nome, descricao,imageURL,idUse,warchList))
 
         listMovie.listMovieId = newId
 
         emit(listMovie)
     }
 
-    fun getMovieLists() = liveData(Dispatchers.IO) {
-        emit(repository.getListMovies())
+    fun getMovieLists(idUser:String) = liveData(Dispatchers.IO) {
+        emit(repository.getListMovies(idUser))
     }
 
-    fun getAllMovieLists()  = liveData(Dispatchers.IO) {
-        emit(repository.getAllMovieLists())
+    fun getAllMovieLists(idUser:String)  = liveData(Dispatchers.IO) {
+        emit(repository.getAllMovieLists(idUser))
     }
 
-    fun searchWatchList()= liveData(Dispatchers.IO) {
-        emit(repository.searchWatchList())
+    fun searchWatchList(idUser:String)= liveData(Dispatchers.IO) {
+        emit(repository.searchWatchList(idUser))
     }
 
     @Suppress("UNCHECKED_CAST")

@@ -29,6 +29,7 @@ import com.cgmdigitalhouse.cinelist.movielistdetails.view.MovieListDetailsActivi
 import com.cgmdigitalhouse.cinelist.utils.listmovies.entity.ListMovieEntity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import java.lang.System.currentTimeMillis
 
@@ -42,6 +43,7 @@ class MovieListFragment : Fragment() {
     private lateinit var _view: View
     private var imageURI: Uri? = null
     private var _fileReference: String =""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,12 +63,15 @@ class MovieListFragment : Fragment() {
 
         Log.d("MOVIE_LIST_FRAGMENT", "onViewCreated")
         _view = view
+        var auth = FirebaseAuth.getInstance()
+        var idUse = auth.currentUser!!.uid
+
         viewModel = ViewModelProvider(
             this,
             MovieListViewModel.MovieListViewModelFactory(MovieListRepository(AppDatabase.getDatabase(myView.context).listMovieDao()))
         ).get(MovieListViewModel::class.java)
 
-         viewModel.getMovieLists().observe(viewLifecycleOwner, {
+         viewModel.getMovieLists(idUse).observe(viewLifecycleOwner, {
                 movieLists = it
                 createList()
          })
@@ -148,6 +153,9 @@ class MovieListFragment : Fragment() {
         val listName = edtName.text.toString().trim()
         val listDescription = edtDescription.text.toString().trim()
 
+        var auth = FirebaseAuth.getInstance()
+        var idUse = auth.currentUser!!.uid
+
 
         imageURI?.run {
             val firebase = FirebaseStorage.getInstance()
@@ -167,7 +175,7 @@ class MovieListFragment : Fragment() {
                     } else {
                         mAlertDialog.dismiss()
 
-                        viewModel.inserirListMovie(listName,listDescription,_fileReference).observe(viewLifecycleOwner, {
+                        viewModel.inserirListMovie(listName,listDescription,_fileReference,idUse,false).observe(viewLifecycleOwner, {
                             movieLists.add(MovieListModel(it.listMovieId, it.name, it.description, 0,it.imageURL))
                             createList()
                         })
@@ -191,7 +199,10 @@ class MovieListFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         Log.d("MOVIE_LIST_FRAGMENT", "onResume")
-        viewModel.getMovieLists().observe(viewLifecycleOwner, {
+        var auth = FirebaseAuth.getInstance()
+        var idUse = auth.currentUser!!.uid
+
+        viewModel.getMovieLists(idUse).observe(viewLifecycleOwner, {
             movieLists = it
             createList()
         })

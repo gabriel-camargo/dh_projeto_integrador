@@ -75,9 +75,15 @@ class LoginActivity : AppCompatActivity() {
                     FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener{
                             if(it.isSuccessful) {
-                                _movieListViewModel.searchWatchList().observe(this, Observer{
-                                    createWatchList(it[0].toInt())
-                                })
+                                FirebaseAuth.getInstance()!!.uid?.let { it1 ->
+                                    _movieListViewModel.searchWatchList(it1).observe(this, Observer{
+                                        FirebaseAuth.getInstance()!!.uid?.let { it1 ->
+                                            createWatchList(it[0].toInt(),
+                                                it1
+                                            )
+                                        }
+                                    })
+                                }
                                 val intent = Intent(this, MainActivity::class.java)
                                 intent.apply {
                                     putExtra("provider", ProviderType.BASIC)
@@ -123,9 +129,15 @@ class LoginActivity : AppCompatActivity() {
                             FirebaseAuth.getInstance().signInWithCredential(credential)
                                 .addOnCompleteListener {
                                     if(it.isSuccessful) {
-                                        _movieListViewModel.searchWatchList().observe(this@LoginActivity, Observer{
-                                            createWatchList(it[0].toInt())
-                                        })
+                                        FirebaseAuth.getInstance()!!.uid?.let { it1 ->
+                                            _movieListViewModel.searchWatchList(it1).observe(this@LoginActivity, Observer{
+                                                FirebaseAuth.getInstance()!!.uid?.let { it1 ->
+                                                    createWatchList(it[0].toInt(),
+                                                        it1
+                                                    )
+                                                }
+                                            })
+                                        }
                                         val intent = Intent(this@LoginActivity, MainActivity::class.java)
                                         intent.apply {
                                             putExtra("provider", ProviderType.FACEBOOK)
@@ -155,10 +167,10 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-    fun createWatchList(count: Int){
+    fun createWatchList(count: Int, id:String){
 
         if(count == 0){
-            _movieListViewModel.inserirListMovie("WatchList","Filmes que pretendo assistir","").observe(this, Observer {
+            _movieListViewModel.inserirListMovie("WatchList","Filmes que pretendo assistir","",id,true).observe(this, Observer {
             })
         }
     }
@@ -178,9 +190,15 @@ class LoginActivity : AppCompatActivity() {
                     FirebaseAuth.getInstance().signInWithCredential(credential)
                         .addOnCompleteListener {
                             if(it.isSuccessful) {
-                                _movieListViewModel.searchWatchList().observe(this, Observer{
-                                    createWatchList(it[0].toInt())
-                                })
+                                FirebaseAuth.getInstance()!!.uid?.let { it1 ->
+                                    _movieListViewModel.searchWatchList(it1).observe(this, Observer{
+                                        FirebaseAuth.getInstance()!!.uid?.let { it1 ->
+                                            createWatchList(it[0].toInt(),
+                                                it1
+                                            )
+                                        }
+                                    })
+                                }
                                 val intent = Intent(this, MainActivity::class.java)
                                 intent.apply {
                                     putExtra("provider", ProviderType.GOOGLE)

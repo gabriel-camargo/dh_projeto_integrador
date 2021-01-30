@@ -34,6 +34,7 @@ import com.cgmdigitalhouse.cinelist.utils.listmovies.entity.ListMovieEntity
 import com.cgmdigitalhouse.cinelist.utils.movies.model.MovieModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.auth.FirebaseAuth
 
 class MovieDetailsActivity : AppCompatActivity() {
     private lateinit var _castViewModel: CastViewModel
@@ -90,6 +91,9 @@ class MovieDetailsActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun createMovieDetails() {
+        var auth = FirebaseAuth.getInstance()
+        var idUse = auth.currentUser!!.uid
+
         _viewModel = ViewModelProvider(
             this,
             MovieDetailsViewModel.MovieDetailsViewModelFactory(MovieDetailsRepository())
@@ -142,7 +146,7 @@ class MovieDetailsActivity : AppCompatActivity() {
                     MovieListViewModel.MovieListViewModelFactory(MovieListRepository(AppDatabase.getDatabase(this).listMovieDao()))
             ).get(MovieListViewModel::class.java)
 
-            _movieListViewModel.getAllMovieLists().observe(this, Observer{
+            _movieListViewModel.getAllMovieLists(idUse).observe(this, Observer{
                 createListDialogDetail(it)
             })
         }

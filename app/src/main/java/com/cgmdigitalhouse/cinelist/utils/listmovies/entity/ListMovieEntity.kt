@@ -12,5 +12,9 @@ data class ListMovieEntity (
     @ColumnInfo
     var description: String,
     @ColumnInfo
-    var imageURL: String
+    var imageURL: String,
+    @ColumnInfo
+    var useId: String,
+    @ColumnInfo
+    var watchList: Boolean
 )
