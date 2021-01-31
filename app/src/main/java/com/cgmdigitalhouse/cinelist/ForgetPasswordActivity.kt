@@ -25,7 +25,6 @@ class ForgetPasswordActivity : AppCompatActivity() {
 
         _btnChangePassword.setOnClickListener {
             _email = _edtEmailInput.text.toString()
-            //Log.w("Email", _)
             _auth.sendPasswordResetEmail(_email)
                 .addOnCompleteListener {
                     Toast.makeText(
