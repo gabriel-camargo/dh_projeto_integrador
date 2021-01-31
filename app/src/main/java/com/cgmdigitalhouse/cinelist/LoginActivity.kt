@@ -28,6 +28,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 class LoginActivity : AppCompatActivity() {
     private lateinit var _movieListViewModel: MovieListViewModel
     private val GOOGLE_SIGN_IN = 100
+    private lateinit var _btnForgetPassword: TextView
 
     private val callbackManager = CallbackManager.Factory.create()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +45,7 @@ class LoginActivity : AppCompatActivity() {
 
         val btnLogin = findViewById<Button>(R.id.btn_login)
         val btnSignUpLogin = findViewById<Button>(R.id.btn_signUpLogin)
+        _btnForgetPassword = findViewById(R.id.txt_forgetPassword)
 
         _movieListViewModel = ViewModelProvider(
             this,
@@ -161,6 +163,11 @@ class LoginActivity : AppCompatActivity() {
 
         btnSignUpLogin.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
+        }
+
+        _btnForgetPassword.setOnClickListener {
+            val intent = Intent(this, ForgetPasswordActivity::class.java)
             startActivity(intent)
         }
     }

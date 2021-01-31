@@ -47,11 +47,39 @@
         tools:text="Exemplo@exemplo.com" />
 
     <TextView
-        android:id="@+id/txtEditEmail_accountFragment"
+        android:id="@+id/txtEditName_accountFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dim_32_dp"
         android:layout_marginTop="@dimen/dim_espacamento_60dp"
+        android:layout_marginEnd="@dimen/dim_32_dp"
+        android:paddingVertical="@dimen/dim_espacamento_16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="Editar nome"
+        android:background="?attr/selectableItemBackground"
+        android:textSize="@dimen/dim_20_sp"
+        app:drawableEndCompat="@drawable/ic_baseline_edit_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_emailUsuario" />
+
+    <View
+        android:id="@+id/viewSeparator1_accountFragment"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="@dimen/dim_32_dp"
+        android:layout_marginEnd="@dimen/dim_32_dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtEditName_accountFragment" />
+
+    <TextView
+        android:id="@+id/txtEditEmail_accountFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dim_32_dp"
         android:layout_marginEnd="@dimen/dim_32_dp"
         android:paddingVertical="@dimen/dim_espacamento_16dp"
         android:clickable="true"
@@ -62,7 +90,7 @@
         app:drawableEndCompat="@drawable/ic_baseline_email_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_emailUsuario" />
+        app:layout_constraintTop_toBottomOf="@+id/viewSeparator1_accountFragment" />
 
     <View
         android:id="@+id/viewSeparator_accountFragment"

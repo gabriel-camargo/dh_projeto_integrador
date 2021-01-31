@@ -27,9 +27,11 @@ class AccountFragment : Fragment() {
     private lateinit var _viewModel: AccountViewModel
 
     private lateinit var _auth: FirebaseAuth
+    private lateinit var _edtName: TextView
     private lateinit var _edtEmail: TextView
     private lateinit var _edtPassword: TextView
     private lateinit var _email: String
+
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -42,8 +44,10 @@ class AccountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        _edtName = view.findViewById(R.id.txtEditName_accountFragment)
         _edtEmail = view.findViewById(R.id.txtEditEmail_accountFragment)
         _edtPassword = view.findViewById(R.id.txtEditPassword_accountFragment)
+
         _auth = Firebase.auth
         _email = _auth.currentUser?.email.toString()
 
@@ -76,6 +80,12 @@ class AccountFragment : Fragment() {
             LoginManager.getInstance().logOut()
 
             val intent = Intent(_view.context, LoginActivity::class.java)
+            startActivity(intent)
+            activity!!.finish()
+        }
+
+        _edtName.setOnClickListener {
+            val intent = Intent(_view.context, ChangeNameActivity::class.java)
             startActivity(intent)
             activity!!.finish()
         }

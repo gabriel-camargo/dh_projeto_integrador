@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjetoIntegrador">
-        <activity android:name=".account.view.ChangeEmailActivity"></activity>
+        <activity android:name=".account.view.ChangeNameActivity"></activity>
+        <activity android:name=".ForgetPasswordActivity" />
+        <activity android:name=".account.view.ChangeEmailActivity" />
         <activity android:name=".moviedetails.photos.view.PhotoFullActivity" />
         <activity android:name=".SplashScreenActivity">
             <intent-filter>

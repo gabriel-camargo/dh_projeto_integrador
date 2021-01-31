@@ -80,6 +80,16 @@
     <string name="usuario_erro">Erro ao cadastrar usuário!</string>
     <string name="novo_e_mail">Novo e-mail</string>
     <string name="trocar_e_mail">Trocar e-mail</string>
+    <string name="redefinir_senha">Redefinir senha</string>
+    <string name="trocar_o_nome">Trocar o nome</string>
+
+    <string name="nome_alterado_sucesso">Nome alterado com sucesso.</string>
+    <string name="email_alterado_sucesso">E-mail alterado com sucesso.</string>
+    <string name="e_mail_atual">E-mail atual</string>
+    <string name="email_atual_errado">E-mail digitado não corresponde com o e-mail cadastrado</string>
+    <string name="email_novo_errado">E-mail novo deve ser diferente do e-mail atual</string>
+
+
 
 
 </resources>
