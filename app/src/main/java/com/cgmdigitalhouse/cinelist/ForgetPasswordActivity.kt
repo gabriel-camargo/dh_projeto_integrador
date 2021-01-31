@@ -24,14 +24,18 @@ class ForgetPasswordActivity : AppCompatActivity() {
         _auth = Firebase.auth
 
         _btnChangePassword.setOnClickListener {
-            _email = _edtEmailInput.text.toString()
-            _auth.sendPasswordResetEmail(_email)
-                .addOnCompleteListener {
-                    Toast.makeText(
-                        this, "Um e-mail foi enviado para sua conta.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+            forgetPassword()
         }
+    }
+
+    private fun forgetPassword() {
+        _email = _edtEmailInput.text.toString()
+        _auth.sendPasswordResetEmail(_email)
+            .addOnCompleteListener {
+                Toast.makeText(
+                    this, "Um e-mail foi enviado para sua conta.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
     }
 }
