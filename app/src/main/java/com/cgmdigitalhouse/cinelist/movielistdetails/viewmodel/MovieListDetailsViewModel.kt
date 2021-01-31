@@ -17,12 +17,12 @@ class MovieListDetailsViewModel(
         emit(repository.getListMoviesCrossRefEntity(id))
     }
 
-    fun getListDetais(id: Long) = liveData(Dispatchers.IO) {
-        emit(repository.findList(id))
+    fun getListDetais(id: Long,idUse:String) = liveData(Dispatchers.IO) {
+        emit(repository.findList(id,idUse))
     }
 
-    fun editList(id: Long, name: String, description: String, imageURL:String) =  liveData(Dispatchers.IO) {
-        emit(repository.editList(ListMovieEntity(id, name, description,imageURL)))
+    fun editList(id: Long, name: String, description: String, imageURL:String,idUse:String,warchList:Boolean) =  liveData(Dispatchers.IO) {
+        emit(repository.editList(ListMovieEntity(id, name, description,imageURL,idUse,warchList)))
     }
 
     fun deleteList(id: Long) =  liveData(Dispatchers.IO) {

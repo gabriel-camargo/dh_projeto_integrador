@@ -6,9 +6,9 @@ import com.cgmdigitalhouse.cinelist.utils.listmovies.entity.ListMovieEntity
 
 class MovieListRepository(private val movieListDao: ListMovieDao) {
     suspend fun inserirListMovie(listMovieEntity: ListMovieEntity) = movieListDao.inserirListMovie(listMovieEntity)
-    suspend fun getListMovies(): MutableList<MovieListModel> = movieListDao.obterlistsMovies()
-    suspend fun getAllMovieLists(): MutableList<ListMovieEntity> = movieListDao.getAllMovieLists()
-    suspend fun searchWatchList() = movieListDao.searchWatchList()
+    suspend fun getListMovies(idUser:String): MutableList<MovieListModel> = movieListDao.obterlistsMovies(idUser)
+    suspend fun getAllMovieLists(idUser:String): MutableList<ListMovieEntity> = movieListDao.getAllMovieLists(idUser)
+    suspend fun searchWatchList(idUser:String) = movieListDao.searchWatchList(idUser)
 //    suspend fun getListMovies() = movieListDao.obterListsMovies()
 //    suspend fun getMovies() = movieListDao.obterMovies()
 }

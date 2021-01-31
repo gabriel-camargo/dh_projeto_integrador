@@ -10,7 +10,7 @@ class MovieListDetailsRepository(
     private val listMovieCrossRefDao: ListMovieCrossRefDao
 ) {
     suspend fun getListMoviesCrossRefEntity(id:Long): MutableList<ListMovieCrossRefEntity> = listMovieCrossRefDao.obterlistsMoviestMovieCrossRef(id)
-    suspend fun findList(id: Long) = listMovieDao.findList(id)
+    suspend fun findList(id: Long,idUser:String) = listMovieDao.findList(id,idUser)
     suspend fun editList(listMovieEntity: ListMovieEntity) = listMovieDao.editList(listMovieEntity)
     suspend fun deleteListById(id: Long) = listMovieDao.deleteListById(id)
     suspend fun removeMovieFromList(listId: Long, movieId: Int) = listMovieCrossRefDao.removeMovieFromList(listId, movieId)

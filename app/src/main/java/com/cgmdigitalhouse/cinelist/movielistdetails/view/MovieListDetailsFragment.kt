@@ -38,6 +38,7 @@ import com.cgmdigitalhouse.cinelist.utils.moviesoffline.model.MovieModelOffline
 import com.cgmdigitalhouse.cinelist.utils.moviesoffline.view.MovieOfflineAdapter
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
 
@@ -93,6 +94,8 @@ class MovieListDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        var auth = FirebaseAuth.getInstance()
+        var idUse = auth.currentUser!!.uid
 
         _viewModel = ViewModelProvider(
             this,
@@ -104,7 +107,7 @@ class MovieListDetailsFragment : Fragment() {
             )
         ).get(MovieListDetailsViewModel::class.java)
 
-        _viewModel.getListDetais(_id!!).observe(viewLifecycleOwner, Observer { list ->
+        _viewModel.getListDetais(_id!!,idUse).observe(viewLifecycleOwner, Observer { list ->
             setDataMovieDetails(list[0])
         })
 
@@ -251,7 +254,9 @@ class MovieListDetailsFragment : Fragment() {
     }
 
     private fun editMovieList(id: Long, name: String, description: String) {
-        _viewModel.editList(id, name, description,"").observe(viewLifecycleOwner, Observer {
+        var auth = FirebaseAuth.getInstance()
+        var idUse = auth.currentUser!!.uid
+        _viewModel.editList(id, name, description,"",idUse,false).observe(viewLifecycleOwner, Observer {
             Toast.makeText(_myView.context, "Edição salva com sucesso", Toast.LENGTH_SHORT).show()
         })
     }

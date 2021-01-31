@@ -28,6 +28,7 @@ import com.cgmdigitalhouse.cinelist.utils.movies.view.VerticalMovieListAdapter
 import com.cgmdigitalhouse.cinelist.utils.moviesoffline.model.MovieModelOffline
 import com.cgmdigitalhouse.cinelist.utils.moviesoffline.view.MovieOfflineAdapter
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 
 class WatchlistFragment : Fragment() {
     lateinit var myView: View
@@ -50,18 +51,20 @@ class WatchlistFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        var auth = FirebaseAuth.getInstance()
+        var useId = auth.currentUser!!.uid
 
         _viewModel = ViewModelProvider(
             this,
             WatchlistViewModel.WatchlistViewModelFactory(WatchlistRepository(AppDatabase.getDatabase(myView.context).listMovieCrossRefDao()))
         ).get(WatchlistViewModel::class.java)
 
-        _viewModel.getMovies().observe(viewLifecycleOwner, Observer {
+        _viewModel.getMovies(useId).observe(viewLifecycleOwner, Observer {
             _listMovieCrossRefEntity = it
             createList()
         })
 
-        _viewModel.getMovies()
+        _viewModel.getMovies(useId)
     }
 
     private fun createList() {
