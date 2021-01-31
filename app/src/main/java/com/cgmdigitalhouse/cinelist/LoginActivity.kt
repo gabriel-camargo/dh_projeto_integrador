@@ -7,14 +7,10 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.observe
 import com.cgmdigitalhouse.cinelist.db.AppDatabase
-import com.cgmdigitalhouse.cinelist.favoritemovies.movielist.model.MovieListModel
 import com.cgmdigitalhouse.cinelist.favoritemovies.movielist.repository.MovieListRepository
 import com.cgmdigitalhouse.cinelist.favoritemovies.movielist.viewmodel.MovieListViewModel
-import com.cgmdigitalhouse.cinelist.utils.listmovies.entity.ListMovieEntity
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
@@ -23,7 +19,7 @@ import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
@@ -46,30 +42,36 @@ class LoginActivity : AppCompatActivity() {
         val textLogo: TextView = findViewById(R.id.txt_logo)
         textLogo.typeface = fontDK
 
-        // Variaveis
-        val edtLoginEmail = findViewById<TextInputEditText>(R.id.edt_loginEmailInput)
-        val edtLoginPassword = findViewById<TextInputEditText>(R.id.edt_loginPasswordInput)
         val btnLogin = findViewById<Button>(R.id.btn_login)
         val btnSignUpLogin = findViewById<Button>(R.id.btn_signUpLogin)
 
         _movieListViewModel = ViewModelProvider(
-                this,
-                MovieListViewModel.MovieListViewModelFactory(MovieListRepository(AppDatabase.getDatabase(this).listMovieDao()))
+            this,
+            MovieListViewModel.MovieListViewModelFactory(
+                MovieListRepository(
+                    AppDatabase.getDatabase(
+                        this
+                    ).listMovieDao()
+                )
+            )
         ).get(MovieListViewModel::class.java)
 
         btnLogin.setOnClickListener {
             val edtEmail = findViewById<TextInputLayout>(R.id.edt_loginEmailLayout)
             val edtSenha = findViewById<TextInputLayout>(R.id.edt_loginPasswordLayout)
 
+            edtEmail.error = null
+            edtSenha.error = null
+
             val email = edtEmail.editText!!.text.toString().trim()
             val password = edtSenha.editText!!.text.toString().trim()
 
             when {
                 email.isEmpty() -> {
-                    Toast.makeText(this, "Preencha o campo de email!", Toast.LENGTH_SHORT).show()
+                    edtEmail.error = "Preencha o campo de email!"
                 }
                 password.isEmpty() -> {
-                    Toast.makeText(this, "Preencha o campo de senha!", Toast.LENGTH_SHORT).show()
+                    edtSenha.error = "Preencha o campo de senha!"
                 }
                 else -> {
                     FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
@@ -91,7 +93,7 @@ class LoginActivity : AppCompatActivity() {
                                 startActivity(intent)
                                 finish()
                             } else {
-                                Toast.makeText(this, "Email ou senha incorretas!", Toast.LENGTH_SHORT).show()
+                                Snackbar.make(findViewById(android.R.id.content), getString(R.string.email_ou_senha_invalidos), Snackbar.LENGTH_SHORT).show()
                             }
                         }
                 }
@@ -99,7 +101,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         val btnGoogle = findViewById<Button>(R.id.btn_google)
-        btnGoogle.setOnClickListener{
+        btnGoogle.setOnClickListener {
             val googleConf = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -114,16 +116,15 @@ class LoginActivity : AppCompatActivity() {
         val btnFacebook = findViewById<Button>(R.id.btn_facebook)
         btnFacebook.setOnClickListener {
 
-//            LoginManager.getInstance().logInWithReadPermissions(this, listOf("email"))
-
-            LoginManager.getInstance().registerCallback(callbackManager,
-                object: FacebookCallback<LoginResult> {
+            val loginManagerInstance = LoginManager.getInstance()
+            loginManagerInstance.logInWithReadPermissions(this, listOf("email", "public_profile"))
+            loginManagerInstance.registerCallback(callbackManager,
+                object : FacebookCallback<LoginResult> {
                     override fun onSuccess(result: LoginResult?) {
-                        val i = 1
+
                         result?.let {
 
                             val token = it.accessToken
-
                             val credential = FacebookAuthProvider.getCredential(token.token)
 
                             FirebaseAuth.getInstance().signInWithCredential(credential)
@@ -145,19 +146,25 @@ class LoginActivity : AppCompatActivity() {
                                         startActivity(intent)
                                         finish()
                                     } else {
-                                        Toast.makeText(this@LoginActivity, "Erro ao autenticar!", Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(
+                                            this@LoginActivity,
+                                            "Erro ao autenticar!",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
                                     }
                                 }
                         }
                     }
 
-                    override fun onCancel() {
-
-                    }
-
                     override fun onError(error: FacebookException?) {
-                        Toast.makeText(this@LoginActivity, "Erro ao autenticar!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this@LoginActivity,
+                            "Erro ao autenticar!",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
+
+                    override fun onCancel() {}
                 }
             )
         }
@@ -179,12 +186,12 @@ class LoginActivity : AppCompatActivity() {
         callbackManager.onActivityResult(requestCode, resultCode, data)
         super.onActivityResult(requestCode, resultCode, data)
 
-        if(requestCode == GOOGLE_SIGN_IN) {
+        if (requestCode == GOOGLE_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             val account = task.getResult(ApiException::class.java)
 
             try {
-                if(account != null) {
+                if (account != null) {
 
                     val credential = GoogleAuthProvider.getCredential(account.idToken, null)
                     FirebaseAuth.getInstance().signInWithCredential(credential)
@@ -206,15 +213,14 @@ class LoginActivity : AppCompatActivity() {
                                 startActivity(intent)
                                 finish()
                             } else {
-                                Toast.makeText(this, "Erro ao autenticar!", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this, "Erro ao autenticar!", Toast.LENGTH_SHORT)
+                                    .show()
                             }
                         }
                 }
             } catch (e: ApiException) {
                 Toast.makeText(this, "Erro ao autenticar!", Toast.LENGTH_SHORT).show()
             }
-
-
         }
     }
 }
