@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".account.view.AccountFragment">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_usuario"
         android:layout_width="@dimen/dimen_100_dp"
         android:layout_height="@dimen/dimen_100_dp"
@@ -56,7 +56,7 @@
         android:paddingVertical="@dimen/dim_espacamento_16dp"
         android:clickable="true"
         android:focusable="true"
-        android:text="Editar nome"
+        android:text="@string/editar_nome"
         android:background="?attr/selectableItemBackground"
         android:textSize="@dimen/dim_20_sp"
         app:drawableEndCompat="@drawable/ic_baseline_edit_24"

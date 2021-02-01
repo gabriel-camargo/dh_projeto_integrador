@@ -25,7 +25,6 @@ class ChangeNameActivity : AppCompatActivity() {
     private lateinit var _auth: FirebaseAuth
     private lateinit var _newName: String
     private lateinit var _currentUser: FirebaseUser
-    private lateinit var _profileUpdates: UserProfileChangeRequest
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
