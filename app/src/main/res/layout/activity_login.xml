@@ -48,7 +48,9 @@
                 android:id="@+id/edt_loginEmailInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                />
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -81,7 +83,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/txt_esqueceuSenha"
+            android:id="@+id/txt_forgetPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dim_espacamento_10dp"
