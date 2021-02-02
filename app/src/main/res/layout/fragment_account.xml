@@ -6,17 +6,32 @@
     android:layout_height="match_parent"
     tools:context=".account.view.AccountFragment">
 
-    <ImageView
-        android:id="@+id/img_usuario"
+    <RelativeLayout
+        android:id="@+id/layout_imgUsuario"
         android:layout_width="@dimen/dimen_100_dp"
         android:layout_height="@dimen/dimen_100_dp"
-        android:layout_gravity="center"
         android:layout_marginTop="@dimen/dim_espacamento_50dp"
-        android:contentDescription="@string/imagem_de_usuario"
+        android:layout_gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_round_person_24" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_usuario"
+            android:layout_width="@dimen/dimen_100_dp"
+            android:layout_height="@dimen/dimen_100_dp"
+            android:contentDescription="@string/imagem_de_usuario"
+            tools:src="@drawable/ic_round_person_24" />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_baseline_add_a_photo_24"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            />
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/txt_nomeUsuario"
@@ -29,7 +44,7 @@
         android:textSize="@dimen/dim_20_sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_usuario"
+        app:layout_constraintTop_toBottomOf="@+id/layout_imgUsuario"
         tools:text="Nome do usuário" />
 
     <TextView
@@ -47,11 +62,39 @@
         tools:text="Exemplo@exemplo.com" />
 
     <TextView
-        android:id="@+id/txtEditEmail_accountFragment"
+        android:id="@+id/txtEditName_accountFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dim_32_dp"
         android:layout_marginTop="@dimen/dim_espacamento_60dp"
+        android:layout_marginEnd="@dimen/dim_32_dp"
+        android:paddingVertical="@dimen/dim_espacamento_16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="@string/editar_nome"
+        android:background="?attr/selectableItemBackground"
+        android:textSize="@dimen/dim_20_sp"
+        app:drawableEndCompat="@drawable/ic_baseline_edit_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_emailUsuario" />
+
+    <View
+        android:id="@+id/viewSeparator1_accountFragment"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="@dimen/dim_32_dp"
+        android:layout_marginEnd="@dimen/dim_32_dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtEditName_accountFragment" />
+
+    <TextView
+        android:id="@+id/txtEditEmail_accountFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dim_32_dp"
         android:layout_marginEnd="@dimen/dim_32_dp"
         android:paddingVertical="@dimen/dim_espacamento_16dp"
         android:clickable="true"
@@ -62,7 +105,7 @@
         app:drawableEndCompat="@drawable/ic_baseline_email_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_emailUsuario" />
+        app:layout_constraintTop_toBottomOf="@+id/viewSeparator1_accountFragment" />
 
     <View
         android:id="@+id/viewSeparator_accountFragment"
