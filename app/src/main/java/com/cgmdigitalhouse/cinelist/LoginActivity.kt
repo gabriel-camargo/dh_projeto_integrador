@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.cgmdigitalhouse.cinelist.db.AppDatabase
 import com.cgmdigitalhouse.cinelist.favoritemovies.movielist.repository.MovieListRepository

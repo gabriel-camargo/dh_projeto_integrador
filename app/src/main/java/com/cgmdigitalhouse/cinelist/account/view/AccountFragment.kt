@@ -83,7 +83,7 @@ class AccountFragment : Fragment() {
                     .circleCrop()
                     .into(_imgAddPhoto)
             } else {
-                Glide.with(view.context)
+                Glide.with(_view.context)
                     .load(it.image)
                     .circleCrop()
                     .into(_imgAddPhoto)
@@ -103,13 +103,11 @@ class AccountFragment : Fragment() {
         _edtName.setOnClickListener {
             val intent = Intent(_view.context, ChangeNameActivity::class.java)
             startActivity(intent)
-            activity!!.finish()
         }
 
         _edtEmail.setOnClickListener {
             val intent = Intent(_view.context, ChangeEmailActivity::class.java)
             startActivity(intent)
-            activity!!.finish()
         }
 
         _edtPassword.setOnClickListener {
@@ -130,7 +128,7 @@ class AccountFragment : Fragment() {
     private fun searchFile() {
         val intent = Intent()
         intent.type = "image/*"
-        intent.action = Intent.ACTION_GET_CONTENT
+        intent.action = Intent.ACTION_OPEN_DOCUMENT
         startActivityForResult(intent, CONTENT_REQUEST_CODE)
     }
 
