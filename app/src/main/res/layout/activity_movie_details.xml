@@ -1,189 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
 
-
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:background="@color/gray_900"
-        tools:context=".filmedetalhes.MovieDetailsActivity"
-        >
-      
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        android:orientation="vertical"
+        tools:context=".filmedetalhes.MovieDetailsActivity">
 
-            <ImageView
-                android:id="@+id/img_movieDetails"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:src="@drawable/img_movie"
-                />
-
-            <ImageView
-                android:id="@+id/btn_BackMovieDetails"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="18dp"
-                app:tint="@color/purple_800"
-                android:src="@drawable/ic_baseline_arrow_back_24"/>
-
-        </RelativeLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ImageView
+            android:id="@+id/img_movieDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dim_espacamento_20dp">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/img_movie" />
 
-            <TextView
-                android:id="@+id/txt_nameMovieDetails"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_medium"
-                android:textColor="@color/white"
-                android:textSize="@dimen/dim_36sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/imvAddMovieList"
-                tools:text="Mulher-Maravilha" />
+        <ImageView
+            android:id="@+id/btn_BackMovieDetails"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
 
-            <ImageView
-                android:id="@+id/imvAddMovieList"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_baseline_playlist_add_24"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/txt_nameMovieDetails"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto_medium"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dim_36sp"
+            app:layout_constraintEnd_toStartOf="@+id/imvAddMovieList"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_movieDetails"
+            tools:text="Mulher-Maravilha" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginStart="20dp">
+        <ImageView
+            android:id="@+id/imvAddMovieList"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_baseline_playlist_add_24"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_nameMovieDetails"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/txt_nameMovieDetails" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dim_espacamento_10dp">
+        <ImageView
+            android:id="@+id/imgStar_movieDetails"
+            android:layout_width="@dimen/dim_espacamento_20dp"
+            android:layout_height="@dimen/dim_espacamento_20dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:paddingTop="4dp"
+            android:src="@drawable/ic_baseline_star_rate_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_nameMovieDetails" />
 
-                    <ImageView
-                        android:layout_width="@dimen/dim_espacamento_20dp"
-                        android:layout_height="@dimen/dim_espacamento_20dp"
-                        android:paddingTop="4dp"
-                        android:src="@drawable/ic_baseline_star_rate_24"/>
+        <TextView
+            android:id="@+id/txt_rateMovieDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dim_16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imgStar_movieDetails"
+            app:layout_constraintStart_toEndOf="@+id/imgStar_movieDetails"
+            app:layout_constraintTop_toTopOf="@+id/imgStar_movieDetails"
+            tools:text="@string/_8_0_10_0" />
 
-                    <TextView
-                        android:id="@+id/txt_rateMovieDetails"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/dim_16sp"
-                        tools:text="@string/_8_0_10_0" />
+        <TextView
+            android:id="@+id/txt_yearMovieDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dim_16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgStar_movieDetails"
+            tools:text="@string/_2015" />
 
-                </LinearLayout>
+        <TextView
+            android:id="@+id/txt_genreMovieDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dim_16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_rateMovieDetails"
+            app:layout_constraintStart_toEndOf="@+id/txt_rateMovieDetails"
+            app:layout_constraintTop_toTopOf="@+id/txt_rateMovieDetails"
+            tools:text="Ficção científica" />
 
-                <TextView
-                    android:id="@+id/txt_yearMovieDetails"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/dim_16sp"
-                    android:layout_marginStart="4dp"
-                    tools:text="@string/_2015" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginStart="@dimen/dim_espacamento_20dp">
-
-                <TextView
-                    android:id="@+id/txt_genreMovieDetails"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto"
-                    android:textColor="@color/white"
-                    android:layout_marginBottom="@dimen/dim_espacamento_10dp"
-                    android:textSize="@dimen/dim_16sp"
-                    tools:text="Ficção científica" />
-
-                <TextView
-                    android:id="@+id/txt_timeMovieDetails"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/dim_16sp"
-                    tools:text="@string/_2h_31min" />
-            </LinearLayout>
-
-        </LinearLayout>
+        <TextView
+            android:id="@+id/txt_timeMovieDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dim_16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_yearMovieDetails"
+            app:layout_constraintStart_toStartOf="@+id/txt_genreMovieDetails"
+            app:layout_constraintTop_toTopOf="@+id/txt_yearMovieDetails"
+            tools:text="@string/_2h_31min" />
 
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPagerMovieDetails"
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/dim_espacamento_16dp"
             android:layout_height="450dp"
-            >
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_timeMovieDetails">
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabMovieDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:tabTextAppearance="@style/MyTabLayoutTextAppearance"
-                app:tabTextColor="@color/white"
                 android:background="@color/gray_900"
-                />
+                app:tabTextAppearance="@style/MyTabLayoutTextAppearance"
+                app:tabTextColor="@color/white" />
 
         </androidx.viewpager.widget.ViewPager>
 
 
         <TextView
+            android:id="@+id/txtElenco_movieDetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="@dimen/dimen_100_dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/roboto_medium"
             android:text="@string/elenco"
             android:textColor="@color/white"
-            android:textSize="@dimen/dim_24sp" />
+            android:textSize="@dimen/dim_24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewPagerMovieDetails" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtElenco_movieDetails">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcyVwCast"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                />
+                android:layout_height="match_parent" />
 
         </LinearLayout>
 
 
-
-    </LinearLayout >
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
