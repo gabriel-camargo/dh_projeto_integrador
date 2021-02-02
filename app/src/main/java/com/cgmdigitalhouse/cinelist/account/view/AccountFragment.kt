@@ -23,6 +23,7 @@ import com.cgmdigitalhouse.cinelist.account.viewmodel.AccountViewModel
 import com.cgmdigitalhouse.cinelist.favoritemovies.movielist.view.MovieListFragment.Companion.CONTENT_REQUEST_CODE
 import com.facebook.login.LoginManager
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
@@ -43,6 +44,7 @@ class AccountFragment : Fragment() {
     private lateinit var _btnSair: Button
     private lateinit var _imgAddPhoto: CircleImageView
     private lateinit var _email: String
+    private lateinit var _user: FirebaseUser
     private var _imageURI: Uri? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -62,7 +64,8 @@ class AccountFragment : Fragment() {
         _imgAddPhoto = _view.findViewById(R.id.img_usuario)
 
         _auth = Firebase.auth
-        _email = _auth.currentUser?.email.toString()
+        _user = _auth.currentUser!!
+        _email = _user.email.toString()
 
         _viewModel = ViewModelProvider(
             this,
@@ -106,23 +109,41 @@ class AccountFragment : Fragment() {
         }
 
         _edtEmail.setOnClickListener {
-            val intent = Intent(_view.context, ChangeEmailActivity::class.java)
-            startActivity(intent)
+            if (_user.providerData[1].providerId == "google.com" || _user.providerData[1].providerId == "facebook.com") {
+                Toast.makeText(
+                    _view.context, "Não é possível trocar de e-mail com login social.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                val intent = Intent(_view.context, ChangeEmailActivity::class.java)
+                startActivity(intent)
+            }
         }
 
         _edtPassword.setOnClickListener {
-            _auth.sendPasswordResetEmail(_email)
-                .addOnCompleteListener {
-                    Toast.makeText(
-                        _view.context, "Um e-mail foi enviado para sua conta.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+            if (_user.providerData[1].providerId == "google.com" || _user.providerData[1].providerId == "facebook.com") {
+                Toast.makeText(
+                    _view.context, "Não é possível trocar de senha com login social.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                updatePassword()
+            }
         }
 
         _imgAddPhoto.setOnClickListener() {
             searchFile()
         }
+    }
+
+    private fun updatePassword() {
+        _auth.sendPasswordResetEmail(_email)
+            .addOnCompleteListener {
+                Toast.makeText(
+                    _view.context, "Um e-mail foi enviado para sua conta.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
     }
 
     private fun searchFile() {
@@ -147,8 +168,5 @@ class AccountFragment : Fragment() {
             .setPhotoUri(_imageURI).build()
 
         _auth.currentUser!!.updateProfile(profileUpdates)
-
-//        val intent = Intent(_view.context, MainActivity::class.java)
-//        startActivity(intent)
     }
 }

@@ -6,17 +6,32 @@
     android:layout_height="match_parent"
     tools:context=".account.view.AccountFragment">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/img_usuario"
+    <RelativeLayout
+        android:id="@+id/layout_imgUsuario"
         android:layout_width="@dimen/dimen_100_dp"
         android:layout_height="@dimen/dimen_100_dp"
-        android:layout_gravity="center"
         android:layout_marginTop="@dimen/dim_espacamento_50dp"
-        android:contentDescription="@string/imagem_de_usuario"
+        android:layout_gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_round_person_24" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_usuario"
+            android:layout_width="@dimen/dimen_100_dp"
+            android:layout_height="@dimen/dimen_100_dp"
+            android:contentDescription="@string/imagem_de_usuario"
+            tools:src="@drawable/ic_round_person_24" />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_baseline_add_a_photo_24"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            />
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/txt_nomeUsuario"
@@ -29,7 +44,7 @@
         android:textSize="@dimen/dim_20_sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_usuario"
+        app:layout_constraintTop_toBottomOf="@+id/layout_imgUsuario"
         tools:text="Nome do usuário" />
 
     <TextView
