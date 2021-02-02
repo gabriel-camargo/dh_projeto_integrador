@@ -43,7 +43,7 @@
     <string name="intent_list_name">LIST_NAME</string>
     <string name="intent_list_img">LIST_IMAGE</string>
     <string name="movie_image">Movie Image</string>
-    <string name="busca_hint">Digite o nome de um filme</string>
+    <string name="busca_hint">Busque um filme pelo nome</string>
     <string name="image_nada_encontrado">Image - Nada encontrado</string>
     <string name="ops_nada_encontrado">Ops! Nada Encontrado</string>
     <string name="busque_por_um_filme_g_nero_ou_ator">Busque por um filme</string>
