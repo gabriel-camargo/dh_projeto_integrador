@@ -5,6 +5,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
 import com.cgmdigitalhouse.cinelist.MainActivity
 import com.cgmdigitalhouse.cinelist.R
@@ -25,6 +26,7 @@ class ChangeNameActivity : AppCompatActivity() {
     private lateinit var _auth: FirebaseAuth
     private lateinit var _newName: String
     private lateinit var _currentUser: FirebaseUser
+    private  lateinit var _btnBack: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,9 +36,14 @@ class ChangeNameActivity : AppCompatActivity() {
         _btnChangeName = findViewById(R.id.btn_changeName)
         _auth = Firebase.auth
         _currentUser = _auth.currentUser!!
+        _btnBack = findViewById(R.id.btn_BackChangeName)
 
         _btnChangeName.setOnClickListener {
             updateName()
+        }
+
+        _btnBack.setOnClickListener {
+            onBackPressed()
         }
     }
 
