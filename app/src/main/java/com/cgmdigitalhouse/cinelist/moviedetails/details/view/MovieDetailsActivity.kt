@@ -2,8 +2,8 @@ package com.cgmdigitalhouse.cinelist.moviedetails.details.view
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.graphics.text.LineBreaker.JUSTIFICATION_MODE_INTER_WORD
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
@@ -18,7 +18,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.cgmdigitalhouse.cinelist.R
 import com.cgmdigitalhouse.cinelist.db.AppDatabase
-import com.cgmdigitalhouse.cinelist.favoritemovies.movielist.model.MovieListModel
 import com.cgmdigitalhouse.cinelist.favoritemovies.movielist.repository.MovieListRepository
 import com.cgmdigitalhouse.cinelist.favoritemovies.movielist.viewmodel.MovieListViewModel
 import com.cgmdigitalhouse.cinelist.home.view.HomeFragment
@@ -32,8 +31,6 @@ import com.cgmdigitalhouse.cinelist.moviedetails.cast.viewModel.CastViewModel
 import com.cgmdigitalhouse.cinelist.moviedetails.details.viewModel.MovieDetailsViewModel
 import com.cgmdigitalhouse.cinelist.utils.listmovies.entity.ListMovieEntity
 import com.cgmdigitalhouse.cinelist.utils.movies.model.MovieModel
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 
 class MovieDetailsActivity : AppCompatActivity() {
@@ -44,7 +41,7 @@ class MovieDetailsActivity : AppCompatActivity() {
     private var _position: Int = 0
     private lateinit var _movieListViewModel: MovieListViewModel
     private lateinit var _movieDetailsViewModel: MovieDetailsViewModel
-    var movieLists: MutableList<ListMovieEntity> = mutableListOf()
+    private var movieLists: MutableList<ListMovieEntity> = mutableListOf()
 
     private var _movieDetails: MovieModel? = null
 
@@ -53,13 +50,12 @@ class MovieDetailsActivity : AppCompatActivity() {
     private lateinit var _movieTitle: TextView
     private lateinit var _movieRate: TextView
     private lateinit var _movieYear: TextView
+    private lateinit var _movieSummary: TextView
     private lateinit var _movieGenre: TextView
     private lateinit var _movieTime: TextView
     private lateinit var listMovies: ArrayList<String>
     private lateinit var mDialogView: View
     private var _id: Int = 0
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,8 +67,8 @@ class MovieDetailsActivity : AppCompatActivity() {
         _movieYear = findViewById(R.id.txt_yearMovieDetails)
         _movieGenre = findViewById(R.id.txt_genreMovieDetails)
         _movieTime = findViewById(R.id.txt_timeMovieDetails)
+        _movieSummary = findViewById(R.id.txtSinopseValue_movieDetails)
         _imgAddMovie = findViewById(R.id.imvAddMovieList)
-
 
         _id = intent.getIntExtra(HomeFragment.intentId, 550)
 
@@ -83,16 +79,12 @@ class MovieDetailsActivity : AppCompatActivity() {
         back.setOnClickListener() {
             onBackPressed()
         }
-
-
-
-
     }
 
     @SuppressLint("SetTextI18n")
     private fun createMovieDetails() {
-        var auth = FirebaseAuth.getInstance()
-        var idUse = auth.currentUser!!.uid
+        val auth = FirebaseAuth.getInstance()
+        val idUse = auth.currentUser!!.uid
 
         _viewModel = ViewModelProvider(
             this,
@@ -111,9 +103,12 @@ class MovieDetailsActivity : AppCompatActivity() {
             _movieGenre.text = _movieDetails!!.genres[0].name
             _movieTime.text = "%dh %02dmin".format(hours, minutes)
 
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+                _movieSummary.justificationMode = JUSTIFICATION_MODE_INTER_WORD
+            }
 
+            _movieSummary.text = _movieDetails!!.overview
             _movieDetails!!.releaseDate?.let {
-
                 _movieYear.text = it.split("-")[0].toString()
             }
 
@@ -125,7 +120,6 @@ class MovieDetailsActivity : AppCompatActivity() {
 
             createFragments()
             createCastView()
-
         })
 
         _imgAddMovie.setOnClickListener {
@@ -229,17 +223,14 @@ class MovieDetailsActivity : AppCompatActivity() {
         val pager = findViewById<ViewPager>(R.id.viewPagerMovieDetails)
 
         val fragments =  listOf(
-            SummaryFragment.newInstance(_movieDetails!!.overview),
             PhotosFragment.newInstance(_id),
             ReviewsFragment.newInstance(_id)
         )
 
         val titulos = listOf(
-            getString(R.string.sinopse), getString(R.string.fotos), getString(R.string.reviews)
+            getString(R.string.fotos), getString(R.string.reviews)
         )
 
         pager.adapter = FragmentsAdapter(fragments, titulos, supportFragmentManager)
-
     }
-
 }
