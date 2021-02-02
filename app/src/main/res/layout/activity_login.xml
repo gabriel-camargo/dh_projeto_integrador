@@ -41,13 +41,13 @@
             android:hint="@string/e_mail"
             android:textColorHint="@color/gray_600"
             app:boxStrokeColor="@color/white"
-            app:endIconMode="clear_text"
             app:hintTextColor="@color/gray_600">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_loginEmailInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:imeOptions="actionNext"
                 android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
