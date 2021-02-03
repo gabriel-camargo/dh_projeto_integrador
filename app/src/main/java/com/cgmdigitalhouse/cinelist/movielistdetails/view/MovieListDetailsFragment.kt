@@ -305,10 +305,31 @@ class MovieListDetailsFragment : Fragment() {
     }
 
     fun deleteMovieList() {
-        _viewModel.deleteList(_id!!).observe(viewLifecycleOwner, Observer {
-            Toast.makeText(_myView.context, "Lista excluída com sucesso", Toast.LENGTH_SHORT).show()
-        })
 
-        activity?.finish()
+        val mDialogView =
+            LayoutInflater.from(_myView.context).inflate(R.layout.dialog_confirm_delete, null)
+
+        val mBuilder = AlertDialog.Builder(_myView.context).setView(mDialogView)
+            .setTitle("Deletar lista")
+        _mAlertDialog = mBuilder.show()
+
+        val btnCancelar = mDialogView.findViewById<Button>(R.id.btnCancelar_dialogConfirmDelete)
+        val btnDeletar = mDialogView.findViewById<Button>(R.id.btnDeletar_dialogConfirmDelete)
+        val txtMessage = mDialogView.findViewById<TextView>(R.id.txtConfirm_dialogConfirmDelete)
+        txtMessage.text =
+            "Tem certeza que deseja deletar a lista $_title? Esta ação não poderá ser desfeita"
+
+        btnCancelar.setOnClickListener {
+            _mAlertDialog.dismiss()
+        }
+
+        btnDeletar.setOnClickListener {
+            _viewModel.deleteList(_id!!).observe(viewLifecycleOwner, Observer {
+                Toast.makeText(_myView.context, "Lista excluída com sucesso", Toast.LENGTH_SHORT).show()
+            })
+
+            activity?.finish()
+        }
+
     }
 }
