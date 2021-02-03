@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.MimeTypeMap
 import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -44,6 +45,8 @@ class MovieListFragment : Fragment() {
     private var imageURI: Uri? = null
     private var _fileReference: String =""
 
+    private lateinit var progressOverlay: FrameLayout
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +66,8 @@ class MovieListFragment : Fragment() {
 
         Log.d("MOVIE_LIST_FRAGMENT", "onViewCreated")
         _view = view
+
+        progressOverlay = _view.findViewById(R.id.progress_overlay)
         var auth = FirebaseAuth.getInstance()
         var idUse = auth.currentUser!!.uid
 
@@ -89,7 +94,6 @@ class MovieListFragment : Fragment() {
             val intent = Intent(activity, MovieListDetailsActivity::class.java)
             intent.putExtra(getString(R.string.intent_list_name), it.name)
             intent.putExtra("LIST_ID", it.listMovieId)
-
             intent.putExtra("LIST_IMAGE", it.imageURL)
 
             startActivity(intent)
@@ -165,7 +169,7 @@ class MovieListFragment : Fragment() {
                 .getExtensionFromMimeType(requireActivity().contentResolver.getType(imageURI!!))
 
             val fileReference = storage.child("${currentTimeMillis()}.${extension}")
-
+            showOverlay()
             fileReference.putFile(this)
                 .addOnSuccessListener {
                     _fileReference = fileReference.toString()
@@ -190,10 +194,21 @@ class MovieListFragment : Fragment() {
                         Toast.LENGTH_SHORT
                     )
                         .show()
+                }.addOnCompleteListener{
+                    hideOverlay()
                 }
         }
 
 
+    }
+
+
+    private fun hideOverlay() {
+        progressOverlay.visibility = View.INVISIBLE
+    }
+
+    private fun showOverlay() {
+        progressOverlay.visibility = View.VISIBLE
     }
 
     override fun onResume() {
