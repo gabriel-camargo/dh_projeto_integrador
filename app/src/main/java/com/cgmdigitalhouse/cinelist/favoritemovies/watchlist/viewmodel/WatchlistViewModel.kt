@@ -18,10 +18,13 @@ class WatchlistViewModel(
         emit(repository.getWatchList(idUser))
     }
 
-    fun removeMovieFromList(movieId: Int) =  liveData(Dispatchers.IO) {
-        emit(repository.removeMovieFromList(movieId))
+    fun removeMovieFromList(listMovieId: Long, movieId: Int) =  liveData(Dispatchers.IO) {
+        emit(repository.removeMovieFromList(listMovieId, movieId))
     }
 
+    fun addMovieToList(listMovieId: Long, movieId: Int) =  liveData(Dispatchers.IO) {
+        emit(repository.addMovieToList(listMovieId, movieId))
+    }
     class WatchlistViewModelFactory(
         private val repository: WatchlistRepository
     ) : ViewModelProvider.Factory {

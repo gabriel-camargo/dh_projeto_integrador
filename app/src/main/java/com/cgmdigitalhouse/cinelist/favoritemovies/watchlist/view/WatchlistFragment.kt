@@ -36,6 +36,7 @@ class WatchlistFragment : Fragment() {
     private lateinit var _movieDetailsViewModel: MovieDetailsViewModel
     private lateinit var _listMovieCrossRefEntity: MutableList<ListMovieCrossRefEntity>
     private lateinit var _viewAdapter: VerticalMovieListAdapter
+    private var _id: Long = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -60,6 +61,9 @@ class WatchlistFragment : Fragment() {
         ).get(WatchlistViewModel::class.java)
 
         _viewModel.getMovies(useId).observe(viewLifecycleOwner, Observer {
+            if(it.isNotEmpty()) {
+                _id = it[0].listMovieId
+            }
             _listMovieCrossRefEntity = it
             createList()
         })
@@ -120,11 +124,22 @@ class WatchlistFragment : Fragment() {
 
         val swipeHandler = object : SwipeToDeleteCallback(myView.context) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val adapter = recyclerView.adapter as VerticalMovieListAdapter
-                val movieToRemove = adapter.removeAt(viewHolder.adapterPosition)
 
-                _viewModel.removeMovieFromList(movieToRemove.id).observe(viewLifecycleOwner, Observer {
-                    Snackbar.make(myView, "${movieToRemove.title} foi removido da watchlist", Snackbar.LENGTH_SHORT).show()
+                val adapter = recyclerView.adapter as VerticalMovieListAdapter
+                val position = viewHolder.adapterPosition
+                val movieToRemove = adapter.removeAt(position)
+
+                _viewModel.removeMovieFromList(_id, movieToRemove.id).observe(viewLifecycleOwner, Observer {
+                    Snackbar.make(myView, "${movieToRemove.title} removido da lista", Snackbar.LENGTH_LONG)
+                        .setAction("Desfazer") {
+
+                            adapter.addAt(movieToRemove, position)
+                            notFound(_viewAdapter.dataset.isNotEmpty())
+                            _viewModel.addMovieToList(_id, movieToRemove.id).observe(viewLifecycleOwner, {
+                                Snackbar.make(myView, "${movieToRemove.title} readicionado na lista", Snackbar.LENGTH_SHORT).show()
+                            })
+                        }
+                        .show()
                     notFound(_viewAdapter.dataset.isNotEmpty())
                 })
             }
