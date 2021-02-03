@@ -8,8 +8,10 @@ import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.MenuRes
 import android.webkit.MimeTypeMap
 import android.widget.*
 import androidx.lifecycle.Observer
@@ -81,6 +83,7 @@ class MovieListDetailsFragment : Fragment() {
         private const val CARD_CORNER_RADIUS = 20
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -122,6 +125,49 @@ class MovieListDetailsFragment : Fragment() {
         _viewModel.getListMoviesCrossRefEntity(_id!!).observe(viewLifecycleOwner, Observer {
             createList(it)
         })
+
+        bindEvents()
+    }
+
+    private fun bindEvents() {
+        val btnMenu = _myView.findViewById<ImageView>(R.id.btnMoreVert)
+        btnMenu.setOnClickListener {
+            showMenu(it, R.menu.list_details_menu)
+        }
+
+        val back = _myView.findViewById<ImageView>(R.id.btn_BackListDetails)
+
+        back.setOnClickListener() {
+            activity!!.finish()
+        }
+    }
+
+    fun showMenu(v: View, @MenuRes menuRes: Int) {
+        val popup = PopupMenu(_myView.context, v)
+        popup.menuInflater.inflate(menuRes, popup.menu)
+
+        popup.setOnMenuItemClickListener{
+            onOptionsItemSelected(it)
+        }
+        popup.setOnDismissListener {
+            // Respond to popup being dismissed.
+        }
+        // Show the popup menu.
+        popup.show()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.list_details_edit -> {
+                editDialog()
+                true
+            }
+            R.id.list_details_delete -> {
+                deleteMovieList()
+                true
+            }
+            else -> false
+        }
     }
 
     private fun notFound(show: Boolean) {
@@ -204,11 +250,22 @@ class MovieListDetailsFragment : Fragment() {
 
         val swipeHandler = object : SwipeToDeleteCallback(_myView.context) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+
                 val adapter = recyclerView.adapter as VerticalMovieListAdapter
-                val movieToRemove = adapter.removeAt(viewHolder.adapterPosition)
+                val position = viewHolder.adapterPosition
+                val movieToRemove = adapter.removeAt(position)
 
                 _viewModel.removeMovieFromList(_id!!, movieToRemove.id).observe(viewLifecycleOwner, Observer {
-                    Snackbar.make(_myView, "${movieToRemove.title} removido da lista", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(_myView, "${movieToRemove.title} removido da lista", Snackbar.LENGTH_LONG)
+                        .setAction("Desfazer") {
+
+                            adapter.addAt(movieToRemove, position)
+                            notFound(_viewAdapter.dataset.isNotEmpty())
+                            _viewModel.addMovieToList(_id!!, movieToRemove.id).observe(viewLifecycleOwner, {
+                                Snackbar.make(_myView, "${movieToRemove.title} readicionado na lista", Snackbar.LENGTH_SHORT).show()
+                            })
+                        }
+                        .show()
                     notFound(_viewAdapter.dataset.isNotEmpty())
                 })
             }
@@ -337,10 +394,31 @@ class MovieListDetailsFragment : Fragment() {
 
 
     fun deleteMovieList() {
-        _viewModel.deleteList(_id!!).observe(viewLifecycleOwner, Observer {
-            Toast.makeText(_myView.context, "Lista excluída com sucesso", Toast.LENGTH_SHORT).show()
-        })
 
-        activity?.finish()
+        val mDialogView =
+            LayoutInflater.from(_myView.context).inflate(R.layout.dialog_confirm_delete, null)
+
+        val mBuilder = AlertDialog.Builder(_myView.context).setView(mDialogView)
+            .setTitle("Deletar lista")
+        _mAlertDialog = mBuilder.show()
+
+        val btnCancelar = mDialogView.findViewById<Button>(R.id.btnCancelar_dialogConfirmDelete)
+        val btnDeletar = mDialogView.findViewById<Button>(R.id.btnDeletar_dialogConfirmDelete)
+        val txtMessage = mDialogView.findViewById<TextView>(R.id.txtConfirm_dialogConfirmDelete)
+        txtMessage.text =
+            "Tem certeza que deseja deletar a lista $_title? Esta ação não poderá ser desfeita"
+
+        btnCancelar.setOnClickListener {
+            _mAlertDialog.dismiss()
+        }
+
+        btnDeletar.setOnClickListener {
+            _viewModel.deleteList(_id!!).observe(viewLifecycleOwner, Observer {
+                Toast.makeText(_myView.context, "Lista excluída com sucesso", Toast.LENGTH_SHORT).show()
+            })
+
+            activity?.finish()
+        }
+
     }
 }

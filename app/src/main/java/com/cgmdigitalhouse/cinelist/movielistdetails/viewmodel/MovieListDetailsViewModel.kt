@@ -33,6 +33,10 @@ class MovieListDetailsViewModel(
         emit(repository.removeMovieFromList(listId, movieId))
     }
 
+    fun addMovieToList(listId: Long, movieId: Int)=  liveData(Dispatchers.IO) {
+        emit(repository.addMovieToList(listId, movieId))
+    }
+
 
     class MovieListDetailsViewModelFactory(
         private val repository: MovieListDetailsRepository

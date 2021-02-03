@@ -89,6 +89,8 @@
     <string name="email_atual_errado">E-mail digitado não corresponde com o e-mail cadastrado</string>
     <string name="email_novo_errado">E-mail novo deve ser diferente do e-mail atual</string>
     <string name="editar_nome">Editar nome</string>
+    <string name="deletar">Deletar</string>
+    <string name="cancelar">Cancelar</string>
 
 
 </resources>
