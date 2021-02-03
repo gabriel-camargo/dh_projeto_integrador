@@ -239,11 +239,22 @@ class MovieListDetailsFragment : Fragment() {
 
         val swipeHandler = object : SwipeToDeleteCallback(_myView.context) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+
                 val adapter = recyclerView.adapter as VerticalMovieListAdapter
-                val movieToRemove = adapter.removeAt(viewHolder.adapterPosition)
+                val position = viewHolder.adapterPosition
+                val movieToRemove = adapter.removeAt(position)
 
                 _viewModel.removeMovieFromList(_id!!, movieToRemove.id).observe(viewLifecycleOwner, Observer {
-                    Snackbar.make(_myView, "${movieToRemove.title} removido da lista", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(_myView, "${movieToRemove.title} removido da lista", Snackbar.LENGTH_LONG)
+                        .setAction("Desfazer") {
+
+                            adapter.addAt(movieToRemove, position)
+                            notFound(_viewAdapter.dataset.isNotEmpty())
+                            _viewModel.addMovieToList(_id!!, movieToRemove.id).observe(viewLifecycleOwner, {
+                                Snackbar.make(_myView, "${movieToRemove.title} readicionado na lista", Snackbar.LENGTH_SHORT).show()
+                            })
+                        }
+                        .show()
                     notFound(_viewAdapter.dataset.isNotEmpty())
                 })
             }

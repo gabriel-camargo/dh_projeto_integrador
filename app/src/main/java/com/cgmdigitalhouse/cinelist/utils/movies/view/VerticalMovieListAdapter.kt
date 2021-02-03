@@ -32,4 +32,9 @@ class VerticalMovieListAdapter(
 
         return movieToRemove
     }
+
+    fun addAt(item: MovieModel, position: Int) {
+        dataset.add(position, item)
+        notifyItemInserted(position)
+    }
 }
