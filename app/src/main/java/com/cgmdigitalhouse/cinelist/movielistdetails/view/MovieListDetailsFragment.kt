@@ -1,18 +1,19 @@
 package com.cgmdigitalhouse.cinelist.movielistdetails.view
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
+import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.webkit.MimeTypeMap
+import android.widget.*
 import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,6 +24,8 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.cgmdigitalhouse.cinelist.R
 import com.cgmdigitalhouse.cinelist.db.AppDatabase
+import com.cgmdigitalhouse.cinelist.favoritemovies.movielist.model.MovieListModel
+import com.cgmdigitalhouse.cinelist.favoritemovies.movielist.view.MovieListFragment
 import com.cgmdigitalhouse.cinelist.home.view.HomeFragment
 import com.cgmdigitalhouse.cinelist.moviedetails.details.repository.MovieDetailsRepository
 import com.cgmdigitalhouse.cinelist.moviedetails.details.view.MovieDetailsActivity
@@ -53,10 +56,13 @@ class MovieListDetailsFragment : Fragment() {
     private var _img: String? = null
     private var _id: Long? = null
     private  var _movies = mutableListOf<MovieModel>()
+    private var imageURI: Uri? = null
+    private var _fileReference: String =""
 
     private lateinit var _viewModel: MovieListDetailsViewModel
     private lateinit var _movieDetailsViewModel: MovieDetailsViewModel
     private lateinit var _myView: View
+
 
     private lateinit var _mAlertDialog: AlertDialog
 
@@ -96,6 +102,8 @@ class MovieListDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         var auth = FirebaseAuth.getInstance()
         var idUse = auth.currentUser!!.uid
+
+
 
         _viewModel = ViewModelProvider(
             this,
@@ -211,8 +219,11 @@ class MovieListDetailsFragment : Fragment() {
     }
 
     fun editDialog() {
+
         val mDialogView =
             LayoutInflater.from(_myView.context).inflate(R.layout.list_dialog, null)
+        val firebase = FirebaseStorage.getInstance()
+        val storage = firebase.getReference("uploads")
 
         val mBuilder = AlertDialog.Builder(_myView.context).setView(mDialogView)
             .setTitle("Editar Lista de Filmes")
@@ -220,6 +231,7 @@ class MovieListDetailsFragment : Fragment() {
 
         val btnCancelar = mDialogView.findViewById<Button>(R.id.btn_cancelar)
         val btnCriar = mDialogView.findViewById<Button>(R.id.btn_criar)
+        val imgMovie = mDialogView.findViewById<ImageView>(R.id.imv_ImageList)
         btnCriar.text=getString(R.string.editar)
 
         val edtName = mDialogView.findViewById<TextInputEditText>(R.id.edt_nameListInput)
@@ -227,6 +239,13 @@ class MovieListDetailsFragment : Fragment() {
 
         edtName.setText(this._title!!)
         edtDescription.setText(this._description!!)
+        storage.child(this._img!!.substringAfter("uploads/")).downloadUrl.addOnSuccessListener {
+            Picasso.get().load(it).into(imgMovie)
+        }
+
+        _mAlertDialog.findViewById<ImageView>(R.id.imv_ImageList).setOnClickListener {
+            procurarArquivo()
+        }
 
         btnCancelar.setOnClickListener {
             _mAlertDialog.dismiss()
@@ -253,13 +272,69 @@ class MovieListDetailsFragment : Fragment() {
         }
     }
 
+    fun procurarArquivo() {
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(intent, MovieListFragment.CONTENT_REQUEST_CODE)
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == MovieListFragment.CONTENT_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            imageURI = data?.data
+            _mAlertDialog.findViewById<ImageView>(R.id.imv_ImageList).setImageURI(imageURI)
+        }
+    }
+
     private fun editMovieList(id: Long, name: String, description: String) {
         var auth = FirebaseAuth.getInstance()
         var idUse = auth.currentUser!!.uid
-        _viewModel.editList(id, name, description,"",idUse,false).observe(viewLifecycleOwner, Observer {
-            Toast.makeText(_myView.context, "Edição salva com sucesso", Toast.LENGTH_SHORT).show()
-        })
+
+        val imgMovie = _myView.findViewById<ImageView>(R.id.img_movieListDetailsFragment)
+
+
+        imageURI?.run {
+            val firebase = FirebaseStorage.getInstance()
+            val storage = firebase.getReference("uploads")
+
+            val extension = MimeTypeMap.getSingleton()
+                .getExtensionFromMimeType(requireActivity().contentResolver.getType(imageURI!!))
+
+            val fileReference = storage.child("${System.currentTimeMillis()}.${extension}")
+            fileReference.putFile(this)
+                .addOnSuccessListener {
+                    _fileReference = fileReference.toString()
+
+                    if(name.isBlank()) {
+                        Toast.makeText(_myView.context, "Preencha o nome da lista", Toast.LENGTH_SHORT).show()
+                    } else {
+                        _mAlertDialog.dismiss()
+
+                        _viewModel.editList(id, name, description,_fileReference,idUse,false).observe(viewLifecycleOwner, Observer {
+                            Toast.makeText(_myView.context, "Edição salva com sucesso", Toast.LENGTH_SHORT).show()
+                        })
+                        storage.child(_fileReference.substringAfter("uploads/")).downloadUrl.addOnSuccessListener {
+                            Picasso.get().load(it).into(imgMovie)
+                        }
+
+                    }
+
+
+                }
+                .addOnFailureListener {
+                    Toast.makeText(
+                        _myView.context,
+                        "Falha ao carregar imagem!!",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                }
+
     }
+    }
+
+
 
     fun deleteMovieList() {
         _viewModel.deleteList(_id!!).observe(viewLifecycleOwner, Observer {
