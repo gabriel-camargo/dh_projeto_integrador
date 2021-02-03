@@ -50,45 +50,6 @@ class MovieListDetailsActivity : AppCompatActivity() {
                 )
                 .commitNow()
         }
-
-        val back = findViewById<ImageView>(R.id.btn_BackListDetails)
-
-        back.setOnClickListener() {
-            finish()
-        }
-
-        val btnMenu = findViewById<ImageView>(R.id.btnMoreVert)
-        btnMenu.setOnClickListener {
-            showMenu(it, R.menu.list_details_menu)
-        }
-    }
-
-    private fun showMenu(v: View, @MenuRes menuRes: Int) {
-        val popup = PopupMenu(this, v)
-        popup.menuInflater.inflate(menuRes, popup.menu)
-
-        popup.setOnMenuItemClickListener{
-            onOptionsItemSelected(it)
-        }
-        popup.setOnDismissListener {
-            // Respond to popup being dismissed.
-        }
-        // Show the popup menu.
-        popup.show()
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.list_details_edit -> {
-                _fragment.editDialog()
-                true
-            }
-            R.id.list_details_delete -> {
-                _fragment.deleteMovieList()
-                true
-            }
-            else -> false
-        }
     }
 }
 

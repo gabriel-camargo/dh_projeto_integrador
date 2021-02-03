@@ -6,12 +6,11 @@ import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.annotation.MenuRes
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -75,6 +74,7 @@ class MovieListDetailsFragment : Fragment() {
         private const val CARD_CORNER_RADIUS = 20
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -114,6 +114,49 @@ class MovieListDetailsFragment : Fragment() {
         _viewModel.getListMoviesCrossRefEntity(_id!!).observe(viewLifecycleOwner, Observer {
             createList(it)
         })
+
+        bindEvents()
+    }
+
+    private fun bindEvents() {
+        val btnMenu = _myView.findViewById<ImageView>(R.id.btnMoreVert)
+        btnMenu.setOnClickListener {
+            showMenu(it, R.menu.list_details_menu)
+        }
+
+        val back = _myView.findViewById<ImageView>(R.id.btn_BackListDetails)
+
+        back.setOnClickListener() {
+            activity!!.finish()
+        }
+    }
+
+    fun showMenu(v: View, @MenuRes menuRes: Int) {
+        val popup = PopupMenu(_myView.context, v)
+        popup.menuInflater.inflate(menuRes, popup.menu)
+
+        popup.setOnMenuItemClickListener{
+            onOptionsItemSelected(it)
+        }
+        popup.setOnDismissListener {
+            // Respond to popup being dismissed.
+        }
+        // Show the popup menu.
+        popup.show()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.list_details_edit -> {
+                editDialog()
+                true
+            }
+            R.id.list_details_delete -> {
+                deleteMovieList()
+                true
+            }
+            else -> false
+        }
     }
 
     private fun notFound(show: Boolean) {
