@@ -43,8 +43,10 @@ class MovieListViewHolder(private val view: View): RecyclerView.ViewHolder(view)
 
             }
         }
-        storage.child(movieList.imageURL.substringAfter("uploads/")).downloadUrl.addOnSuccessListener {
-            Picasso.get().load(it).into(img)
+        if(!movieList.imageURL.isBlank()) {
+            storage.child(movieList.imageURL.substringAfter("uploads/")).downloadUrl.addOnSuccessListener {
+                Picasso.get().load(it).into(img)
+            }
         }
     }
 }

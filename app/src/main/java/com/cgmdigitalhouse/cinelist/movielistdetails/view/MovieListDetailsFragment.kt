@@ -192,9 +192,10 @@ class MovieListDetailsFragment : Fragment() {
 
         txtName.text = movieList.name
         txtDesc.text = movieList.description
-
-        storage.child(movieList.imageURL.substringAfter("uploads/")).downloadUrl.addOnSuccessListener {
-            Picasso.get().load(it).into(imgView)
+        if(!movieList.imageURL.isBlank()) {
+            storage.child(movieList.imageURL.substringAfter("uploads/")).downloadUrl.addOnSuccessListener {
+                Picasso.get().load(it).into(imgView)
+            }
         }
 
 //        _img?.let {
@@ -296,8 +297,10 @@ class MovieListDetailsFragment : Fragment() {
 
         edtName.setText(this._title!!)
         edtDescription.setText(this._description!!)
-        storage.child(this._img!!.substringAfter("uploads/")).downloadUrl.addOnSuccessListener {
-            Picasso.get().load(it).into(imgMovie)
+        if(!this._img!!.isBlank()) {
+            storage.child(this._img!!.substringAfter("uploads/")).downloadUrl.addOnSuccessListener {
+                Picasso.get().load(it).into(imgMovie)
+            }
         }
 
         _mAlertDialog.findViewById<ImageView>(R.id.imv_ImageList).setOnClickListener {
@@ -350,45 +353,74 @@ class MovieListDetailsFragment : Fragment() {
 
         val imgMovie = _myView.findViewById<ImageView>(R.id.img_movieListDetailsFragment)
 
+        if(imageURI != null) {
+            imageURI?.run {
+                val firebase = FirebaseStorage.getInstance()
+                val storage = firebase.getReference("uploads")
 
-        imageURI?.run {
-            val firebase = FirebaseStorage.getInstance()
-            val storage = firebase.getReference("uploads")
+                val extension = MimeTypeMap.getSingleton()
+                    .getExtensionFromMimeType(requireActivity().contentResolver.getType(imageURI!!))
 
-            val extension = MimeTypeMap.getSingleton()
-                .getExtensionFromMimeType(requireActivity().contentResolver.getType(imageURI!!))
+                val fileReference = storage.child("${System.currentTimeMillis()}.${extension}")
+                fileReference.putFile(this)
+                    .addOnSuccessListener {
+                        _fileReference = fileReference.toString()
 
-            val fileReference = storage.child("${System.currentTimeMillis()}.${extension}")
-            fileReference.putFile(this)
-                .addOnSuccessListener {
-                    _fileReference = fileReference.toString()
+                        if (name.isBlank()) {
+                            Toast.makeText(
+                                _myView.context,
+                                "Preencha o nome da lista",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            _mAlertDialog.dismiss()
 
-                    if(name.isBlank()) {
-                        Toast.makeText(_myView.context, "Preencha o nome da lista", Toast.LENGTH_SHORT).show()
-                    } else {
-                        _mAlertDialog.dismiss()
+                            _viewModel.editList(id, name, description, _fileReference, idUse, false)
+                                .observe(viewLifecycleOwner, Observer {
+                                    Toast.makeText(
+                                        _myView.context,
+                                        "Edição salva com sucesso",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                })
+                            storage.child(_fileReference.substringAfter("uploads/")).downloadUrl.addOnSuccessListener {
+                                Picasso.get().load(it).into(imgMovie)
+                            }
 
-                        _viewModel.editList(id, name, description,_fileReference,idUse,false).observe(viewLifecycleOwner, Observer {
-                            Toast.makeText(_myView.context, "Edição salva com sucesso", Toast.LENGTH_SHORT).show()
-                        })
-                        storage.child(_fileReference.substringAfter("uploads/")).downloadUrl.addOnSuccessListener {
-                            Picasso.get().load(it).into(imgMovie)
                         }
 
+
                     }
+                    .addOnFailureListener {
+                        Toast.makeText(
+                            _myView.context,
+                            "Falha ao carregar imagem!!",
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                    }
+            }
+        }else{
+            if (name.isBlank()) {
+                Toast.makeText(
+                    _myView.context,
+                    "Preencha o nome da lista",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                _mAlertDialog.dismiss()
 
+                _viewModel.editList(id, name, description, "", idUse, false)
+                    .observe(viewLifecycleOwner, Observer {
+                        Toast.makeText(
+                            _myView.context,
+                            "Edição salva com sucesso",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    })
 
-                }
-                .addOnFailureListener {
-                    Toast.makeText(
-                        _myView.context,
-                        "Falha ao carregar imagem!!",
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
-                }
-
-    }
+            }
+        }
     }
 
 
