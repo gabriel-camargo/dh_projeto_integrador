@@ -160,43 +160,93 @@ class MovieListFragment : Fragment() {
         var auth = FirebaseAuth.getInstance()
         var idUse = auth.currentUser!!.uid
 
+        if(imageURI != null) {
+            imageURI?.run {
+                val firebase = FirebaseStorage.getInstance()
+                val storage = firebase.getReference("uploads")
 
-        imageURI?.run {
-            val firebase = FirebaseStorage.getInstance()
-            val storage = firebase.getReference("uploads")
+                val extension = MimeTypeMap.getSingleton()
+                    .getExtensionFromMimeType(requireActivity().contentResolver.getType(imageURI!!))
 
-            val extension = MimeTypeMap.getSingleton()
-                .getExtensionFromMimeType(requireActivity().contentResolver.getType(imageURI!!))
+                val fileReference = storage.child("${currentTimeMillis()}.${extension}")
+                showOverlay()
+                fileReference.putFile(this)
+                    .addOnSuccessListener {
+                        _fileReference = fileReference.toString()
 
-            val fileReference = storage.child("${currentTimeMillis()}.${extension}")
-            showOverlay()
-            fileReference.putFile(this)
-                .addOnSuccessListener {
-                    _fileReference = fileReference.toString()
+                        if (listName.isBlank()) {
+                            Toast.makeText(
+                                myView.context,
+                                "Preencha o nome da lista",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            mAlertDialog.dismiss()
 
-                    if(listName.isBlank()) {
-                        Toast.makeText(myView.context, "Preencha o nome da lista", Toast.LENGTH_SHORT).show()
-                    } else {
-                        mAlertDialog.dismiss()
+                            viewModel.inserirListMovie(
+                                listName,
+                                listDescription,
+                                _fileReference,
+                                idUse,
+                                false
+                            ).observe(viewLifecycleOwner, {
+                                movieLists.add(
+                                    MovieListModel(
+                                        it.listMovieId,
+                                        it.name,
+                                        it.description,
+                                        0,
+                                        it.imageURL
+                                    )
+                                )
+                                createList()
+                            })
+                        }
 
-                        viewModel.inserirListMovie(listName,listDescription,_fileReference,idUse,false).observe(viewLifecycleOwner, {
-                            movieLists.add(MovieListModel(it.listMovieId, it.name, it.description, 0,it.imageURL))
-                            createList()
-                        })
+
                     }
+                    .addOnFailureListener {
+                        Toast.makeText(
+                            _view.context,
+                            "Falha ao carregar imagem!!",
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                    }.addOnCompleteListener {
+                        hideOverlay()
+                    }
+            }
+        }else{
 
+            if (listName.isBlank()) {
+                Toast.makeText(
+                    myView.context,
+                    "Preencha o nome da lista",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                mAlertDialog.dismiss()
 
-                }
-                .addOnFailureListener {
-                    Toast.makeText(
-                        _view.context,
-                        "Falha ao carregar imagem!!",
-                        Toast.LENGTH_SHORT
+                viewModel.inserirListMovie(
+                    listName,
+                    listDescription,
+                    _fileReference,
+                    idUse,
+                    false
+                ).observe(viewLifecycleOwner, {
+                    movieLists.add(
+                        MovieListModel(
+                            it.listMovieId,
+                            it.name,
+                            it.description,
+                            0,
+                            it.imageURL
+                        )
                     )
-                        .show()
-                }.addOnCompleteListener{
-                    hideOverlay()
-                }
+                    createList()
+                })
+            }
+
         }
 
 
