@@ -41,6 +41,7 @@ import com.cgmdigitalhouse.cinelist.utils.movies.model.MovieModel
 import com.cgmdigitalhouse.cinelist.utils.movies.view.VerticalMovieListAdapter
 import com.cgmdigitalhouse.cinelist.utils.moviesoffline.model.MovieModelOffline
 import com.cgmdigitalhouse.cinelist.utils.moviesoffline.view.MovieOfflineAdapter
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
@@ -139,6 +140,29 @@ class MovieListDetailsFragment : Fragment() {
 
         back.setOnClickListener() {
             activity!!.finish()
+        }
+
+        val btnShare = _myView.findViewById<FloatingActionButton>(R.id.fbtnShare_movieListDetailsFragmentt)
+        btnShare.setOnClickListener{
+            var txtShare = ""
+            _viewAdapter.dataset.forEach{ movieModel ->
+                txtShare += "\n- ${movieModel.title}"
+                movieModel.releaseDate?.let { releaseDate ->
+                    txtShare += ", ${releaseDate.split("-")[0]}"
+                }
+            }
+            val intent = Intent()
+
+            intent.action = Intent.ACTION_SEND
+            intent.putExtra( Intent.EXTRA_TEXT,
+                "Esses são os filmes da minha lista $_title: \n " +
+                        "$txtShare \n\n" +
+                        "Para saber mais detalhes dos filmes e criar suas próprias listas, " +
+                        "baixe o aplicativo Cinelist!")
+            intent.type = "text/plain"
+
+            val intentChooser = Intent.createChooser( intent, "Compartilhar lista de filmes com:" )
+            startActivity( intentChooser )
         }
     }
 
