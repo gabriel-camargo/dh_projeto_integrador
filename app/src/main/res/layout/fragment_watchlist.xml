@@ -55,7 +55,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fbtnCreatList_movieListFragment"
+        android:id="@+id/fbtnShare_watchlistFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
