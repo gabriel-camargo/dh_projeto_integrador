@@ -57,29 +57,34 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/txt_nameMovieDetails" />
 
-        <ImageView
-            android:id="@+id/imgStar_movieDetails"
-            android:layout_width="@dimen/dim_espacamento_20dp"
-            android:layout_height="@dimen/dim_espacamento_20dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:paddingTop="4dp"
-            android:src="@drawable/ic_baseline_star_rate_24"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_nameMovieDetails" />
-
         <TextView
             android:id="@+id/txt_rateMovieDetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="@dimen/dim_espacamento_16dp"
+            android:layout_marginTop="8dp"
+            android:drawablePadding="8dp"
             android:fontFamily="@font/roboto"
             android:textColor="@color/white"
-            android:textSize="@dimen/dim_16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/imgStar_movieDetails"
-            app:layout_constraintStart_toEndOf="@+id/imgStar_movieDetails"
-            app:layout_constraintTop_toTopOf="@+id/imgStar_movieDetails"
-            tools:text="@string/_8_0_10_0" />
+            android:gravity="center_vertical"
+            android:includeFontPadding="false"
+            app:drawableStartCompat="@drawable/ic_baseline_star_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_nameMovieDetails"
+            tools:text="8,3" />
+
+        <TextView
+            android:id="@+id/txtView_maxRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dim_4_dp"
+            android:text="@string/ten_stars_prefix"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_rateMovieDetails"
+            app:layout_constraintStart_toEndOf="@+id/txt_rateMovieDetails"
+            app:layout_constraintTop_toTopOf="@+id/txt_rateMovieDetails"
+            app:layout_constraintVertical_bias="0.33" />
 
         <TextView
             android:id="@+id/txt_yearMovieDetails"
@@ -91,7 +96,7 @@
             android:textColor="@color/white"
             android:textSize="@dimen/dim_16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imgStar_movieDetails"
+            app:layout_constraintTop_toBottomOf="@+id/txt_rateMovieDetails"
             tools:text="@string/_2015" />
 
         <TextView
@@ -103,7 +108,7 @@
             android:textColor="@color/white"
             android:textSize="@dimen/dim_16sp"
             app:layout_constraintBottom_toBottomOf="@+id/txt_rateMovieDetails"
-            app:layout_constraintStart_toEndOf="@+id/txt_rateMovieDetails"
+            app:layout_constraintStart_toEndOf="@+id/txtView_maxRate"
             app:layout_constraintTop_toTopOf="@+id/txt_rateMovieDetails"
             tools:text="Ficção científica" />
 
