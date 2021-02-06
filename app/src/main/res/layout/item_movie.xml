@@ -63,9 +63,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dim_4_dp"
         android:text="@string/ten_stars_prefix"
-        app:layout_constraintBottom_toBottomOf="@+id/txtStars_itemMovie"
+        app:layout_constraintBottom_toBottomOf="@+id/cardView_itemMovie"
         app:layout_constraintStart_toEndOf="@+id/txtStars_itemMovie"
-        app:layout_constraintTop_toTopOf="@+id/txtStars_itemMovie" />
+        app:layout_constraintTop_toTopOf="@+id/cardView_itemMovie"
+        app:layout_constraintVertical_bias="0.33" />
 
     <TextView
         android:id="@+id/txtGenre_itemMovie"
